@@ -17,12 +17,6 @@ steps:
 - checkout: self
   displayName: 'Checkout'
 
-# This is needed because the pipeline may point to a different commit than expected
-# The common case is when the previous stage pushed another commit
-- ${{ if ne(parameters.gitReference, variables['Build.SourceVersion']) }}:
-  - script: |
-      git fetch && git checkout ${{ parameters.gitReference }}
-    displayName: 'Checkout reference'  
   
 - task: UseNode@1
   inputs:
