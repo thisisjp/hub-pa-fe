@@ -1,0 +1,18 @@
+<button
+  (click)="isSubmit ? null : onClickEvent()"
+  [disabled]="canDisabled"
+  [ngClass]="buttonClass"
+  [title]="buttonTitle"
+  [type]="isSubmit ? 'submit' : 'button'"
+  class="btn"
+>
+  <img
+    *ngIf="img && img.src"
+    [alt]="img.alt"
+    [class]="img.class"
+    [src]="img.src"
+    [style]="img.style"
+    [title]="img.title"
+  />
+  {{ buttonTitle }}
+</button>

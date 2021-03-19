@@ -1,0 +1,20 @@
+{
+  "BACK_TO_HOME": "Torna alla Home Page",
+  "COD1": "Utente non trovato",
+  "COD2": "Utente non trovato",
+  "COD3": "Si è verificato un errore",
+  "SUPPORT": "Serve aiuto?",
+  "ENTER": "Entra",
+  "GENERIC_ERROR": "Si è verificato un errore",
+  "PASSWORD": "Password",
+  "PASSWORD_R": "Password *",
+  "REQUIRED_FIELD": "Campo obbligatorio",
+  "SESSION_EXPIRED": "La tua sessione è scaduta",
+  "USERNAME": "Username",
+  "USERNAME_R": "Username *",
+  "VALID_EMAIL": "Email non valida",
+  "VALID_FISCAL_CODE": "Codice fiscale non valido",
+  "VALID_MATCH_PW": "Le password non corrispondono",
+  "VALID_MAX_LENGTH": "Non sono consentiti più caratteri",
+  "WELCOME": "Benvenuto"
+}

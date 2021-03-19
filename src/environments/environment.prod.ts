@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+  production: true,
+  environmentName: 'PROD',
+  API_URL: '',
+  SITE_KEY: ''
 };

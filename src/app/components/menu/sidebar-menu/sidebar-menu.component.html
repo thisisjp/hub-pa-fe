@@ -1,0 +1,22 @@
+<div class="list-group">
+  <div class="list-group-item">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center">
+        <i class="fas fa-user-circle mb-1" style="font-size: 75px"></i><br />
+      </div>
+    </div>
+    <p class="text-blue text-center mb-0">
+      <small class="text-uppercase text-muted"><i class="fas fa-user"></i>{{ 'WELCOME' | translate }}</small
+      ><br />
+    </p>
+  </div>
+  <a
+    class="list-group-item list-group-item-action"
+    *ngFor="let m of menu"
+    [routerLink]="m.route"
+    (click)="onSelectMenu(m)"
+    [ngClass]="m.code == selected.code ? 'active' : ''"
+    >{{ m.code | translate }}</a
+  >
+  <app-logout ngClass="list-group-item list-group-item-action" [label]="'Esci' | translate"></app-logout>
+</div>
