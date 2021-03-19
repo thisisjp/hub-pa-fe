@@ -1,0 +1,53 @@
+<app-loader [show]="showLoading"></app-loader>
+<div class="container login_container">
+  <div class="row">
+    <div class="col-xs-12 horizontal-center">
+      <span style="font-size: 16px; font-weight: 700; color: #007db3; margin-right: 5px">&nbsp;Autenticazione</span>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="login_paragrafo_secondario col-xs-12">
+      SPID &egrave; il sistema di accesso che consente di utilizzare, con un'identit&agrave; digitale unica, i servizi
+      online della Pubblica Amministrazione e dei privati accreditati. Se sei gi&agrave; in possesso di
+      un'identit&agrave; digitale, accedi con le credenziali del tuo gestore. Se non hai ancora un'identit&agrave;
+      digitale, richiedila ad uno dei gestori.
+    </div>
+  </div>
+  <div class="row" style="margin-top: 60px">
+    <div class="col-xs-12 horizontal-center">
+      <form
+        #testForm
+        name="spid_idp_access"
+        [action]="loginSrv.authSpid?.destinationUrl"
+        method="post"
+        accept-charset="ISO-8859-1"
+      >
+        <input type="hidden" name="SAMLRequest" [value]="loginSrv.authSpid?.xmlAuthRequest" />
+        <a
+          href="#"
+          class="italia-it-button italia-it-button-size-l button-spid"
+          spid-idp-button="#spid-idp-button-large-post"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <span class="italia-it-button-icon"><img src="../../../assets/img/spid-ico-circle-bb.svg" alt="" /></span>
+          <span class="italia-it-button-text">Entra con SPID</span>
+        </a>
+        <div id="spid-idp-button-large-post" class="spid-idp-button spid-idp-button-tip spid-idp-button-relative">
+          <ul id="spid-idp-list-large-root-post" class="spid-idp-button-menu" aria-labelledby="spid-idp">
+            <li class="spid-idp-button-link" *ngFor="let p of loginSrv.providers?.identityProviders">
+              <button class="idp-button-idp-logo" type="button" (click)="onGetAuthSpid(p.entityId)">
+                <input class="spid-sr-only" readonly [value]="p.identifier" />
+                <img [src]="p.imageUrl" [alt]="p.name" />
+              </button>
+            </li>
+            <li class="spid-idp-support-link" *ngFor="let e of loginSrv.providers?.extraInfo">
+              <a [href]="e.url">{{ e.title }}</a>
+            </li>
+          </ul>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

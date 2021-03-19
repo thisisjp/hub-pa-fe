@@ -1,0 +1,14 @@
+<label *ngIf="inputLabel != null">{{ inputLabel }}</label>
+<div class="form-group" [formGroup]="group">
+  <input
+    [formControlName]="formControlName"
+    [ngClass]="isError() ? 'is-invalid' : ''"
+    [placeholder]="inputPlaceholder ? inputPlaceholder : ''"
+    [readonly]="isReadonly"
+    [type]="type"
+    [value]="inputValue ? inputValue : ''"
+    class="form-control"
+    ngDefaultControl
+  />
+  <div *ngIf="isError()" class="invalid-feedback">{{ message | translate }}</div>
+</div>

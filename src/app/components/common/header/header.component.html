@@ -1,0 +1,58 @@
+<div class="it-header-wrapper">
+  <div class="it-nav-wrapper">
+    <div class="it-header-center-wrapper it-header-navbar-wrapper theme-light theme-light-desk">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="it-header-center-content-wrapper">
+              <div class="it-brand-wrapper">
+                <a href="/" class="d-flex">
+                  <img class="logopagopaspa" src="/assets/img/logo-pagopa-spa.svg" alt="pagoPA logo" />
+                  <div class="vertical"></div>
+                  <img class="icon" src="/assets/img/pagopa-logo.png" alt="pagoPA logo" />
+                </a>
+              </div>
+              <div class="it-right-zone flex-column">
+                <div class="it-socials d-none d-md-flex mb-md-4">
+                  <span>Seguici su</span>
+                  <ul>
+                    <li class="list-inline-item">
+                      <a rel="noreferrer" href="https://twitter.com/pagopa" title="twitter" target="_blank">
+                        <svg class="icon">
+                          <use xlink:href="/assets/img/sprite.svg#it-twitter"></use>
+                        </svg>
+                        <span class="sr-only">twitter</span>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a
+                        rel="noreferrer"
+                        href="https://www.linkedin.com/company/pagopa/"
+                        title="linkedin"
+                        target="_blank"
+                      >
+                        <svg class="icon">
+                          <use xlink:href="/assets/img/sprite.svg#it-linkedin"></use>
+                        </svg>
+                        <span class="sr-only">linkedin</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="it-helpdesk d-md-flex">
+                  <app-button
+                    [buttonClass]="'btn btn-sm btn-primary'"
+                    [buttonTitle]="'SUPPORT' | translate"
+                    [img]="supportImg"
+                    (clickButtonEvent)="goToSupportPage()"
+                  >
+                  </app-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
