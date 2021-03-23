@@ -35,23 +35,20 @@ export class SecurityInterceptorService implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpSentEvent | HttpHeaderResponse | HttpResponse<any> | HttpProgressEvent | HttpUserEvent<any>> {
     const reqUrl = request ? request.url : '';
+    const token = this.tokenService.getToken();
+    const requestOut = this.createRequest(request, token);
     // TODO controllare i path
-    if (reqUrl.indexOf('tariTefaBe') > 0 && reqUrl.indexOf('login') < 0) {
-      const token = this.tokenService.getToken();
-      if (token && !this.tokenService.isTokenExpired()) {
-        const headers = new HttpHeaders({
-          Authorization: `Bearer ${token}`
-        });
-        // eslint-disable-next-line no-param-reassign
-        request = request.clone({ headers });
-      } else {
-        this.tokenService.setIsLogged(false);
-        this.tokenService.setToken('');
-        void this.router.navigate(['/sessionexpired']);
-      }
+    if (
+      reqUrl.indexOf('tariTefaBe') > 0 &&
+      reqUrl.indexOf('login') < 0 &&
+      !(token && !this.tokenService.isTokenExpired())
+    ) {
+      this.tokenService.setIsLogged(false);
+      this.tokenService.setToken('');
+      void this.router.navigate(['/sessionexpired']);
     }
 
-    return next.handle(request).pipe(
+    return next.handle(requestOut).pipe(
       tap(res => {
         // TODO controllare i path
         if (
@@ -86,5 +83,16 @@ export class SecurityInterceptorService implements HttpInterceptor {
     }
     this.loaderService.endRequest();
     return throwError(response);
+  }
+
+  createRequest(requestIn: HttpRequest<any>, token: string): HttpRequest<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    if (token && !this.tokenService.isTokenExpired()) {
+      return requestIn;
+    } else {
+      return requestIn.clone({ headers });
+    }
   }
 }
