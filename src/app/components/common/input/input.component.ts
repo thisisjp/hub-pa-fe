@@ -27,7 +27,7 @@ export class InputComponent implements ControlValueAccessor {
     return !!this.message;
   }
 
-  writeValue(value: any): void {
+  writeValue(value: string): void {
     if (value) {
       // eslint-disable-next-line functional/immutable-data
       this.inputValue = value;
