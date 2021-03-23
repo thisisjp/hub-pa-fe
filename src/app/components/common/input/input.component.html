@@ -1,4 +1,4 @@
-<label *ngIf="inputLabel != null">{{ inputLabel }}</label>
+<label *ngIf="!!inputLabel">{{ inputLabel }}</label>
 <div class="form-group" [formGroup]="group">
   <input
     [formControlName]="formControlName"

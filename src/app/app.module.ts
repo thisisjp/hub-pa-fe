@@ -7,7 +7,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
-import { NgxCaptchaModule } from 'ngx-captcha';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
@@ -63,7 +62,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxCaptchaModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
     NgxPaginationModule,

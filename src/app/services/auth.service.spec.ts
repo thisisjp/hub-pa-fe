@@ -6,17 +6,14 @@ import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
-  let service: AuthService;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, NgxLocalStorageModule.forRoot()],
       providers: [ChangeDetectorRef]
     });
-    service = TestBed.inject(AuthService);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(TestBed.inject(AuthService)).toBeTruthy();
   });
 });

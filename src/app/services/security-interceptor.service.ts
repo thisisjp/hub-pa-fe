@@ -35,22 +35,25 @@ export class SecurityInterceptorService implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpSentEvent | HttpHeaderResponse | HttpResponse<any> | HttpProgressEvent | HttpUserEvent<any>> {
     const reqUrl = request ? request.url : '';
+    // TODO controllare i path
     if (reqUrl.indexOf('tariTefaBe') > 0 && reqUrl.indexOf('login') < 0) {
       const token = this.tokenService.getToken();
       if (token && !this.tokenService.isTokenExpired()) {
         const headers = new HttpHeaders({
           Authorization: `Bearer ${token}`
         });
+        // eslint-disable-next-line no-param-reassign
         request = request.clone({ headers });
       } else {
         this.tokenService.setIsLogged(false);
-        this.tokenService.setToken(undefined);
+        this.tokenService.setToken('');
         void this.router.navigate(['/sessionexpired']);
       }
     }
 
     return next.handle(request).pipe(
       tap(res => {
+        // TODO controllare i path
         if (
           reqUrl.indexOf('/tariTefaBe') >= 0 &&
           reqUrl.indexOf('/secure') > 0 &&
@@ -58,7 +61,7 @@ export class SecurityInterceptorService implements HttpInterceptor {
           res instanceof HttpResponse
         ) {
           const newToken = res.headers.get('API-Token');
-          this.tokenService.setToken(newToken ? newToken : undefined);
+          this.tokenService.setToken(newToken ? newToken : '');
         }
       }),
       catchError(response => this.mapError(response))
@@ -80,8 +83,8 @@ export class SecurityInterceptorService implements HttpInterceptor {
           this.errorService.setError(new Message('GENERIC_ERROR', MessageType.DANGER));
           break;
       }
-      this.loaderService.endRequest();
     }
+    this.loaderService.endRequest();
     return throwError(response);
   }
 }

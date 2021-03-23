@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   environmentName: 'SVILUPPO',
   API_URL: '/tariTefaBe',
-  SITE_KEY: '6LcvoUgUAAAAAJJbhcXvLn3KgG-pyULLusaU4mL1'
+  HOST_URL: 'http://localhost:8080'
 };
 
 /*

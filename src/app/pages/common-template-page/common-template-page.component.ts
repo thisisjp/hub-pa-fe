@@ -8,22 +8,4 @@ import { Message } from '../../models/message';
 })
 export class CommonTemplatePageComponent {
   message: Message = new Message('', '');
-  menu = [
-    {
-      code: 'Documentazione di utilizzo del portale',
-      route: 'documentazioneUtilizzoPortale'
-    },
-    {
-      code: 'Configurazione del tributo',
-      route: 'configurazioneTributo'
-    },
-    {
-      code: 'Caricamento avvisi di pagamento',
-      route: 'caricamentoAvvisiPagamento'
-    },
-    {
-      code: 'Gestione avvisi di pagamento',
-      route: 'gestioneAvvisiPagamento'
-    }
-  ];
 }

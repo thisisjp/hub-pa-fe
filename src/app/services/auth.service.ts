@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -9,39 +9,7 @@ import { TokenService } from './token.service';
   providedIn: 'root'
 })
 export class AuthService {
-  public readonly siteKey = environment.SITE_KEY;
-  public captchaIsLoaded = false;
-  public captchaSuccess = false;
-  public captchaIsExpired = false;
-  public captchaResponse?: string;
-
-  constructor(private cdr: ChangeDetectorRef, private http: HttpClient, private tokenService: TokenService) {}
-
-  handleReset(): void {
-    this.captchaSuccess = false;
-    this.captchaResponse = undefined;
-    this.captchaIsExpired = false;
-    this.cdr.detectChanges();
-  }
-
-  handleSuccess(captchaResponse: string): void {
-    this.captchaSuccess = true;
-    this.captchaResponse = captchaResponse;
-    this.captchaIsExpired = false;
-    this.cdr.detectChanges();
-  }
-
-  handleLoad(): void {
-    this.captchaIsLoaded = true;
-    this.captchaIsExpired = false;
-    this.cdr.detectChanges();
-  }
-
-  handleExpire(): void {
-    this.captchaSuccess = false;
-    this.captchaIsExpired = true;
-    this.cdr.detectChanges();
-  }
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   public login(request: Login): Observable<string> {
     return this.http.post<string>(environment.API_URL + '/login', request, { responseType: 'text' as 'json' });
