@@ -20,59 +20,16 @@ export class InputComponent implements ControlValueAccessor {
   @Input() inputValue = '';
   @Input() formControlName = '';
   @Input() isReadonly = false;
-  type = '';
-  @Input('type') set setType(value: string) {
-    this.type = value ? value : 'text';
-  }
-  message = '';
-  showError = false;
-  @Input('validation-required') set setShowError(value: boolean) {
-    this.showError = value;
-    if (this.showError) {
-      this.message = 'REQUIRED_FIELD';
-    }
-  }
-  showErrorEmail = false;
-  @Input('validation-email') set setShowErrorEmail(value: boolean) {
-    this.showErrorEmail = value;
-    if (this.showErrorEmail) {
-      this.message = 'VALID_EMAIL';
-    }
-  }
-  showErrorFiscalCode = false;
-  @Input('validation-fiscal-code') set setShowErrorFiscalCode(value: boolean) {
-    this.showErrorFiscalCode = value;
-    if (this.showErrorFiscalCode) {
-      this.message = 'VALID_FISCAL_CODE';
-    }
-  }
-  showErrorMaxlenght = false;
-  @Input('validation-max-length') set setShowErrorMaxLength(value: boolean) {
-    this.showErrorMaxlenght = value;
-    if (this.showErrorMaxlenght) {
-      this.message = 'VALID_MAX_LENGTH';
-    }
-  }
-  showErrorMathPassword = false;
-  @Input('validation-match-password') set setShowErrorMathPassword(value: boolean) {
-    this.showErrorMathPassword = value;
-    if (this.showErrorMathPassword) {
-      this.message = 'VALID_MATCH_PW';
-    }
-  }
+  @Input() type = 'text';
+  @Input() message = '';
 
   isError(): boolean {
-    return (
-      this.showError ||
-      this.showErrorEmail ||
-      this.showErrorFiscalCode ||
-      this.showErrorMaxlenght ||
-      this.showErrorMathPassword
-    );
+    return !!this.message;
   }
 
   writeValue(value: any): void {
     if (value) {
+      // eslint-disable-next-line functional/immutable-data
       this.inputValue = value;
     }
   }

@@ -14,16 +14,19 @@ export class LoaderService {
   }
 
   startRequest(): void {
-    if (this.requestCount === 0) {
+    // eslint-disable-next-line functional/immutable-data
+    this.requestCount++;
+    if (this.requestCount === 1) {
       this.showLoader.next(true);
     }
-    this.requestCount++;
   }
 
   endRequest(): void {
     if (this.requestCount === 0) {
+      this.showLoader.next(false);
       return;
     }
+    // eslint-disable-next-line functional/immutable-data
     this.requestCount--;
     if (this.requestCount === 0) {
       this.showLoader.next(false);

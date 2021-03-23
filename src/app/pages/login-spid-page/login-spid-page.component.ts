@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { LoaderService } from '../../services/loader.service';
 import { LoginSpidService } from '../../services/login-spid.service';
 import { ProvidersList } from '../../models/providers-list';
@@ -11,19 +12,23 @@ import { ProvidersList } from '../../models/providers-list';
   providers: [LoaderService, LoginSpidService]
 })
 export class LoginSpidPageComponent implements OnInit {
-  showLoading = false;
   providers?: ProvidersList;
   @ViewChild('testForm') testFormEl: any;
 
   constructor(
     private loadingService: LoaderService,
     public loginSrv: LoginSpidService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spinnerService: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
     this.loadingService.isShowLoaderObservable().subscribe(show => {
-      this.showLoading = show;
+      if (show) {
+        this.spinnerService.show();
+      } else {
+        this.spinnerService.hide();
+      }
     });
 
     this.loginSrv.getProvidersList();

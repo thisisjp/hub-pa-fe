@@ -8,17 +8,14 @@ import { SecurityInterceptorService } from './security-interceptor.service';
 import { TokenService } from './token.service';
 
 describe('SecurityInterceptorService', () => {
-  let service: SecurityInterceptorService;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [NgxLocalStorageModule.forRoot(), RouterTestingModule],
       providers: [SecurityInterceptorService, LoaderService, ErrorService, TokenService]
     });
-    service = TestBed.inject(SecurityInterceptorService);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(TestBed.inject(SecurityInterceptorService)).toBeTruthy();
   });
 });

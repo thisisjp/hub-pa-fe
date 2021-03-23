@@ -6,16 +6,13 @@ import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { LoginSpidService } from './login-spid.service';
 
 describe('LoginSpidService', () => {
-  let service: LoginSpidService;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, NgxLocalStorageModule.forRoot(), RouterTestingModule]
     });
-    service = TestBed.inject(LoginSpidService);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(TestBed.inject(LoginSpidService)).toBeTruthy();
   });
 });

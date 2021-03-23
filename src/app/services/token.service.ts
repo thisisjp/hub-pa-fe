@@ -19,12 +19,13 @@ export class TokenService {
     this.isLogged.next(isLogged);
   }
 
-  public setToken(token: string | undefined): void {
+  public setToken(token: string): void {
     this.storageService.set('token', token);
   }
 
-  public getToken(): string | undefined {
-    return this.storageService.get('token');
+  public getToken(): string {
+    const token = this.storageService.get('token');
+    return token ? token : '';
   }
 
   public removeToken(): void {

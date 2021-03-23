@@ -12,6 +12,11 @@ import { LoginSpidPageComponent } from './pages/login-spid-page/login-spid-page.
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+  {
+    path: 'secure',
+    redirectTo: '/secure/documentazioneUtilizzoPortale',
+    pathMatch: 'full'
+  },
   { path: 'login', component: LoginSpidPageComponent, pathMatch: 'full' },
   {
     path: 'sessionexpired',
