@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuService } from '../../../services/menu.service';
 import { ErrorService } from '../../../services/error.service';
 import { Menu } from '../../../models/menu';
@@ -10,30 +11,39 @@ import { Message } from '../../../models/message';
   styleUrls: ['./sidebar-menu.component.sass']
 })
 export class SidebarMenuComponent implements OnInit {
-  constructor(private menuService: MenuService, private errorService: ErrorService) {}
+  constructor(private menuService: MenuService, private errorService: ErrorService, private router: Router) {}
 
-  menu: Array<Menu> = [];
-  selected: Menu = new Menu();
+  menu: Array<Menu> = [
+    {
+      code: 'Documentazione di utilizzo del portale',
+      route: 'documentazioneUtilizzoPortale'
+    },
+    {
+      code: 'Configurazione del tributo',
+      route: 'configurazioneTributo'
+    },
+    {
+      code: 'Caricamento avvisi di pagamento',
+      route: 'caricamentoAvvisiPagamento'
+    },
+    {
+      code: 'Gestione avvisi di pagamento',
+      route: 'gestioneAvvisiPagamento'
+    }
+  ];
 
-  @Input('menu') set setMenu(value: Array<Menu>) {
-    this.menu = value;
-    if (this.menu) {
-      this.selected = this.menu[0];
+  selected: Menu = this.menu[0];
+
+  ngOnInit(): void {
+    const selected1 = this.menu.filter(entry => this.router.url.indexOf(entry.route) > 1)[0];
+    if (selected1) {
+      // eslint-disable-next-line functional/immutable-data
+      this.selected = selected1;
     }
   }
 
-  ngOnInit(): void {
-    this.menuService.isMenuObservable().subscribe(menu => {
-      if (menu) {
-        const selected1 = this.menu.find(m => m.code === menu);
-        if (selected1) {
-          this.selected = selected1;
-        }
-      }
-    });
-  }
-
   onSelectMenu(m: Menu): void {
+    // eslint-disable-next-line functional/immutable-data
     this.selected = m;
     this.errorService.setError(new Message('', ''));
   }
