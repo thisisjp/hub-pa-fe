@@ -1,0 +1,36 @@
+<div>
+  <h2>Configura tributo</h2>
+</div>
+
+<div class="steppers">
+  <ul class="steppers-header">
+    <li class="confirmed">
+      <span class="steppers-number"
+      ><svg class="icon steppers-success"><use xlink:href="/assets/img/sprite.svg#it-check"></use></svg></span
+      >{{ 'STEP1' | translate }}
+    </li>
+    <li class="confirmed">
+      <span class="steppers-number"
+      ><svg class="icon steppers-success"><use xlink:href="/assets/img/sprite.svg#it-check"></use></svg></span
+      >{{ 'STEP2' | translate }}
+    </li>
+    <li class="active no-line"><span class="steppers-number">3</span>{{ 'STEP3' | translate }}</li>
+  </ul>
+
+  <nav class="steppers-nav">
+    <button
+      (click)="prevStep()"
+      class="btn btn-outline-primary btn-sm steppers-btn-prev"
+      type="button"
+    >
+      {{ 'INDIETRO' | translate }}
+    </button>
+    <button
+      (click)="nextStep()"
+      class="btn btn-primary btn-sm steppers-btn-next steppers-btn-confirm d-none d-lg-block"
+      type="button"
+    >
+      {{ 'CONFERMA' | translate }}
+    </button>
+  </nav>
+</div>

@@ -25,9 +25,9 @@ export class LoginSpidPageComponent implements OnInit {
   ngOnInit(): void {
     this.loadingService.isShowLoaderObservable().subscribe(show => {
       if (show) {
-        this.spinnerService.show();
+        void this.spinnerService.show();
       } else {
-        this.spinnerService.hide();
+        void this.spinnerService.hide();
       }
     });
 

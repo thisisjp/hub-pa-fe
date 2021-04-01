@@ -55,7 +55,7 @@ export class LoginSpidService {
       if (res) {
         this.tokenService.setToken(JSON.parse(res));
         this.tokenService.setIsLogged(true);
-        void this.router.navigate(['/secure/documentazioneUtilizzoPortale']);
+        void this.router.navigate(['/secure']);
       }
       this.loadingService.endRequest();
     });

@@ -19,18 +19,19 @@ import { HeaderComponent } from './components/common/header/header.component';
 import { InputComponent } from './components/common/input/input.component';
 import { LoaderComponent } from './components/common/loader/loader.component';
 import { MessageComponent } from './components/common/message/message.component';
-import { LogoutComponent } from './components/menu/logout/logout.component';
-import { SidebarMenuComponent } from './components/menu/sidebar-menu/sidebar-menu.component';
-import { CaricamentoAvvisiPagamentoPageComponent } from './pages/caricamento-avvisi-pagamento-page/caricamento-avvisi-pagamento-page.component';
-import { CommonTemplatePageComponent } from './pages/common-template-page/common-template-page.component';
-import { ConfigurazioneTributoPageComponent } from './pages/configurazione-tributo-page/configurazione-tributo-page.component';
-import { DocumentazioneUtilizzoPortalePageComponent } from './pages/documentazione-utilizzo-portale-page/documentazione-utilizzo-portale-page.component';
-import { GestioneAvvisiPagamentoPageComponent } from './pages/gestione-avvisi-pagamento-page/gestione-avvisi-pagamento-page.component';
+import { AvvisiPageComponent } from './pages/avvisi-page/avvisi-page.component';
+import { TributiPageComponent } from './pages/tributi-page/tributi-page.component';
+import { GuidaPageComponent } from './pages/guida-page/guida-page.component';
+import { ImpostazioniPageComponent } from './pages/impostazioni-page/impostazioni-page.component';
 import { LoginSpidPageComponent } from './pages/login-spid-page/login-spid-page.component';
 import { SessionExpiredPageComponent } from './pages/session-expired-page/session-expired-page.component';
-import { SupportPageComponent } from './pages/support-page/support-page.component';
+import { AiutoPageComponent } from './pages/aiuto-page/aiuto-page.component';
 import { SecurityInterceptorService } from './services/security-interceptor.service';
 import { AuthGuardService } from './services/auth-guard.service';
+import { TributiStep0Component } from './pages/tributi/tributi-step0/tributi-step0.component';
+import { TributiStep1Component } from './pages/tributi/tributi-step1/tributi-step1.component';
+import { TributiStep2Component } from './pages/tributi/tributi-step2/tributi-step2.component';
+import { TributiStep3Component } from './pages/tributi/tributi-step3/tributi-step3.component';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -45,16 +46,17 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     InputComponent,
     LoaderComponent,
     MessageComponent,
-    LogoutComponent,
-    SidebarMenuComponent,
-    CaricamentoAvvisiPagamentoPageComponent,
-    CommonTemplatePageComponent,
-    ConfigurazioneTributoPageComponent,
-    DocumentazioneUtilizzoPortalePageComponent,
-    GestioneAvvisiPagamentoPageComponent,
+    AvvisiPageComponent,
+    TributiPageComponent,
+    GuidaPageComponent,
+    ImpostazioniPageComponent,
     LoginSpidPageComponent,
     SessionExpiredPageComponent,
-    SupportPageComponent
+    AiutoPageComponent,
+    TributiStep0Component,
+    TributiStep1Component,
+    TributiStep2Component,
+    TributiStep3Component
   ],
   imports: [
     BrowserModule,

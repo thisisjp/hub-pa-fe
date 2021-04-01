@@ -1,5 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-loader',
