@@ -38,11 +38,7 @@ export class SecurityInterceptorService implements HttpInterceptor {
     const token = this.tokenService.getToken();
     const requestOut = this.createRequest(request, token);
     // TODO controllare i path
-    if (
-      reqUrl.indexOf('tariTefaBe') > 0 &&
-      reqUrl.indexOf('login') < 0 &&
-      !(token && !this.tokenService.isTokenExpired())
-    ) {
+    if (reqUrl.indexOf('secure') >= 0 && !(token && !this.tokenService.isTokenExpired())) {
       this.tokenService.setIsLogged(false);
       this.tokenService.setToken('');
       void this.router.navigate(['/sessionexpired']);
@@ -51,12 +47,7 @@ export class SecurityInterceptorService implements HttpInterceptor {
     return next.handle(requestOut).pipe(
       tap(res => {
         // TODO controllare i path
-        if (
-          reqUrl.indexOf('/tariTefaBe') >= 0 &&
-          reqUrl.indexOf('/secure') > 0 &&
-          reqUrl.indexOf('/login') < 0 &&
-          res instanceof HttpResponse
-        ) {
+        if (reqUrl.indexOf('secure') >= 0 && res instanceof HttpResponse) {
           const newToken = res.headers.get('API-Token');
           this.tokenService.setToken(newToken ? newToken : '');
         }
@@ -90,9 +81,9 @@ export class SecurityInterceptorService implements HttpInterceptor {
       Authorization: `Bearer ${token}`
     });
     if (token && !this.tokenService.isTokenExpired()) {
-      return requestIn;
-    } else {
       return requestIn.clone({ headers });
+    } else {
+      return requestIn;
     }
   }
 }

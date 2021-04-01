@@ -35,6 +35,8 @@
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.js",
+              "src/assets/scripts/bootstrap-italia-config.js",
+              "./node_modules/bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js",
               "src/assets/scripts/spid-sp-access-button.min.js",
               "./node_modules/marked/lib/marked.js",
               "./node_modules/prismjs/prism.js",
@@ -134,6 +136,8 @@
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.js",
+              "src/assets/scripts/bootstrap-italia-config.js",
+              "./node_modules/bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js",
               "src/assets/scripts/spid-sp-access-button.min.js",
               "./node_modules/marked/lib/marked.js",
               "./node_modules/prismjs/prism.js",

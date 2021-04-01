@@ -1,0 +1,73 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div>
+    <h2>Configura tributo</h2>
+  </div>
+
+  <div class="steppers">
+    <ul class="steppers-header">
+      <li class="confirmed">
+        <span class="steppers-number"
+          ><svg class="icon steppers-success"><use xlink:href="/assets/img/sprite.svg#it-check"></use></svg></span
+        >{{ 'STEP1' | translate }}
+      </li>
+      <li class="active no-line"><span class="steppers-number">2</span>{{ 'STEP2' | translate }}</li>
+      <li><span class="steppers-number">3</span>{{ 'STEP3' | translate }}</li>
+    </ul>
+
+    <div>
+      <div class="form-group row">
+        <h4>Pagamento in unica soluzione</h4>
+        <p>
+          Se abiliti questa modalità, imposta una data di scadenza successiva al 30/06/2021.
+          <a href="#">Scopri di più</a>
+        </p>
+      </div>
+      <div class="form-group row">
+        <div class="col-3">
+          <div class="bootstrap-select-wrapper" id="abilita">
+            <label>Abilita</label>
+            <select title="Scegli una opzione" [formControlName]="'abilita'">
+              <option value="Si">Si</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="it-datepicker-wrapper">
+            <div class="form-group">
+              <input
+                class="form-control it-date-datepicker"
+                id="dueDateUnique"
+                type="text"
+                placeholder="Inserisci la data in formato gg/mm/aaaa"
+                [formControlName]="'dueDateUnique'"
+              />
+              <label for="dueDateUnique">Scadenza</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <h4>Pagamento a rate</h4>
+        <p>
+          Scegli in che modo andranno ripartite le quote TARI e TEFA tra le diverse rate: la somma di ciascuna colonna
+          dovrà restituire 100%. Per le rate con una quota TEFA, imposta una data di scadenza successiva al 30/06/2021.
+          <a href="#">Scopri di più</a>
+        </p>
+      </div>
+    </div>
+
+    <nav class="steppers-nav">
+      <button (click)="prevStep()" class="btn btn-outline-primary btn-sm steppers-btn-prev" type="button">
+        {{ 'INDIETRO' | translate }}
+      </button>
+      <button
+        (click)="nextStep()"
+        class="btn btn-primary btn-sm steppers-btn-next steppers-btn-confirm d-none d-lg-block"
+        type="button"
+      >
+        {{ 'CONTINUA' | translate }}
+      </button>
+    </nav>
+  </div>
+</form>

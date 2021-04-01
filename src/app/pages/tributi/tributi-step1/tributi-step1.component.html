@@ -1,0 +1,97 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div>
+    <h2>Configura tributo</h2>
+  </div>
+
+  <div class="steppers">
+    <ul class="steppers-header">
+      <li class="active no-line"><span class="steppers-number">1</span>{{ 'STEP1' | translate }}</li>
+      <li><span class="steppers-number">2</span>{{ 'STEP2' | translate }}</li>
+      <li><span class="steppers-number">3</span>{{ 'STEP3' | translate }}</li>
+    </ul>
+
+    <div>
+      <div class="form-group row">
+        <h4>Dati dell'Ente Creditore primario</h4>
+      </div>
+      <div class="form-group row">
+        <div class="col-7">
+          <div class="bootstrap-select-wrapper disabled" id="idPrimaryCreditorSelect">
+            <label>Ente Creditore</label>
+            <select title="Scegli una opzione" [formControlName]="'idPrimaryCreditor'"></select>
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="bootstrap-select-wrapper" id="ibanPrimarySelect">
+            <label>IBAN per l'incasso</label>
+            <select
+              title="Scegli una opzione"
+              data-live-search="true"
+              data-live-search-placeholder="Cerca opzioni"
+              [formControlName]="'ibanPrimary'"
+            ></select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <h4>Dati dell'Ente Creditore secondario</h4>
+      </div>
+      <div class="form-group row">
+        <div class="col-7">
+          <div class="bootstrap-select-wrapper" id="idSecondaryCreditorSelect">
+            <label>Ente Creditore</label>
+            <select
+              title="Scegli una opzione"
+              data-live-search="true"
+              data-live-search-placeholder="Cerca opzioni"
+              [formControlName]="'idSecondaryCreditor'"
+            ></select>
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="bootstrap-select-wrapper" id="ibanSecondarySelect">
+            <label>IBAN per l'incasso</label>
+            <select
+              title="Scegli una opzione"
+              data-live-search="true"
+              data-live-search-placeholder="Cerca opzioni"
+              [formControlName]="'ibanSecondary'"
+            ></select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div>
+          <label for="percentageSecondary" class="input-number-label">% TEFA sul totale</label>
+          <br />
+          <span class="input-number input-number-adaptive">
+            <input
+              type="number"
+              id="percentageSecondary"
+              name="percentageSecondary"
+              min="0"
+              max="100"
+              step="1"
+              [formControlName]="'percentageSecondary'"
+            />
+            <button class="input-number-add"></button>
+            <button class="input-number-sub"></button>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="steppers-nav">
+      <button (click)="prevStep()" class="btn btn-outline-primary btn-sm steppers-btn-prev" type="button">
+        {{ 'ANNULLA' | translate }}
+      </button>
+      <button
+        (click)="nextStep()"
+        class="btn btn-primary btn-sm steppers-btn-next steppers-btn-confirm d-none d-lg-block"
+        type="button"
+      >
+        {{ 'CONTINUA' | translate }}
+      </button>
+    </nav>
+  </div>
+</form>

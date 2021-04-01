@@ -1,24 +1,47 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ImageHtml } from '../../../models/image-html';
+import { ErrorService } from '../../../services/error.service';
+import { Message } from '../../../models/message';
+import { AuthService } from '../../../services/auth.service';
+import { TokenService } from '../../../services/token.service';
+import { Menu } from '../../../models/menu.enum';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.sass']
+  styleUrls: ['./header.component.sass'],
+  providers: [AuthService]
 })
 export class HeaderComponent {
-  supportImg: ImageHtml = {
-    alt: 'Helpdesk Icon',
-    class: 'icon helpdesk-icon',
-    src: '/assets/img/helpdesk-icon.svg',
-    style: 'width: 24px; height: 24px; margin-right: 8px;',
-    title: 'Helpdesk Icon'
-  };
+  menuEnum = Menu;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private errorService: ErrorService,
+    private authService: AuthService,
+    private tokenService: TokenService
+  ) {}
 
-  goToSupportPage(): void {
-    void this.router.navigate(['/support']);
+  goToPage(path: string): void {
+    void this.router.navigate([path]);
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe(res => {
+      if (res) {
+        this.tokenService.removeToken();
+        this.tokenService.setIsLogged(false);
+        this.errorService.setError(new Message('', ''));
+        void this.router.navigate(['']);
+      }
+    });
+  }
+
+  canShowSecureComponents(): boolean {
+    return location.href.indexOf('secure') >= 1;
+  }
+
+  isPathActive(path: string): boolean {
+    return location.href.indexOf(path) >= 1;
   }
 }
