@@ -1,6 +1,6 @@
 export enum TributiStep {
-  STEP0 = 'step0',
-  STEP1 = 'step1',
-  STEP2 = 'step2',
-  STEP3 = 'step3'
+  STEP0 = 'home',
+  STEP1 = 'impostaEnti',
+  STEP2 = 'definisciRate',
+  STEP3 = 'verificaDati'
 }
