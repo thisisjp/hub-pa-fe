@@ -4,7 +4,8 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { tryCatch } from 'rxjs/internal-compatibility';
 import { Menu } from '../../../models/menu.enum';
 import { TributiStep } from '../../../models/tributi-step';
-import { TributeService } from '../../../models/tribute-service';
+import { Tribute } from '../../../models/tribute';
+import { TributeService } from '../../../services/tribute.service';
 declare const $: any;
 
 @Component({
@@ -17,7 +18,7 @@ export class TributiStep1Component implements OnInit {
   private tributiStepEnum = TributiStep;
   public formGroup: FormGroup = new FormGroup({});
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {}
+  constructor(private router: Router, private formBuilder: FormBuilder, private tributeService: TributeService) {}
 
   ngOnInit(): void {
     // Bootstrap-select initialisation
@@ -30,43 +31,17 @@ export class TributiStep1Component implements OnInit {
 
     const defaultValues = history.state?.data;
 
-    const ibanList = [
-      {
-        text: '123456789012345678901234567',
-        value: '123456789012345678901234567'
-      },
-      {
-        text: '123456789012345678901234568',
-        value: '123456789012345678901234568'
-      },
-      {
-        text: '123456789012345678901234569',
-        value: '123456789012345678901234569'
-      }
-    ];
-    tryCatch($('#ibanPrimarySelect').setOptionsToSelect(ibanList));
-    tryCatch($('#ibanSecondarySelect').setOptionsToSelect(ibanList));
-    const creditorList = [
-      {
-        text: 'Comune di Controguerra (82001760675 - BD1GH)',
-        value: '1'
-      },
-      {
-        text: 'Comune di Pisa (82001760676 - BD2GH)',
-        value: '2'
-      },
-      {
-        text: 'Comune di Firenze (82001760677 - BD3GH)',
-        value: '3'
-      }
-    ];
-    tryCatch($('#idPrimaryCreditorSelect').setOptionsToSelect(creditorList));
-    tryCatch($('#idSecondaryCreditorSelect').setOptionsToSelect(creditorList));
+    const ibanList = this.tributeService.getIbans('');
+    tryCatch($('#ibanPrimarySelect').setOptionsToSelect(ibanList.options));
+    tryCatch($('#ibanSecondarySelect').setOptionsToSelect(ibanList.options));
+    const creditorList = this.tributeService.getCreditors();
+    tryCatch($('#idPrimaryCreditorSelect').setOptionsToSelect(creditorList.options));
+    tryCatch($('#idSecondaryCreditorSelect').setOptionsToSelect(creditorList.options));
 
     // eslint-disable-next-line functional/immutable-data
     this.formGroup = this.formBuilder.group({
       idPrimaryCreditor: [
-        defaultValues?.idPrimaryCreditor ? defaultValues.idPrimaryCreditor : creditorList[0].value,
+        defaultValues?.idPrimaryCreditor ? defaultValues.idPrimaryCreditor : creditorList.options[0].value,
         [Validators.required]
       ],
       idSecondaryCreditor: [
@@ -86,11 +61,11 @@ export class TributiStep1Component implements OnInit {
     $('#idPrimaryCreditorSelect > div > button')[0].disabled = true;
     // eslint-disable-next-line functional/immutable-data
     $('#idPrimaryCreditorSelect > div > button > div > div > div')[0].innerHTML = defaultValues?.idPrimaryCreditor
-      ? creditorList.filter(elem => elem.value === defaultValues.idPrimaryCreditor)[0].text
-      : creditorList[0].text;
+      ? creditorList.options.filter(elem => elem.value === defaultValues.idPrimaryCreditor)[0].text
+      : creditorList.options[0].text;
     // eslint-disable-next-line functional/immutable-data
     $('#idSecondaryCreditorSelect > div > button > div > div > div')[0].innerHTML = defaultValues?.idSecondaryCreditor
-      ? creditorList.filter(elem => elem.value === defaultValues.idSecondaryCreditor)[0].text
+      ? creditorList.options.filter(elem => elem.value === defaultValues.idSecondaryCreditor)[0].text
       : scegliUnaOpzione;
     // eslint-disable-next-line functional/immutable-data
     $('#ibanPrimarySelect > div > button > div > div > div')[0].innerHTML = defaultValues?.ibanPrimary
@@ -103,7 +78,7 @@ export class TributiStep1Component implements OnInit {
   }
 
   nextStep(): void {
-    const data = new TributeService(
+    const data = new Tribute(
       this.f.idPrimaryCreditor.value,
       this.f.idSecondaryCreditor.value,
       this.f.ibanPrimary.value,

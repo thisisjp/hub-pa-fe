@@ -1,6 +1,6 @@
 import { Installment } from './installment';
 
-export class TributeService {
+export class Tribute {
   idPrimaryCreditor = '';
   idSecondaryCreditor = '';
   ibanPrimary = '';

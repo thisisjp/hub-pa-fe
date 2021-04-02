@@ -26,7 +26,7 @@
         <div class="col-3">
           <div class="bootstrap-select-wrapper" id="abilita">
             <label>Abilita</label>
-            <select title="Scegli una opzione" [formControlName]="'abilita'">
+            <select title="Scegli una opzione" [formControlName]="'abilita'" (change)="abilitaChanged()">
               <option value="Si">Si</option>
               <option value="No">No</option>
             </select>
