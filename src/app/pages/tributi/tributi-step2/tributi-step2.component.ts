@@ -41,7 +41,8 @@ export class TributiStep2Component implements OnInit {
       ibanPrimary: [defaultValues?.ibanPrimary],
       ibanSecondary: [defaultValues?.ibanSecondary],
       percentageSecondary: [defaultValues?.percentageSecondary],
-      abilita: ['Si', [Validators.required]],
+      abilitaUnica: [true, [Validators.required]],
+      abilitaRate: [true, [Validators.required]],
       dueDateUnique: [defaultValues?.dueDateUnique ? defaultValues.dueDateUnique : '', [Validators.required]]
     });
   }
@@ -86,7 +87,11 @@ export class TributiStep2Component implements OnInit {
     //
   }
 
-  abilitaChanged(): void {
-    // console.log(this.f.abilita); TODO
+  abilitaUnicaChanged(): void {
+    // console.log(this.f.abilitaUnica.value);
+  }
+
+  abilitaRateChanged(): void {
+    // console.log(this.f.abilitaRate.value);
   }
 }

@@ -45,11 +45,12 @@
               data-live-search="true"
               data-live-search-placeholder="Cerca opzioni"
               [formControlName]="'idSecondaryCreditor'"
+              (change)="changedSecondaryCreditor()"
             ></select>
           </div>
         </div>
         <div class="col-5">
-          <div class="bootstrap-select-wrapper" id="ibanSecondarySelect">
+          <div class="bootstrap-select-wrapper disabled" id="ibanSecondarySelect">
             <label>IBAN per l'incasso</label>
             <select
               title="Scegli una opzione"
