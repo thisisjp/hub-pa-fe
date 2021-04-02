@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Menu } from '../../../models/menu.enum';
 import { TributiStep } from '../../../models/tributi-step';
-import { TributeService } from '../../../models/tribute-service';
+import { Tribute } from '../../../models/tribute';
 declare const $: any;
 
 @Component({
@@ -47,7 +47,7 @@ export class TributiStep2Component implements OnInit {
   }
 
   nextStep(): void {
-    const data = new TributeService(
+    const data = new Tribute(
       this.f.idPrimaryCreditor.value,
       this.f.idSecondaryCreditor.value,
       this.f.ibanPrimary.value,
@@ -63,7 +63,7 @@ export class TributiStep2Component implements OnInit {
   }
 
   prevStep(): void {
-    const data = new TributeService(
+    const data = new Tribute(
       this.f.idPrimaryCreditor.value,
       this.f.idSecondaryCreditor.value,
       this.f.ibanPrimary.value,
@@ -84,5 +84,9 @@ export class TributiStep2Component implements OnInit {
 
   onSubmit(): void {
     //
+  }
+
+  abilitaChanged(): void {
+    // console.log(this.f.abilita); TODO
   }
 }
