@@ -33,7 +33,15 @@ export class TributiStep1Component implements OnInit {
 
     const ibanList = this.tributeService.getIbans('');
     tryCatch($('#ibanPrimarySelect').setOptionsToSelect(ibanList.options));
-    tryCatch($('#ibanSecondarySelect').setOptionsToSelect(ibanList.options));
+    // eslint-disable-next-line functional/immutable-data
+    $('#ibanSecondarySelect > div > button')[0].disabled = true;
+    if (defaultValues?.idSecondaryCreditor) {
+      // eslint-disable-next-line functional/immutable-data
+      $('#ibanSecondarySelect > div > button')[0].disabled = false;
+      $('#ibanSecondarySelect').removeClass('disabled');
+      const ibanSecondaryList = this.tributeService.getIbans(defaultValues?.idSecondaryCreditor);
+      tryCatch($('#ibanSecondarySelect').setOptionsToSelect(ibanSecondaryList.options));
+    }
     const creditorList = this.tributeService.getCreditors();
     tryCatch($('#idPrimaryCreditorSelect').setOptionsToSelect(creditorList.options));
     tryCatch($('#idSecondaryCreditorSelect').setOptionsToSelect(creditorList.options));
@@ -106,5 +114,15 @@ export class TributiStep1Component implements OnInit {
 
   onSubmit(): void {
     //
+  }
+
+  changedSecondaryCreditor(): void {
+    if (this.f.idSecondaryCreditor.value) {
+      // eslint-disable-next-line functional/immutable-data
+      $('#ibanSecondarySelect > div > button')[0].disabled = false;
+      $('#ibanSecondarySelect').removeClass('disabled');
+      const ibanSecondaryList = this.tributeService.getIbans(this.f.idSecondaryCreditor.value);
+      tryCatch($('#ibanSecondarySelect').setOptionsToSelect(ibanSecondaryList.options));
+    }
   }
 }

@@ -16,24 +16,40 @@
 
     <div>
       <div class="form-group row">
-        <h4>Pagamento in unica soluzione</h4>
-        <p>
-          Se abiliti questa modalità, imposta una data di scadenza successiva al 30/06/2021.
-          <a href="#">Scopri di più</a>
-        </p>
-      </div>
-      <div class="form-group row">
-        <div class="col-3">
-          <div class="bootstrap-select-wrapper" id="abilita">
-            <label>Abilita</label>
-            <select title="Scegli una opzione" [formControlName]="'abilita'" (change)="abilitaChanged()">
-              <option value="Si">Si</option>
-              <option value="No">No</option>
-            </select>
+        <div class="col-11">
+          <h4>Pagamento in unica soluzione</h4>
+          <p>
+            Se abiliti questa modalità, imposta una data di scadenza successiva al 30/06/2021.
+            <a href="#">Scopri di più</a>
+          </p>
+        </div>
+        <div class="form-check col-1">
+          <div class="toggles">
+            <label for="abilitaUnica">
+              <input
+                type="checkbox"
+                id="abilitaUnica"
+                [formControlName]="'abilitaUnica'"
+                (change)="abilitaUnicaChanged()"
+              />
+              <span class="lever"></span>
+            </label>
           </div>
         </div>
+      </div>
+      <div class="form-group row" *ngIf="f.abilitaUnica.value">
         <div class="col-5">
-          <div class="it-datepicker-wrapper">
+          <div class="form-group">
+            <label for="dueDateUnique" class="active">Scadenza</label>
+            <input
+              type="text"
+              class="form-control"
+              id="dueDateUnique"
+              placeholder="Inserisci la data in formato gg/mm/aaaa"
+              [formControlName]="'dueDateUnique'"
+            />
+          </div>
+          <!--<div class="it-datepicker-wrapper">
             <div class="form-group">
               <input
                 class="form-control it-date-datepicker"
@@ -44,16 +60,62 @@
               />
               <label for="dueDateUnique">Scadenza</label>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
       <div class="form-group row">
-        <h4>Pagamento a rate</h4>
-        <p>
-          Scegli in che modo andranno ripartite le quote TARI e TEFA tra le diverse rate: la somma di ciascuna colonna
-          dovrà restituire 100%. Per le rate con una quota TEFA, imposta una data di scadenza successiva al 30/06/2021.
-          <a href="#">Scopri di più</a>
-        </p>
+        <div class="col-11">
+          <h4>Pagamento a rate</h4>
+          <p>
+            Scegli in che modo andranno ripartite le quote TARI e TEFA tra le diverse rate: la somma di ciascuna colonna
+            dovrà restituire 100%. Per le rate con una quota TEFA, imposta una data di scadenza successiva al
+            30/06/2021.
+            <a href="#">Scopri di più</a>
+          </p>
+        </div>
+        <div class="form-check col-1">
+          <div class="toggles">
+            <label for="abilitaRate">
+              <input
+                type="checkbox"
+                id="abilitaRate"
+                [formControlName]="'abilitaRate'"
+                (change)="abilitaRateChanged()"
+              />
+              <span class="lever"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="f.abilitaRate.value">
+        <div class="form-group row">
+          <div class="col-5"></div>
+          <div class="col-2">
+            TARI
+            <svg class="icon icon-success bg-light">
+              <use xlink:href="/assets/img/sprite.svg#it-check-circle"></use>
+            </svg>
+            <p>RIMANENTE: 0%</p>
+          </div>
+          <div class="col-2">
+            TEFA
+            <svg class="icon icon-warning bg-light">
+              <use xlink:href="/assets/img/sprite.svg#it-warning-circle"></use>
+            </svg>
+            <p>RIMANENTE: 100%</p>
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="form-group">
+            <label for="installment1" class="active">Scadenza</label>
+            <input
+              type="text"
+              class="form-control"
+              id="installment1"
+              placeholder="Inserisci la data in formato gg/mm/aaaa"
+            />
+          </div>
+        </div>
       </div>
     </div>
 
