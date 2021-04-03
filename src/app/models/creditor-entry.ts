@@ -1,4 +1,6 @@
 export class CreditorEntry {
-  description = '';
   id = '';
+  denominazioneEnte = '';
+  codiceFiscale = '';
+  codiceInterbancario = '';
 }

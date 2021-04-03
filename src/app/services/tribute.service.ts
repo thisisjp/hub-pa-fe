@@ -27,22 +27,29 @@ export class TributeService {
     // eslint-disable-next-line functional/immutable-data
     response.creditorList = [
       {
-        description: 'Comune di Controguerra (82001760675 - BD1GH)',
-        id: '1'
+        id: '1',
+        denominazioneEnte: 'Comune di Controguerra',
+        codiceFiscale: '82001760675',
+        codiceInterbancario: 'BD1GH'
       },
       {
-        description: 'Comune di Pisa (82001760676 - BD2GH)',
-        id: '2'
+        id: '2',
+        denominazioneEnte: 'Comune di Pisa',
+        codiceFiscale: '82001760676',
+        codiceInterbancario: 'BD2GH'
       },
       {
-        description: 'Comune di Firenze (82001760677 - BD3GH)',
-        id: '3'
+        id: '3',
+        denominazioneEnte: 'Comune di Firenze',
+        codiceFiscale: '82001760677',
+        codiceInterbancario: 'BD3GH'
       }
     ];
 
     const selectOptionList = new SelectOptionList();
     for (const elem of response.creditorList) {
-      const selectedOption = new SelectOption(elem.description, elem.id);
+      const text = elem.denominazioneEnte + ' (' + elem.codiceFiscale + ' - ' + elem.codiceInterbancario + ')';
+      const selectedOption = new SelectOption(text, elem.id);
       // eslint-disable-next-line functional/immutable-data
       selectOptionList.options.push(selectedOption);
     }
