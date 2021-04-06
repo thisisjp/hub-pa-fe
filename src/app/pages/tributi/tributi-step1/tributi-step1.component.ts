@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { tryCatch } from 'rxjs/internal-compatibility';
 import { Menu } from '../../../models/menu.enum';
 import { TributiStep } from '../../../models/tributi-step';
-import { Tribute } from '../../../models/tribute';
+import { denominationDefault, Tribute } from '../../../models/tribute';
 import { TributeService } from '../../../services/tribute.service';
 declare const $: any;
 
@@ -32,7 +31,7 @@ export class TributiStep1Component implements OnInit {
     const defaultValues = history.state?.data;
 
     const ibanList = this.tributeService.getIbans('');
-    tryCatch($('#ibanPrimarySelect').setOptionsToSelect(ibanList.options));
+    $('#ibanPrimarySelect').setOptionsToSelect(ibanList.options);
     // eslint-disable-next-line functional/immutable-data
     $('#ibanSecondarySelect > div > button')[0].disabled = true;
     if (defaultValues?.idSecondaryCreditor) {
@@ -40,11 +39,11 @@ export class TributiStep1Component implements OnInit {
       $('#ibanSecondarySelect > div > button')[0].disabled = false;
       $('#ibanSecondarySelect').removeClass('disabled');
       const ibanSecondaryList = this.tributeService.getIbans(defaultValues?.idSecondaryCreditor);
-      tryCatch($('#ibanSecondarySelect').setOptionsToSelect(ibanSecondaryList.options));
+      $('#ibanSecondarySelect').setOptionsToSelect(ibanSecondaryList.options);
     }
     const creditorList = this.tributeService.getCreditors();
-    tryCatch($('#idPrimaryCreditorSelect').setOptionsToSelect(creditorList.options));
-    tryCatch($('#idSecondaryCreditorSelect').setOptionsToSelect(creditorList.options));
+    $('#idPrimaryCreditorSelect').setOptionsToSelect(creditorList.options);
+    $('#idSecondaryCreditorSelect').setOptionsToSelect(creditorList.options);
 
     // eslint-disable-next-line functional/immutable-data
     this.formGroup = this.formBuilder.group({
@@ -92,13 +91,12 @@ export class TributiStep1Component implements OnInit {
       this.f.ibanPrimary.value,
       this.f.ibanSecondary.value,
       this.f.percentageSecondary.value,
+      true,
+      true,
       '',
       [],
-      'TariTefa2021'
+      denominationDefault
     );
-    if (!data.idPrimaryCreditor || !data.idSecondaryCreditor || !data.ibanPrimary || !data.ibanSecondary) {
-      return;
-    }
     void this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP2], {
       state: { data }
     });
@@ -122,7 +120,12 @@ export class TributiStep1Component implements OnInit {
       $('#ibanSecondarySelect > div > button')[0].disabled = false;
       $('#ibanSecondarySelect').removeClass('disabled');
       const ibanSecondaryList = this.tributeService.getIbans(this.f.idSecondaryCreditor.value);
-      tryCatch($('#ibanSecondarySelect').setOptionsToSelect(ibanSecondaryList.options));
+      $('#ibanSecondarySelect').setOptionsToSelect(ibanSecondaryList.options);
+      this.f.ibanSecondary.setValue('');
     }
+  }
+
+  isPercentageRangeValid(): boolean {
+    return 0 <= this.f.percentageSecondary.value && this.f.percentageSecondary.value < 100;
   }
 }

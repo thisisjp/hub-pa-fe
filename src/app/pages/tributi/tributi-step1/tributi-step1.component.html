@@ -63,15 +63,14 @@
       </div>
       <div class="form-group row">
         <div>
-          <label for="percentageSecondary" class="input-number-label">% TEFA sul totale</label>
-          <br />
+          <label for="percentageSecondary" class="active">% TEFA sul totale</label>
           <span class="input-number input-number-adaptive">
             <input
               type="number"
               id="percentageSecondary"
               name="percentageSecondary"
               min="0"
-              max="100"
+              max="99.99"
               step="0.01"
               [formControlName]="'percentageSecondary'"
             />
@@ -90,6 +89,7 @@
         (click)="nextStep()"
         class="btn btn-primary btn-sm steppers-btn-next steppers-btn-confirm d-none d-lg-block"
         type="button"
+        [disabled]="this.formGroup.invalid || !this.isPercentageRangeValid()"
       >
         {{ 'CONTINUA' | translate }}
       </button>
