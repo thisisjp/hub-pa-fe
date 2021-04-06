@@ -42,25 +42,13 @@
           <div class="form-group">
             <label for="dueDateUnique" class="active">Scadenza</label>
             <input
-              type="text"
+              type="date"
               class="form-control"
               id="dueDateUnique"
               placeholder="Inserisci la data in formato gg/mm/aaaa"
               [formControlName]="'dueDateUnique'"
             />
           </div>
-          <!--<div class="it-datepicker-wrapper">
-            <div class="form-group">
-              <input
-                class="form-control it-date-datepicker"
-                id="dueDateUnique"
-                type="text"
-                placeholder="Inserisci la data in formato gg/mm/aaaa"
-                [formControlName]="'dueDateUnique'"
-              />
-              <label for="dueDateUnique">Scadenza</label>
-            </div>
-          </div>-->
         </div>
       </div>
       <div class="form-group row">
@@ -87,34 +75,91 @@
           </div>
         </div>
       </div>
-      <div *ngIf="f.abilitaRate.value">
+      <div *ngIf="f.abilitaRate.value" formArrayName="installments">
         <div class="form-group row">
-          <div class="col-5"></div>
+          <div class="col-7"></div>
           <div class="col-2">
             TARI
-            <svg class="icon icon-success bg-light">
+            <svg class="icon icon-success" *ngIf="getPercentageLeft(true) === 0">
               <use xlink:href="/assets/img/sprite.svg#it-check-circle"></use>
             </svg>
-            <p>RIMANENTE: 0%</p>
+            <svg class="icon icon-warning" *ngIf="getPercentageLeft(true) !== 0">
+              <use xlink:href="/assets/img/sprite.svg#it-warning-circle"></use>
+            </svg>
+            <p>Rimanente: {{ getPercentageLeft(true) }}%</p>
           </div>
           <div class="col-2">
             TEFA
-            <svg class="icon icon-warning bg-light">
+            <svg class="icon icon-success" *ngIf="getPercentageLeft(false) === 0">
+              <use xlink:href="/assets/img/sprite.svg#it-check-circle"></use>
+            </svg>
+            <svg class="icon icon-warning" *ngIf="getPercentageLeft(false) !== 0">
               <use xlink:href="/assets/img/sprite.svg#it-warning-circle"></use>
             </svg>
-            <p>RIMANENTE: 100%</p>
+            <p>Rimanente: {{ getPercentageLeft(false) }}%</p>
           </div>
         </div>
-        <div class="col-5">
-          <div class="form-group">
-            <label for="installment1" class="active">Scadenza</label>
-            <input
-              type="text"
-              class="form-control"
-              id="installment1"
-              placeholder="Inserisci la data in formato gg/mm/aaaa"
-            />
+        <div *ngFor="let _ of installments.controls; let i = index">
+          <div class="form-group row" [formGroupName]="i">
+            <div class="col-2">
+              <svg
+                class="icon icon-danger app-cursor-pointer"
+                *ngIf="installments.length > 2 && installments.length === i + 1"
+                (click)="removeInstallment(i)"
+              >
+                <use xlink:href="/assets/img/sprite.svg#it-delete"></use>
+              </svg>
+              Rata {{ i + 1 }}
+            </div>
+            <div class="col-5">
+              <label for="dueDate" class="active">Scadenza</label>
+              <input
+                type="date"
+                class="form-control"
+                id="dueDate"
+                placeholder="Inserisci la data in formato gg/mm/aaaa"
+                formControlName="dueDate"
+              />
+            </div>
+            <div class="col-2">
+              <label for="percentagePrimary" class="active">% Quota TARI</label>
+              <span class="input-number input-number-adaptive">
+                <input
+                  type="number"
+                  id="percentagePrimary"
+                  name="percentagePrimary"
+                  min="0"
+                  max="100"
+                  step="0.01"
+                  formControlName="percentagePrimary"
+                />
+                <button class="input-number-add"></button>
+                <button class="input-number-sub"></button>
+              </span>
+            </div>
+            <div class="col-2">
+              <label for="percentageSecondary" class="active">% Quota TEFA</label>
+              <span class="input-number input-number-adaptive">
+                <input
+                  type="number"
+                  id="percentageSecondary"
+                  name="percentageSecondary"
+                  min="0"
+                  max="100"
+                  step="0.01"
+                  formControlName="percentageSecondary"
+                />
+                <button class="input-number-add"></button>
+                <button class="input-number-sub"></button>
+              </span>
+            </div>
           </div>
+        </div>
+        <div *ngIf="installments.length < 10">
+          <svg class="icon icon-danger app-cursor-pointer" (click)="addInstallment()">
+            <use xlink:href="/assets/img/sprite.svg#it-plus-circle"></use>
+          </svg>
+          Aggiungi rata
         </div>
       </div>
     </div>
@@ -127,6 +172,7 @@
         (click)="nextStep()"
         class="btn btn-primary btn-sm steppers-btn-next steppers-btn-confirm d-none d-lg-block"
         type="button"
+        [disabled]="!this.ifFormValid()"
       >
         {{ 'CONTINUA' | translate }}
       </button>

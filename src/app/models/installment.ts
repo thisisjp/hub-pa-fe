@@ -1,5 +1,5 @@
 export class Installment {
-  dueDate = '0';
+  dueDate = '';
   percentagePrimary = 0;
   percentageSecondary = 0;
 }
