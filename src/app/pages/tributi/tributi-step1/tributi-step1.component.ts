@@ -5,6 +5,10 @@ import { Menu } from '../../../models/menu.enum';
 import { TributiStep } from '../../../models/tributi-step';
 import { denominationDefault, Tribute } from '../../../models/tribute';
 import { TributeService } from '../../../services/tribute.service';
+import { SelectOptionList } from '../../../models/select-option-list';
+import { SelectOption } from '../../../models/select-option';
+import { CreditorList } from '../../../models/creditor-list';
+
 declare const $: any;
 
 @Component({
@@ -42,13 +46,15 @@ export class TributiStep1Component implements OnInit {
       $('#ibanSecondarySelect').setOptionsToSelect(ibanSecondaryList.options);
     }
     const creditorList = this.tributeService.getCreditors();
-    $('#idPrimaryCreditorSelect').setOptionsToSelect(creditorList.options);
-    $('#idSecondaryCreditorSelect').setOptionsToSelect(creditorList.options);
+    $('#idPrimaryCreditorSelect').setOptionsToSelect(this.toSelectedOptions(creditorList));
+    $('#idSecondaryCreditorSelect').setOptionsToSelect(this.toSelectedOptions(creditorList));
 
     // eslint-disable-next-line functional/immutable-data
     this.formGroup = this.formBuilder.group({
       idPrimaryCreditor: [
-        defaultValues?.idPrimaryCreditor ? defaultValues.idPrimaryCreditor : creditorList.options[0].value,
+        defaultValues?.idPrimaryCreditor
+          ? defaultValues.idPrimaryCreditor
+          : this.toSelectedOptions(creditorList)[0].value,
         [Validators.required]
       ],
       idSecondaryCreditor: [
@@ -60,19 +66,22 @@ export class TributiStep1Component implements OnInit {
       percentageSecondary: [
         defaultValues?.percentageSecondary ? defaultValues.percentageSecondary : 0,
         [Validators.required]
-      ]
+      ],
+      creditorList: []
     });
+
+    this.f.creditorList.setValue(creditorList.creditorList);
 
     const scegliUnaOpzione = 'Scegli una opzione';
     // eslint-disable-next-line functional/immutable-data
     $('#idPrimaryCreditorSelect > div > button')[0].disabled = true;
     // eslint-disable-next-line functional/immutable-data
     $('#idPrimaryCreditorSelect > div > button > div > div > div')[0].innerHTML = defaultValues?.idPrimaryCreditor
-      ? creditorList.options.filter(elem => elem.value === defaultValues.idPrimaryCreditor)[0].text
-      : creditorList.options[0].text;
+      ? this.toSelectedOptions(creditorList).filter(elem => elem.value === defaultValues.idPrimaryCreditor)[0].text
+      : this.toSelectedOptions(creditorList)[0].text;
     // eslint-disable-next-line functional/immutable-data
     $('#idSecondaryCreditorSelect > div > button > div > div > div')[0].innerHTML = defaultValues?.idSecondaryCreditor
-      ? creditorList.options.filter(elem => elem.value === defaultValues.idSecondaryCreditor)[0].text
+      ? this.toSelectedOptions(creditorList).filter(elem => elem.value === defaultValues.idSecondaryCreditor)[0].text
       : scegliUnaOpzione;
     // eslint-disable-next-line functional/immutable-data
     $('#ibanPrimarySelect > div > button > div > div > div')[0].innerHTML = defaultValues?.ibanPrimary
@@ -91,6 +100,7 @@ export class TributiStep1Component implements OnInit {
       this.f.ibanPrimary.value,
       this.f.ibanSecondary.value,
       this.f.percentageSecondary.value,
+      this.f.creditorList.value,
       true,
       true,
       '',
@@ -110,10 +120,6 @@ export class TributiStep1Component implements OnInit {
     return this.formGroup.controls;
   }
 
-  onSubmit(): void {
-    //
-  }
-
   changedSecondaryCreditor(): void {
     if (this.f.idSecondaryCreditor.value) {
       // eslint-disable-next-line functional/immutable-data
@@ -127,5 +133,30 @@ export class TributiStep1Component implements OnInit {
 
   isPercentageRangeValid(): boolean {
     return 0 <= this.f.percentageSecondary.value && this.f.percentageSecondary.value < 100;
+  }
+
+  toSelectedOptions(response: CreditorList): Array<SelectOption> {
+    const selectOptionList = new SelectOptionList();
+    for (const elem of response.creditorList) {
+      const text = elem.denominazioneEnte + ' (' + elem.codiceFiscale + ' - ' + elem.codiceInterbancario + ')';
+      const selectedOption = new SelectOption(text, elem.id);
+      // eslint-disable-next-line functional/immutable-data
+      selectOptionList.options.push(selectedOption);
+    }
+    return selectOptionList.options;
+  }
+
+  addPercentage(): void {
+    const control = this.f.percentageSecondary;
+    if (control.value < 99.99) {
+      control.setValue(Math.round(parseFloat(control.value) * 100 + 1) / 100);
+    }
+  }
+
+  removePercentage(): void {
+    const control = this.f.percentageSecondary;
+    if (control.value > 0) {
+      control.setValue(Math.round(parseFloat(control.value) * 100 - 1) / 100);
+    }
   }
 }
