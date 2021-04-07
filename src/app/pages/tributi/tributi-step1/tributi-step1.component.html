@@ -1,6 +1,6 @@
-<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+<form [formGroup]="formGroup">
   <div>
-    <h2>Configura tributo</h2>
+    <h2>{{ 'CONFIGURA_TRIBUTO' | translate }}</h2>
   </div>
 
   <div class="steppers">
@@ -12,18 +12,18 @@
 
     <div>
       <div class="form-group row">
-        <h4>Dati dell'Ente Creditore primario</h4>
+        <h4>{{ 'DATI_ENTE_PRIMARIO' | translate }}</h4>
       </div>
       <div class="form-group row">
         <div class="col-7">
           <div class="bootstrap-select-wrapper disabled" id="idPrimaryCreditorSelect">
-            <label>Ente Creditore</label>
+            <label>{{ 'ENTE_CREDITORE' | translate }}</label>
             <select title="Scegli una opzione" [formControlName]="'idPrimaryCreditor'"></select>
           </div>
         </div>
         <div class="col-5">
           <div class="bootstrap-select-wrapper" id="ibanPrimarySelect">
-            <label>IBAN per l'incasso</label>
+            <label>{{ 'IBAN_INCASSO' | translate }}</label>
             <select
               title="Scegli una opzione"
               data-live-search="true"
@@ -34,12 +34,12 @@
         </div>
       </div>
       <div class="form-group row">
-        <h4>Dati dell'Ente Creditore secondario</h4>
+        <h4>{{ 'DATI_ENTE_SECONDARIO' | translate }}</h4>
       </div>
       <div class="form-group row">
         <div class="col-7">
           <div class="bootstrap-select-wrapper" id="idSecondaryCreditorSelect">
-            <label>Ente Creditore</label>
+            <label>{{ 'ENTE_CREDITORE' | translate }}</label>
             <select
               title="Scegli una opzione"
               data-live-search="true"
@@ -51,7 +51,7 @@
         </div>
         <div class="col-5">
           <div class="bootstrap-select-wrapper disabled" id="ibanSecondarySelect">
-            <label>IBAN per l'incasso</label>
+            <label>{{ 'IBAN_INCASSO' | translate }}</label>
             <select
               title="Scegli una opzione"
               data-live-search="true"
@@ -63,7 +63,7 @@
       </div>
       <div class="form-group row">
         <div>
-          <label for="percentageSecondary" class="active">% TEFA sul totale</label>
+          <label for="percentageSecondary" class="active">% {{ 'TEFA_SU_TOTALE' | translate }}</label>
           <span class="input-number input-number-adaptive">
             <input
               type="number"
@@ -74,8 +74,8 @@
               step="0.01"
               [formControlName]="'percentageSecondary'"
             />
-            <button class="input-number-add"></button>
-            <button class="input-number-sub"></button>
+            <button class="input-number-add" (click)="addPercentage()"></button>
+            <button class="input-number-sub" (click)="removePercentage()"></button>
           </span>
         </div>
       </div>

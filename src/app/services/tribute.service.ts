@@ -22,7 +22,7 @@ export class TributeService {
     return selectOptionList;
   }
 
-  getCreditors(): SelectOptionList {
+  getCreditors(): CreditorList {
     const response = new CreditorList();
     // eslint-disable-next-line functional/immutable-data
     response.creditorList = [
@@ -45,14 +45,6 @@ export class TributeService {
         codiceInterbancario: 'BD3GH'
       }
     ];
-
-    const selectOptionList = new SelectOptionList();
-    for (const elem of response.creditorList) {
-      const text = elem.denominazioneEnte + ' (' + elem.codiceFiscale + ' - ' + elem.codiceInterbancario + ')';
-      const selectedOption = new SelectOption(text, elem.id);
-      // eslint-disable-next-line functional/immutable-data
-      selectOptionList.options.push(selectedOption);
-    }
-    return selectOptionList;
+    return response;
   }
 }

@@ -1,20 +1,13 @@
-import { browser, logging } from 'protractor';
 import { AppPage } from './app.po';
 
 describe('workspace-project App', () => {
-  // eslint-disable-next-line functional/no-let
-  let page: AppPage;
-
-  beforeEach(() => {
-    page = new AppPage();
-  });
-
   it('should display welcome message', async () => {
+    const page = new AppPage();
     await page.navigateTo();
-    expect(await page.getTitleText()).toEqual('hub-pa-fe app is running!');
+    expect(await page.getTitleText()).toEqual('Portale TARI/TEFA');
   });
 
-  afterEach(async () => {
+  /* afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);
     expect(logs).not.toContain(
@@ -22,5 +15,5 @@ describe('workspace-project App', () => {
         level: logging.Level.SEVERE
       } as logging.Entry)
     );
-  });
+  }); */
 });

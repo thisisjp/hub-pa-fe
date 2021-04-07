@@ -51,6 +51,7 @@ export class TributiStep2Component implements OnInit {
       ibanPrimary: [defaultValues?.ibanPrimary],
       ibanSecondary: [defaultValues?.ibanSecondary],
       percentageSecondary: [defaultValues?.percentageSecondary],
+      creditorList: [defaultValues?.creditorList],
       abilitaUnica: [defaultValues?.abilitaUnica, [Validators.required]],
       abilitaRate: [defaultValues?.abilitaRate, [Validators.required]],
       dueDateUnique: [
@@ -81,6 +82,7 @@ export class TributiStep2Component implements OnInit {
       this.f.ibanPrimary.value,
       this.f.ibanSecondary.value,
       this.f.percentageSecondary.value,
+      this.f.creditorList.value,
       this.f.abilitaUnica.value,
       this.f.abilitaRate.value,
       this.f.dueDateUnique.value,
@@ -88,7 +90,7 @@ export class TributiStep2Component implements OnInit {
       denominationDefault
     );
     if (!this.ifFormValid()) {
-      console.log(this.findInvalidControls());
+      // console.log(this.findInvalidControls());
       return;
     }
     void this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP3], {
@@ -103,6 +105,7 @@ export class TributiStep2Component implements OnInit {
       this.f.ibanPrimary.value,
       this.f.ibanSecondary.value,
       this.f.percentageSecondary.value,
+      this.f.creditorList.value,
       true,
       true,
       '',
@@ -130,30 +133,15 @@ export class TributiStep2Component implements OnInit {
     return invalid;
   }
 
-  onSubmit(): void {
-    //
-  }
-
-  abilitaUnicaChanged(): void {
-    if (!this.f.abilitaUnica.value) {
-      this.f.dueDateUnique.setValue('');
-    }
-  }
-
-  abilitaRateChanged(): void {
-    if (!this.f.abilitaRate.value) {
-      this.f.installments.setValue([]);
-    }
-  }
-
   get installments(): FormArray {
     return this.formGroup.get('installments') as FormArray;
   }
 
   private addInstallments(installments: Array<Installment>): void {
-    if (installments.length === 0) {
+    if (!installments || installments?.length === 0) {
       this.addInstallment();
       this.addInstallment();
+      return;
     }
     for (const elem of installments) {
       this.addInstallment(elem.dueDate, elem.percentagePrimary, elem.percentageSecondary);
@@ -161,7 +149,7 @@ export class TributiStep2Component implements OnInit {
   }
 
   addInstallment(dueDate: string = '', percentagePrimary: number = 0, percentageSecondary: number = 0): void {
-    this.installments.push(this.formBuilder.group({ dueDate, percentagePrimary, percentageSecondary }));
+    this.installments?.push(this.formBuilder.group({ dueDate, percentagePrimary, percentageSecondary }));
   }
 
   removeInstallment(i: number): void {
@@ -211,25 +199,39 @@ export class TributiStep2Component implements OnInit {
 
   public ifFormValid(): boolean {
     if (this.formGroup.invalid) {
-      console.log(1);
+      // console.log(1);
       return false;
     }
     if (!this.f.abilitaUnica.value && !this.f.abilitaRate.value) {
-      console.log(2);
+      // console.log(2);
       return false;
     }
     if (this.f.abilitaUnica.value && !this.isDateAfter_30_06_2021(this.f.dueDateUnique.value)) {
-      console.log(3);
+      // console.log(3);
       return false;
     }
     if (this.f.abilitaRate.value && !this.arePercentagesValid()) {
-      console.log(4);
+      // console.log(4);
       return false;
     }
     if (this.f.abilitaRate.value && !this.areInstallmentsDatesValid()) {
-      console.log(5);
+      // console.log(5);
       return false;
     }
     return true;
+  }
+
+  addPercentage(i: number, isPrimary: boolean): void {
+    const control = this.installments.controls[i].get(isPrimary ? 'percentagePrimary' : 'percentageSecondary');
+    if (control?.value < 100) {
+      control?.setValue(Math.round(parseFloat(control.value) * 100 + 1) / 100);
+    }
+  }
+
+  removePercentage(i: number, isPrimary: boolean): void {
+    const control = this.installments.controls[i].get(isPrimary ? 'percentagePrimary' : 'percentageSecondary');
+    if (control?.value > 0) {
+      control?.setValue(Math.round(parseFloat(control.value) * 100 - 1) / 100);
+    }
   }
 }

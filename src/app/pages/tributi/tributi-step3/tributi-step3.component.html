@@ -1,36 +1,162 @@
 <div>
-  <h2>Configura tributo</h2>
+  <h2>{{ 'CONFIGURA_TRIBUTO' | translate }}</h2>
 </div>
 
 <div class="steppers">
   <ul class="steppers-header">
     <li class="confirmed">
       <span class="steppers-number"
-      ><svg class="icon steppers-success"><use xlink:href="/assets/img/sprite.svg#it-check"></use></svg></span
+        ><svg class="icon steppers-success"><use xlink:href="/assets/img/sprite.svg#it-check"></use></svg></span
       >{{ 'STEP1' | translate }}
     </li>
     <li class="confirmed">
       <span class="steppers-number"
-      ><svg class="icon steppers-success"><use xlink:href="/assets/img/sprite.svg#it-check"></use></svg></span
+        ><svg class="icon steppers-success"><use xlink:href="/assets/img/sprite.svg#it-check"></use></svg></span
       >{{ 'STEP2' | translate }}
     </li>
     <li class="active no-line"><span class="steppers-number">3</span>{{ 'STEP3' | translate }}</li>
   </ul>
 
+  <div class="form-group row">
+    <div class="col-11">
+      <h4>{{ 'TUTTO_CORRETTO' | translate }}</h4>
+      <p>{{ 'TUTTO_CORRETTO_WARNING_1' | translate }}</p>
+    </div>
+  </div>
+
+  <div
+    id="collapseDiv1"
+    class="collapse-div"
+    role="tablist"
+    *ngIf="primaryCreditor && secondaryCreditor && compiledForm"
+  >
+    <div class="collapse-header" id="heading1">
+      <button data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+        {{ 'ENTI_COINVOLTI' | translate }}
+      </button>
+    </div>
+    <div id="collapse1" class="collapse show" role="tabpanel" aria-labelledby="heading1">
+      <div class="collapse-body">
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <td>
+                <strong>{{ primaryCreditor.denominazioneEnte }}</strong>
+                <br />
+                <small class="text-muted"
+                  >{{ 'CF' | translate }}: {{ primaryCreditor.codiceFiscale }} {{ 'CBILL' | translate }}:
+                  {{ primaryCreditor.codiceInterbancario }}</small
+                >
+              </td>
+              <td>
+                <strong>{{ compiledForm.ibanPrimary }}</strong>
+                <br />
+                <small class="text-muted">{{ 'IBAN' | translate }}</small>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <strong>{{ secondaryCreditor.denominazioneEnte }}</strong>
+                <br />
+                <small class="text-muted"
+                  >{{ 'CF' | translate }}: {{ secondaryCreditor.codiceFiscale }} {{ 'CBILL' | translate }}:
+                  {{ secondaryCreditor.codiceInterbancario }}</small
+                >
+              </td>
+              <td>
+                <strong>{{ compiledForm.ibanSecondary }}</strong>
+                <br />
+                <small class="text-muted">{{ 'IBAN' | translate }}</small>
+              </td>
+              <td>
+                <strong>{{ compiledForm.percentageSecondary }}%</strong>
+                <br />
+                <small class="text-muted">{{ 'TEFA_SU_TOTALE' | translate }}</small>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="collapse-header" id="heading2">
+      <button data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+        {{ 'COMPOSIZIONE_RATE' | translate }}
+      </button>
+    </div>
+    <div id="collapse2" class="collapse show" role="tabpanel" aria-labelledby="heading2">
+      <div class="collapse-body">
+        <table class="table table-borderless">
+          <tbody>
+            <tr *ngIf="compiledForm.abilitaUnica">
+              <td>
+                <strong>{{ 'PAGAMENTO_UNICO' | translate }}</strong>
+                <br />
+                <small class="text-muted"
+                  >{{ 'ENTRO' | translate }} {{ getFormattedDate(compiledForm.dueDateUnique) }}</small
+                >
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr *ngFor="let elem of compiledForm.installments; let i = index">
+              <td>
+                <strong>{{ 'RATA' | translate }} {{ i + 1 }}</strong>
+                <br />
+                <small class="text-muted">{{ 'ENTRO' | translate }} {{ getFormattedDate(elem.dueDate) }}</small>
+              </td>
+              <td>
+                <strong>{{ elem.percentagePrimary }}%</strong>
+                <br />
+                <small class="text-muted">{{ 'QUOTA_TARI' | translate }}</small>
+              </td>
+              <td>
+                <strong>{{ elem.percentageSecondary }}%</strong>
+                <br />
+                <small class="text-muted">{{ 'QUOTA_TEFA' | translate }}</small>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
   <nav class="steppers-nav">
-    <button
-      (click)="prevStep()"
-      class="btn btn-outline-primary btn-sm steppers-btn-prev"
-      type="button"
-    >
+    <button (click)="prevStep()" class="btn btn-outline-primary btn-sm steppers-btn-prev" type="button">
       {{ 'INDIETRO' | translate }}
     </button>
     <button
-      (click)="nextStep()"
       class="btn btn-primary btn-sm steppers-btn-next steppers-btn-confirm d-none d-lg-block"
       type="button"
+      data-toggle="modal"
+      data-target="#modalCenter"
     >
-      {{ 'CONFERMA' | translate }}
+      {{ 'CONTINUA' | translate }}
     </button>
   </nav>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalCenter">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ 'SALVA_TRIBUTO' | translate }}</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <svg class="icon icon-secondary">
+            <use xlink:href="/assets/img/sprite.svg#it-close"></use>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{ 'TUTTO_CORRETTO_WARNING_2' | translate }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-primary btn-sm" data-dismiss="modal" type="button">
+          {{ 'INDIETRO' | translate }}
+        </button>
+        <button class="btn btn-primary btn-sm" (click)="nextStep()" type="button">{{ 'CONFERMA' | translate }}</button>
+      </div>
+    </div>
+  </div>
 </div>
