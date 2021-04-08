@@ -28,10 +28,15 @@ import { SessionExpiredPageComponent } from './pages/session-expired-page/sessio
 import { AiutoPageComponent } from './pages/aiuto-page/aiuto-page.component';
 import { SecurityInterceptorService } from './services/security-interceptor.service';
 import { AuthGuardService } from './services/auth-guard.service';
-import { TributiStep0Component } from './pages/tributi/tributi-step0/tributi-step0.component';
-import { TributiStep1Component } from './pages/tributi/tributi-step1/tributi-step1.component';
-import { TributiStep2Component } from './pages/tributi/tributi-step2/tributi-step2.component';
-import { TributiStep3Component } from './pages/tributi/tributi-step3/tributi-step3.component';
+import { TributiStep0Component } from './pages/home-page/tributi-step0/tributi-step0.component';
+import { TributiStep1Component } from './pages/tributi-page/tributi-step1/tributi-step1.component';
+import { TributiStep2Component } from './pages/tributi-page/tributi-step2/tributi-step2.component';
+import { TributiStep3Component } from './pages/tributi-page/tributi-step3/tributi-step3.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { AvvisiStep0Component } from './pages/home-page/avvisi-step0/avvisi-step0.component';
+import { AvvisiStep1Component } from './pages/avvisi-page/avvisi-step1/avvisi-step1.component';
+import { AvvisiStep2Component } from './pages/avvisi-page/avvisi-step2/avvisi-step2.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -56,7 +61,12 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     TributiStep0Component,
     TributiStep1Component,
     TributiStep2Component,
-    TributiStep3Component
+    TributiStep3Component,
+    HomePageComponent,
+    AvvisiStep0Component,
+    AvvisiStep1Component,
+    AvvisiStep2Component,
+    NotFoundPageComponent
   ],
   imports: [
     BrowserModule,

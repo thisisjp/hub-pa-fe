@@ -4,22 +4,25 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
-import { ErrorService } from './error.service';
+import { AvvisiStep1Component } from './avvisi-step1.component';
 
-describe('ErrorService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+describe('AvvisiStep1Component', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({}),
         HttpClientTestingModule,
         NgxLocalStorageModule.forRoot(),
         RouterTestingModule
       ],
-      providers: [ErrorService]
-    });
+      declarations: [AvvisiStep1Component]
+    }).compileComponents();
   });
 
-  it('should be created', () => {
-    expect(TestBed.inject(ErrorService)).toBeTruthy();
+  it('should create', () => {
+    const fixture = TestBed.createComponent(AvvisiStep1Component);
+    const component = fixture.componentInstance;
+    fixture.detectChanges();
+    expect(component).toBeTruthy();
   });
 });

@@ -41,7 +41,7 @@ export class SecurityInterceptorService implements HttpInterceptor {
     if (reqUrl.indexOf('secure') >= 0 && !(token && !this.tokenService.isTokenExpired())) {
       this.tokenService.setIsLogged(false);
       this.tokenService.setToken('');
-      void this.router.navigate(['/sessionexpired']);
+      this.router.navigate(['/sessionexpired']).catch(reason => reason);
     }
 
     return next.handle(requestOut).pipe(

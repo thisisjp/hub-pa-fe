@@ -5,6 +5,8 @@ export enum Menu {
   AVVISI_PATH = 'secure/avvisi',
   GUIDA_CODE = 'GUIDA',
   GUIDA_PATH = 'secure/guida',
+  HOME_CODE = 'HOME',
+  HOME_PATH = 'secure/home',
   IMPOSTAZIONI_CODE = 'IMPOSTAZIONI',
   IMPOSTAZIONI_PATH = 'secure/impostazioni',
   TRIBUTI_CODE = 'TRIBUTI',
