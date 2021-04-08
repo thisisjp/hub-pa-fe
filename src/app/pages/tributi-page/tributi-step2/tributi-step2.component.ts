@@ -93,9 +93,11 @@ export class TributiStep2Component implements OnInit {
       // console.log(this.findInvalidControls());
       return;
     }
-    void this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP3], {
-      state: { data }
-    });
+    this.router
+      .navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP3], {
+        state: { data }
+      })
+      .catch(reason => reason);
   }
 
   prevStep(): void {
@@ -112,9 +114,11 @@ export class TributiStep2Component implements OnInit {
       [],
       denominationDefault
     );
-    void this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP1], {
-      state: { data }
-    });
+    this.router
+      .navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP1], {
+        state: { data }
+      })
+      .catch(reason => reason);
   }
 
   get f(): { [p: string]: AbstractControl } {

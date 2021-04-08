@@ -55,7 +55,7 @@ export class LoginSpidService {
       if (res) {
         this.tokenService.setToken(JSON.parse(res));
         this.tokenService.setIsLogged(true);
-        void this.router.navigate(['/secure']);
+        this.router.navigate(['/secure']).catch(reason => reason);
       }
       this.loadingService.endRequest();
     });

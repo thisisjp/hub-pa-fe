@@ -23,7 +23,9 @@ export class HeaderComponent {
   ) {}
 
   goToPage(path: string): void {
-    void this.router.navigate([path]);
+    if (!this.isPathActive(path)) {
+      this.router.navigate([path]).catch(reason => reason);
+    }
   }
 
   logout(): void {
@@ -32,7 +34,7 @@ export class HeaderComponent {
         this.tokenService.removeToken();
         this.tokenService.setIsLogged(false);
         this.errorService.setError(new Message('', ''));
-        void this.router.navigate(['']);
+        this.router.navigate(['']).catch(reason => reason);
       }
     });
   }

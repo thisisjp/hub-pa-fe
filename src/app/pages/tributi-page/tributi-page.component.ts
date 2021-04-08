@@ -15,7 +15,6 @@ export class TributiPageComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // TODO chiamata per sapere se è già presente un tributo o meno
-    void this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP0]);
+    this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP1]).catch(reason => reason);
   }
 }

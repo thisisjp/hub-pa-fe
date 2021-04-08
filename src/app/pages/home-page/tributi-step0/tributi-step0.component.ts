@@ -15,6 +15,6 @@ export class TributiStep0Component {
   constructor(private router: Router) {}
 
   nextStep(): void {
-    void this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP1]);
+    this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP1]).catch(reason => reason);
   }
 }

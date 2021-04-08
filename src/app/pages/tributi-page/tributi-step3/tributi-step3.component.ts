@@ -48,14 +48,16 @@ export class TributiStep3Component implements OnInit {
   nextStep(): void {
     // TODO submit
     // console.log('submit', this.compiledForm);
-    // void this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP3]);
+    // this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP3]).catch(reason => reason);
   }
 
   prevStep(): void {
     const data = this.compiledForm;
-    void this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP2], {
-      state: { data }
-    });
+    this.router
+      .navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP2], {
+        state: { data }
+      })
+      .catch(reason => reason);
   }
 
   getFormattedDate(inputDate: string): string {

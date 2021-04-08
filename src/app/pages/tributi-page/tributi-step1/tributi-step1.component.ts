@@ -107,13 +107,15 @@ export class TributiStep1Component implements OnInit {
       [],
       denominationDefault
     );
-    void this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP2], {
-      state: { data }
-    });
+    this.router
+      .navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP2], {
+        state: { data }
+      })
+      .catch(reason => reason);
   }
 
   prevStep(): void {
-    void this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP0]);
+    this.router.navigate([this.menuEnum.HOME_PATH + '/' + this.tributiStepEnum.STEP0]).catch(reason => reason);
   }
 
   get f(): { [p: string]: AbstractControl } {
