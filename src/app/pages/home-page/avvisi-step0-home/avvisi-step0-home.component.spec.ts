@@ -4,9 +4,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
-import { AvvisiStep1Component } from './avvisi-step1.component';
+import { AvvisiStep0HomeComponent } from './avvisi-step0-home.component';
 
-describe('AvvisiStep1Component', () => {
+describe('AvvisiStep0HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -15,12 +15,12 @@ describe('AvvisiStep1Component', () => {
         NgxLocalStorageModule.forRoot(),
         RouterTestingModule
       ],
-      declarations: [AvvisiStep1Component]
+      declarations: [AvvisiStep0HomeComponent]
     }).compileComponents();
   });
 
   it('should create', () => {
-    const fixture = TestBed.createComponent(AvvisiStep1Component);
+    const fixture = TestBed.createComponent(AvvisiStep0HomeComponent);
     const component = fixture.componentInstance;
     fixture.detectChanges();
     expect(component).toBeTruthy();

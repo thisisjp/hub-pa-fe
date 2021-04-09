@@ -13,10 +13,10 @@ declare const $: any;
 
 @Component({
   selector: 'app-tributi-step1',
-  templateUrl: './tributi-step1.component.html',
-  styleUrls: ['./tributi-step1.component.sass']
+  templateUrl: './tributi-step1-imposta-enti.component.html',
+  styleUrls: ['./tributi-step1-imposta-enti.component.sass']
 })
-export class TributiStep1Component implements OnInit {
+export class TributiStep1ImpostaEntiComponent implements OnInit {
   private menuEnum = Menu;
   private tributiStepEnum = TributiStep;
   public formGroup: FormGroup = new FormGroup({});

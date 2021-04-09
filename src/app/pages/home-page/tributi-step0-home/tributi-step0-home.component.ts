@@ -5,10 +5,10 @@ import { TributiStep } from '../../../models/tributi-step';
 
 @Component({
   selector: 'app-tributi-step0',
-  templateUrl: './tributi-step0.component.html',
-  styleUrls: ['./tributi-step0.component.sass']
+  templateUrl: './tributi-step0-home.component.html',
+  styleUrls: ['./tributi-step0-home.component.sass']
 })
-export class TributiStep0Component {
+export class TributiStep0HomeComponent {
   private menuEnum = Menu;
   private tributiStepEnum = TributiStep;
 
