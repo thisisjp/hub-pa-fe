@@ -3,11 +3,28 @@ import { IbanList } from '../models/iban-list';
 import { SelectOptionList } from '../models/select-option-list';
 import { SelectOption } from '../models/select-option';
 import { CreditorList } from '../models/creditor-list';
+import { ServiceConfiguratedResponse } from '../models/service-configurated-response';
+import { Tribute } from '../models/tribute';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TributeService {
+  isServiceConfigurated(idCreditor: string): boolean {
+    const response = new ServiceConfiguratedResponse();
+    // eslint-disable-next-line functional/immutable-data
+    response.result = true;
+    return response.result;
+  }
+
+  // eslint-disable-next-line sonarjs/no-identical-functions
+  saveService(request: Tribute): boolean {
+    const response = new ServiceConfiguratedResponse();
+    // eslint-disable-next-line functional/immutable-data
+    response.result = true;
+    return response.result;
+  }
+
   getIbans(idCreditor: string): SelectOptionList {
     const response = new IbanList();
     // eslint-disable-next-line functional/immutable-data

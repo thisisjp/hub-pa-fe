@@ -34,7 +34,7 @@ export class TributiStep1ImpostaEntiComponent implements OnInit {
 
     const defaultValues = history.state?.data;
 
-    const ibanList = this.tributeService.getIbans('');
+    const ibanList = this.tributeService.getIbans(defaultValues?.idPrimaryCreditor);
     $('#ibanPrimarySelect').setOptionsToSelect(ibanList.options);
     // eslint-disable-next-line functional/immutable-data
     $('#ibanSecondarySelect > div > button')[0].disabled = true;
