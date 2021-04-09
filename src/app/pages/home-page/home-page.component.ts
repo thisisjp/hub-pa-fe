@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Menu } from '../../models/menu.enum';
 import { TributiStep } from '../../models/tributi-step';
 import { AvvisiStep } from '../../models/avvisi-step';
+import { TributeService } from '../../services/tribute.service';
 
 @Component({
   selector: 'app-home-page',
@@ -14,11 +15,13 @@ export class HomePageComponent implements OnInit {
   private tributiStepEnum = TributiStep;
   private avvisiStepEnum = AvvisiStep;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private tributeService: TributeService) {}
 
   ngOnInit(): void {
-    // TODO chiamata per sapere se andare su tributi o su impostazioni
-    this.router.navigate([this.menuEnum.HOME_PATH + '/' + this.tributiStepEnum.STEP0]).catch(reason => reason);
-    // this.router.navigate([this.menuEnum.HOME_PATH + '/' + this.avvisiStepEnum.STEP0]).catch(reason => reason);
+    if (this.tributeService.isServiceConfigurated('')) {
+      this.router.navigate([this.menuEnum.HOME_PATH + '/' + this.avvisiStepEnum.STEP0]).catch(reason => reason);
+    } else {
+      this.router.navigate([this.menuEnum.HOME_PATH + '/' + this.tributiStepEnum.STEP0]).catch(reason => reason);
+    }
   }
 }
