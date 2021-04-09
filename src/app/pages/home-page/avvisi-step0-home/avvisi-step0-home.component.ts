@@ -5,10 +5,10 @@ import { AvvisiStep } from '../../../models/avvisi-step';
 
 @Component({
   selector: 'app-avvisi-step0',
-  templateUrl: './avvisi-step0.component.html',
-  styleUrls: ['./avvisi-step0.component.sass']
+  templateUrl: './avvisi-step0-home.component.html',
+  styleUrls: ['./avvisi-step0-home.component.sass']
 })
-export class AvvisiStep0Component {
+export class AvvisiStep0HomeComponent {
   private menuEnum = Menu;
   private avvisiStepEnum = AvvisiStep;
 

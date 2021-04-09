@@ -9,16 +9,16 @@ import { AvvisiPageComponent } from './pages/avvisi-page/avvisi-page.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LoginSpidPageComponent } from './pages/login-spid-page/login-spid-page.component';
 import { Menu } from './models/menu.enum';
-import { TributiStep0Component } from './pages/home-page/tributi-step0/tributi-step0.component';
-import { TributiStep2Component } from './pages/tributi-page/tributi-step2/tributi-step2.component';
-import { TributiStep1Component } from './pages/tributi-page/tributi-step1/tributi-step1.component';
-import { TributiStep3Component } from './pages/tributi-page/tributi-step3/tributi-step3.component';
+import { TributiStep0HomeComponent } from './pages/home-page/tributi-step0-home/tributi-step0-home.component';
+import { TributiStep2DefinisciRateComponent } from './pages/tributi-page/tributi-step2-definisci-rate/tributi-step2-definisci-rate.component';
+import { TributiStep1ImpostaEntiComponent } from './pages/tributi-page/tributi-step1-imposta-enti/tributi-step1-imposta-enti.component';
+import { TributiStep3VerificaDatiComponent } from './pages/tributi-page/tributi-step3-verifica-dati/tributi-step3-verifica-dati.component';
 import { TributiStep } from './models/tributi-step';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AvvisiStep } from './models/avvisi-step';
-import { AvvisiStep0Component } from './pages/home-page/avvisi-step0/avvisi-step0.component';
-import { AvvisiStep1Component } from './pages/avvisi-page/avvisi-step1/avvisi-step1.component';
-import { AvvisiStep2Component } from './pages/avvisi-page/avvisi-step2/avvisi-step2.component';
+import { AvvisiStep0HomeComponent } from './pages/home-page/avvisi-step0-home/avvisi-step0-home.component';
+import { AvvisiStep1CaricaPosizioniComponent } from './pages/avvisi-page/avvisi-step1-carica-posizioni/avvisi-step1-carica-posizioni.component';
+import { AvvisiStep2StatoCaricamentiComponent } from './pages/avvisi-page/avvisi-step2-stato-caricamenti/avvisi-step2-stato-caricamenti.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 const menuEnum = Menu;
@@ -39,11 +39,11 @@ const routes: Routes = [
     children: [
       {
         path: tributiStepEnum.STEP0,
-        component: TributiStep0Component
+        component: TributiStep0HomeComponent
       },
       {
         path: avvisiStepEnum.STEP0,
-        component: AvvisiStep0Component
+        component: AvvisiStep0HomeComponent
       }
     ]
   },
@@ -54,15 +54,15 @@ const routes: Routes = [
     children: [
       {
         path: tributiStepEnum.STEP1,
-        component: TributiStep1Component
+        component: TributiStep1ImpostaEntiComponent
       },
       {
         path: tributiStepEnum.STEP2,
-        component: TributiStep2Component
+        component: TributiStep2DefinisciRateComponent
       },
       {
         path: tributiStepEnum.STEP3,
-        component: TributiStep3Component
+        component: TributiStep3VerificaDatiComponent
       }
     ]
   },
@@ -73,11 +73,11 @@ const routes: Routes = [
     children: [
       {
         path: avvisiStepEnum.STEP1,
-        component: AvvisiStep1Component
+        component: AvvisiStep1CaricaPosizioniComponent
       },
       {
         path: avvisiStepEnum.STEP2,
-        component: AvvisiStep2Component
+        component: AvvisiStep2StatoCaricamentiComponent
       }
     ]
   },

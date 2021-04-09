@@ -23,10 +23,10 @@ export function conditionalValidator(predicate: BooleanFn, validator: ValidatorF
 
 @Component({
   selector: 'app-tributi-step2',
-  templateUrl: './tributi-step2.component.html',
-  styleUrls: ['./tributi-step2.component.sass']
+  templateUrl: './tributi-step2-definisci-rate.component.html',
+  styleUrls: ['./tributi-step2-definisci-rate.component.sass']
 })
-export class TributiStep2Component implements OnInit {
+export class TributiStep2DefinisciRateComponent implements OnInit {
   private menuEnum = Menu;
   private tributiStepEnum = TributiStep;
   public formGroup: FormGroup = new FormGroup({});

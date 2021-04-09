@@ -28,14 +28,14 @@ import { SessionExpiredPageComponent } from './pages/session-expired-page/sessio
 import { AiutoPageComponent } from './pages/aiuto-page/aiuto-page.component';
 import { SecurityInterceptorService } from './services/security-interceptor.service';
 import { AuthGuardService } from './services/auth-guard.service';
-import { TributiStep0Component } from './pages/home-page/tributi-step0/tributi-step0.component';
-import { TributiStep1Component } from './pages/tributi-page/tributi-step1/tributi-step1.component';
-import { TributiStep2Component } from './pages/tributi-page/tributi-step2/tributi-step2.component';
-import { TributiStep3Component } from './pages/tributi-page/tributi-step3/tributi-step3.component';
+import { TributiStep0HomeComponent } from './pages/home-page/tributi-step0-home/tributi-step0-home.component';
+import { TributiStep1ImpostaEntiComponent } from './pages/tributi-page/tributi-step1-imposta-enti/tributi-step1-imposta-enti.component';
+import { TributiStep2DefinisciRateComponent } from './pages/tributi-page/tributi-step2-definisci-rate/tributi-step2-definisci-rate.component';
+import { TributiStep3VerificaDatiComponent } from './pages/tributi-page/tributi-step3-verifica-dati/tributi-step3-verifica-dati.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
-import { AvvisiStep0Component } from './pages/home-page/avvisi-step0/avvisi-step0.component';
-import { AvvisiStep1Component } from './pages/avvisi-page/avvisi-step1/avvisi-step1.component';
-import { AvvisiStep2Component } from './pages/avvisi-page/avvisi-step2/avvisi-step2.component';
+import { AvvisiStep0HomeComponent } from './pages/home-page/avvisi-step0-home/avvisi-step0-home.component';
+import { AvvisiStep1CaricaPosizioniComponent } from './pages/avvisi-page/avvisi-step1-carica-posizioni/avvisi-step1-carica-posizioni.component';
+import { AvvisiStep2StatoCaricamentiComponent } from './pages/avvisi-page/avvisi-step2-stato-caricamenti/avvisi-step2-stato-caricamenti.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
@@ -58,14 +58,14 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     LoginSpidPageComponent,
     SessionExpiredPageComponent,
     AiutoPageComponent,
-    TributiStep0Component,
-    TributiStep1Component,
-    TributiStep2Component,
-    TributiStep3Component,
+    TributiStep0HomeComponent,
+    TributiStep1ImpostaEntiComponent,
+    TributiStep2DefinisciRateComponent,
+    TributiStep3VerificaDatiComponent,
     HomePageComponent,
-    AvvisiStep0Component,
-    AvvisiStep1Component,
-    AvvisiStep2Component,
+    AvvisiStep0HomeComponent,
+    AvvisiStep1CaricaPosizioniComponent,
+    AvvisiStep2StatoCaricamentiComponent,
     NotFoundPageComponent
   ],
   imports: [

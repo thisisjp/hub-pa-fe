@@ -7,10 +7,10 @@ import { CreditorEntry } from '../../../models/creditor-entry';
 
 @Component({
   selector: 'app-tributi-step3',
-  templateUrl: './tributi-step3.component.html',
-  styleUrls: ['./tributi-step3.component.sass']
+  templateUrl: './tributi-step3-verifica-dati.component.html',
+  styleUrls: ['./tributi-step3-verifica-dati.component.sass']
 })
-export class TributiStep3Component implements OnInit {
+export class TributiStep3VerificaDatiComponent implements OnInit {
   private menuEnum = Menu;
   private tributiStepEnum = TributiStep;
   compiledForm = new Tribute('', '', '', '', 0, [], true, true, '', [], '');
