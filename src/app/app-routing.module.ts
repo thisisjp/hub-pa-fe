@@ -20,6 +20,7 @@ import { AvvisiStep0HomeComponent } from './pages/home-page/avvisi-step0-home/av
 import { AvvisiStep1CaricaPosizioniComponent } from './pages/avvisi-page/avvisi-step1-carica-posizioni/avvisi-step1-carica-posizioni.component';
 import { AvvisiStep2StatoCaricamentiComponent } from './pages/avvisi-page/avvisi-step2-stato-caricamenti/avvisi-step2-stato-caricamenti.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { TributiStep4ViewComponent } from './pages/tributi-page/tributi-step4-view/tributi-step4-view.component';
 
 const menuEnum = Menu;
 const tributiStepEnum = TributiStep;
@@ -63,6 +64,10 @@ const routes: Routes = [
       {
         path: tributiStepEnum.STEP3,
         component: TributiStep3VerificaDatiComponent
+      },
+      {
+        path: tributiStepEnum.STEP4,
+        component: TributiStep4ViewComponent
       }
     ]
   },

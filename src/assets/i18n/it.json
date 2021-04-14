@@ -1,4 +1,4 @@
-{
+﻿{
   "AGGIUNGI_RATA": "Aggiungi rata",
   "ANNULLA": "Annulla",
   "AIUTO": "Serve aiuto?",
@@ -44,6 +44,7 @@
   "TEFA_SU_TOTALE": "TEFA sul totale",
   "TORNA_HOMEPAGE": "Torna alla Home Page",
   "TRIBUTI": "Configura tributo",
+  "TRIBUTO_CONFIGURATO": "Tributo configurato",
   "TUTTO_CORRETTO": "È tutto corretto?",
   "TUTTO_CORRETTO_WARNING_1": "Verifica i dati inseriti. Una volta confermato, il tributo non potrà essere modificato.",
   "TUTTO_CORRETTO_WARNING_2": "Una volta confermato, non potrai più apportare modifiche."

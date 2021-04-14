@@ -37,6 +37,7 @@ import { AvvisiStep0HomeComponent } from './pages/home-page/avvisi-step0-home/av
 import { AvvisiStep1CaricaPosizioniComponent } from './pages/avvisi-page/avvisi-step1-carica-posizioni/avvisi-step1-carica-posizioni.component';
 import { AvvisiStep2StatoCaricamentiComponent } from './pages/avvisi-page/avvisi-step2-stato-caricamenti/avvisi-step2-stato-caricamenti.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { TributiStep4ViewComponent } from './pages/tributi-page/tributi-step4-view/tributi-step4-view.component';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -66,7 +67,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     AvvisiStep0HomeComponent,
     AvvisiStep1CaricaPosizioniComponent,
     AvvisiStep2StatoCaricamentiComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    TributiStep4ViewComponent
   ],
   imports: [
     BrowserModule,
