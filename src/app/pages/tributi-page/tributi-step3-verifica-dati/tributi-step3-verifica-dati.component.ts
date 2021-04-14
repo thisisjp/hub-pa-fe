@@ -17,7 +17,7 @@ export class TributiStep3VerificaDatiComponent implements OnInit {
   private menuEnum = Menu;
   private tributiStepEnum = TributiStep;
   private avvisiStepEnum = AvvisiStep;
-  compiledForm = new Tribute('', '', '', '', 0, [], true, true, '', [], '');
+  compiledForm = new Tribute('', '', '', '', 0, '', '', [], true, true, '', [], '');
   primaryCreditor = new CreditorEntry();
   secondaryCreditor = new CreditorEntry();
 
@@ -31,6 +31,8 @@ export class TributiStep3VerificaDatiComponent implements OnInit {
       history.state?.data?.ibanPrimary,
       history.state?.data?.ibanSecondary,
       history.state?.data?.percentageSecondary,
+      history.state?.data?.fiscalCodePrimaryCreditor,
+      history.state?.data?.fiscalCodeSecondaryCreditor,
       history.state?.data?.creditorList,
       history.state?.data?.abilitaUnica,
       history.state?.data?.abilitaRate,

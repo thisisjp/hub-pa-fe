@@ -9,6 +9,8 @@ export class Tribute {
   ibanPrimary = '';
   ibanSecondary = '';
   percentageSecondary = 0;
+  fiscalCodePrimaryCreditor = '';
+  fiscalCodeSecondaryCreditor = '';
   abilitaUnica = true;
   abilitaRate = true;
   dueDateUnique = '';
@@ -22,6 +24,8 @@ export class Tribute {
     ibanPrimary: string,
     ibanSecondary: string,
     percentageSecondary: number,
+    fiscalCodePrimaryCreditor: string,
+    fiscalCodeSecondaryCreditor: string,
     creditorList: Array<CreditorEntry>,
     abilitaUnica: boolean,
     abilitaRate: boolean,
@@ -34,6 +38,8 @@ export class Tribute {
     this.ibanPrimary = ibanPrimary;
     this.ibanSecondary = ibanSecondary;
     this.percentageSecondary = percentageSecondary;
+    this.fiscalCodePrimaryCreditor = fiscalCodePrimaryCreditor;
+    this.fiscalCodeSecondaryCreditor = fiscalCodeSecondaryCreditor;
     this.creditorList = creditorList;
     this.abilitaUnica = abilitaUnica;
     this.abilitaRate = abilitaRate;
