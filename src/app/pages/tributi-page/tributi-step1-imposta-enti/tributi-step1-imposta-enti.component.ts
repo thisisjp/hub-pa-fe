@@ -94,12 +94,20 @@ export class TributiStep1ImpostaEntiComponent implements OnInit {
   }
 
   nextStep(): void {
+    const fiscalCodePrimaryCreditor = this.f.creditorList.value.filter(
+      (elem: any) => elem.id === this.f.idPrimaryCreditor.value
+    )[0].codiceFiscale;
+    const fiscalCodeSecondaryCreditor = this.f.creditorList.value.filter(
+      (elem: any) => elem.id === this.f.idSecondaryCreditor.value
+    )[0].codiceFiscale;
     const data = new Tribute(
       this.f.idPrimaryCreditor.value,
       this.f.idSecondaryCreditor.value,
       this.f.ibanPrimary.value,
       this.f.ibanSecondary.value,
       this.f.percentageSecondary.value,
+      fiscalCodePrimaryCreditor,
+      fiscalCodeSecondaryCreditor,
       this.f.creditorList.value,
       true,
       true,
