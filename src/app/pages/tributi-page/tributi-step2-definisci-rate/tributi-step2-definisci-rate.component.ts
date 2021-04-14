@@ -5,6 +5,7 @@ import { Menu } from '../../../models/menu.enum';
 import { TributiStep } from '../../../models/tributi-step';
 import { denominationDefault, Tribute } from '../../../models/tribute';
 import { Installment } from '../../../models/installment';
+
 declare const $: any;
 
 export type BooleanFn = () => boolean;

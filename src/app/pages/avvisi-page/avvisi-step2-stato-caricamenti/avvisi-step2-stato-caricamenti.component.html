@@ -1,1 +1,103 @@
-<p>avvisi-step2 works!</p>
+<nav class="breadcrumb-container" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a (click)="goToPage(menuEnum.AVVISI_PATH + '/' + avvisiEnum.STEP1)">{{ menuEnum.AVVISI_CODE | translate }}</a
+      ><span class="separator">/</span>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{{ 'STATO_CARICAMENTI' | translate }}</li>
+  </ol>
+</nav>
+
+<div class="form-group row">
+  <table class="table table-borderless">
+    <tbody>
+      <ng-container *ngFor="let elem of paymentJobList.list; let i = index; first as isFirst">
+        <tr *ngIf="isFirst">
+          <td colspan="6">
+            <h4>{{ 'ULTIMO_CARICAMENTO' | translate }}</h4>
+            <p>{{ 'ELABORAZIONE_CARICAMENTO' | translate }}</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="align-middle">
+            <svg class="icon icon-sm" [ngClass]="getSvgClass(paymentJobList.list[i].status)">
+              <use
+                xlink:href="/assets/img/sprite.svg#it-refresh"
+                *ngIf="paymentJobList.list[i].status === statusEnum.IN_CORSO"
+              ></use>
+              <use
+                xlink:href="/assets/img/sprite.svg#it-check-circle"
+                *ngIf="paymentJobList.list[i].status === statusEnum.OK"
+              ></use>
+              <use
+                xlink:href="/assets/img/sprite.svg#it-warning-circle"
+                *ngIf="paymentJobList.list[i].status === statusEnum.PARZIALE"
+              ></use>
+              <use
+                xlink:href="/assets/img/sprite.svg#it-close-circle"
+                *ngIf="paymentJobList.list[i].status === statusEnum.FALLITO"
+              ></use>
+            </svg>
+          </td>
+          <td class="align-middle">
+            <strong>{{ paymentJobList.list[i].fileName }}</strong>
+            <br />
+            <small class="text-muted">{{ paymentJobList.list[i].insertDate }}</small>
+          </td>
+          <td class="align-middle">
+            <ng-container *ngIf="paymentJobList.list[i].nrecordFound > 0">
+              <strong>{{ paymentJobList.list[i].nrecordFound }}</strong>
+              <br />
+              <small class="text-muted">{{ 'TROVATE' | translate }}</small>
+            </ng-container>
+          </td>
+          <td class="align-middle">
+            <ng-container *ngIf="paymentJobList.list[i].nrecordAdded > 0">
+              <strong>{{ paymentJobList.list[i].nrecordAdded }}</strong>
+              <br />
+              <small class="text-muted">{{ 'AGGIUNTE' | translate }}</small>
+            </ng-container>
+          </td>
+          <td class="align-middle">
+            <span class="badge app-display-block" [ngClass]="getBadgeClass(paymentJobList.list[i].status)">{{
+              getBadgeText(paymentJobList.list[i].status) | translate
+            }}</span>
+          </td>
+          <td class="align-middle">
+            <button
+              (click)="openDettagli(paymentJobList.list[i].jobId)"
+              class="btn btn-outline-primary btn-sm d-none d-lg-block"
+              type="button"
+            >
+              {{ 'DETTAGLI' | translate }}
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="isFirst">
+          <td colspan="6">
+            <h4>{{ 'CARICAMENTI_PRECEDENTI' | translate }}</h4>
+            <p *ngIf="paymentJobList.list.length < 2">{{ 'CARICAMENTI_PRECEDENTI_ASSENTI' | translate }}</p>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalCenter">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ 'CARICAMENTO_IN_CORSO' | translate | uppercase }}</h5>
+      </div>
+      <div class="modal-body">
+        <p>{{ 'CARICAMENTO_IN_CORSO_DETTAGLI' | translate }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary btn-sm" data-dismiss="modal" (click)="init()" type="button">
+          {{ 'AGGIORNA' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

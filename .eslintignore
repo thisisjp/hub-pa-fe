@@ -8,3 +8,5 @@ generated
 # Don't lint conf files
 .eslintrc.js
 karma.config.js
+
+**/*.html

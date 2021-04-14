@@ -12,7 +12,7 @@ declare function notificationShow(notificationTarget: string, notificationTimeOu
   styleUrls: ['./avvisi-step0-home.component.sass']
 })
 export class AvvisiStep0HomeComponent implements OnInit {
-  private menuEnum = Menu;
+  menuEnum = Menu;
   private avvisiStepEnum = AvvisiStep;
   notifica: Notifica = new Notifica('', '');
 
@@ -29,5 +29,9 @@ export class AvvisiStep0HomeComponent implements OnInit {
 
   nextStep(): void {
     this.router.navigate([this.menuEnum.AVVISI_PATH + '/' + this.avvisiStepEnum.STEP1]).catch(reason => reason);
+  }
+
+  goToPage(path: string): void {
+    this.router.navigate([path]).catch(reason => reason);
   }
 }
