@@ -56,7 +56,7 @@ export class TributiStep3VerificaDatiComponent implements OnInit {
     if (this.tributeService.saveService(this.compiledForm)) {
       const data = new Notifica(
         'Configurazione completata',
-        'Il tributo è stato configurato con successo. Adesso puoi caricare le posizioni debitorie'
+        'Il tributo è stato configurato con successo. Adesso puoi caricare le posizioni debitorie.'
       );
       this.router
         .navigate([this.menuEnum.HOME_PATH + '/' + this.avvisiStepEnum.STEP0], {

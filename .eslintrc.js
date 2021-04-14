@@ -81,6 +81,7 @@ module.exports = {
     'functional/immutable-data': 'error',
     'sonarjs/no-small-switch': 'off',
     'sonarjs/no-duplicate-string': 'off',
+    'angular/interval-service': 'off',
     'angular/timeout-service': 'off'
   },
   settings: {}
