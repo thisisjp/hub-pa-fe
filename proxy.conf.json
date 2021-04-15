@@ -1,6 +1,21 @@
 {
-  "/tariTefaBe/*": {
-    "target": "http://localhost:8080",
+  "/microservice/*": {
+    "target": "http://localhost:8081",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/ente-creditore/*": {
+    "target": "http://localhost:8082",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/service-management/*": {
+    "target": "http://localhost:8083",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/upload-payments/*": {
+    "target": "http://localhost:8084",
     "secure": false,
     "logLevel": "debug"
   }
