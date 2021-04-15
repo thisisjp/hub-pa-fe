@@ -5,8 +5,9 @@
 export const environment = {
   production: false,
   environmentName: 'SVILUPPO',
-  API_URL: '/tariTefaBe',
-  HOST_URL: 'http://localhost:8080'
+  API_URL: 'http://localhost',
+  HOST_URL: 'http://localhost:8083',
+  cvsMaxRows: 500
 };
 
 /*

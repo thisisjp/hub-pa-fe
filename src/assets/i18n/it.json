@@ -63,5 +63,15 @@
   "TUTTO_CORRETTO": "È tutto corretto?",
   "TUTTO_CORRETTO_WARNING_1": "Verifica i dati inseriti. Una volta confermato, il tributo non potrà essere modificato.",
   "TUTTO_CORRETTO_WARNING_2": "Una volta confermato, non potrai più apportare modifiche.",
-  "ULTIMO_CARICAMENTO": "Ultimo caricamento"
+  "ULTIMO_CARICAMENTO": "Ultimo caricamento",
+  "CARICA_POSIZIONI_DEBITORIE": "Carica posizioni debitorie",
+  "TRASCINA_CSV":"Trascina il file CSV per caricarlo",
+  "OPPURE":"oppure",
+  "SELECT_DISPOSITIVO":"selezionalo dal dispositivo",
+  "ALERT_TITLE_MAX_ROWS":"IL FILE E' TROPPO GRANDE",
+  "ALERT_MAX_ROWS1":"Spiacenti, puoi caricare fino a ",
+  "ALERT_MAX_ROWS2":" posizioni per ciascun file. Consulta la guida all'uso per maggiori informazioni",
+  "ALERT_GENERIC":"Spiacenti, il file contiene errori alla riga ",
+  "RIPROVA":"RIPROVA",
+  "FIELD":"Campo: "
 }
