@@ -13,7 +13,7 @@ export class TributeService {
   isServiceConfigurated(idCreditor: string): boolean {
     const response = new ServiceConfiguratedResponse();
     // eslint-disable-next-line functional/immutable-data
-    response.result = true;
+    response.result = false;
     return response.result;
   }
 
