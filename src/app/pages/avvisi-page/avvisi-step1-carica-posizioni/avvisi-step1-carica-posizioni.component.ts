@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable sonarjs/cognitive-complexity */
+/* eslint-disable complexity */
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AvvisiStep } from 'src/app/models/avvisi-step';
@@ -44,6 +47,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
 
   @HostListener('dragover', ['$event'])
   onDragOver(event: DragEvent) {
+    // eslint-disable-next-line functional/immutable-data
     this.image1.nativeElement.className = 'resize border border-secondary rounded box';
     event.stopPropagation();
     event.preventDefault();
@@ -51,6 +55,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
 
   @HostListener('dragleave', ['$event'])
   onDragLeave(event: DragEvent) {
+    // eslint-disable-next-line functional/immutable-data
     this.image1.nativeElement.className = 'border border-secondary rounded box';
     event.stopPropagation();
     event.preventDefault();
@@ -58,11 +63,12 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
 
   @HostListener('drop', ['$event'])
   onDrop(event: DragEvent) {
+    // eslint-disable-next-line functional/immutable-data
     this.image1.nativeElement.className = 'border border-secondary rounded box';
     event.stopPropagation();
     event.preventDefault();
     const file = event.dataTransfer?.files[0];
-    this.parse(file as File);
+    this.load(file as File);
   }
 
   constructor(
@@ -78,19 +84,18 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     // }
   }
   nextStep() {
-    console.log('aaaaaaaaaaaaaaa');
     this.router.navigate([this.menuEnum.AVVISI_PATH + '/' + this.avvisiStepEnum.STEP2]).catch(reason => reason);
   }
 
   upload(e: any) {
-    console.log('upload');
     const file = e.target.files[0];
-    this.parse(file);
+    this.load(file);
   }
 
-  parse(file: File) {
+  load(file: File) {
     const reader = new FileReader();
     reader.readAsText(file);
+    // eslint-disable-next-line functional/immutable-data
     reader.onload = () => {
       const csvData: string = reader.result as string;
       const csvRecordsArray = csvData.split(/\r\n|\n/);
@@ -100,7 +105,9 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
         return;
       }
 
+      // eslint-disable-next-line functional/no-let
       for (let i = 1; i < csvRecordsArray.length; i++) {
+        // eslint-disable-next-line functional/immutable-data
         this.rownumber = i;
         if (csvRecordsArray[i].length > 0) {
           const record = csvRecordsArray[i].split(';');
@@ -109,118 +116,137 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
             return;
           }
           // check codicefiscale/piva
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'CodiceFiscale/P.IVA';
-          if (record[0].length == 0) {
+          if (record[0].length === 0) {
             this.openModalObbligatorio();
             return;
           }
 
-          //check pagatore
+          // check pagatore
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Tipo Pagatore';
-          if (record[1].length == 0) {
+          if (record[1].length === 0) {
             this.openModalObbligatorio();
             return;
           }
 
           if (record[1].length > 1) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 1;
             this.openModalLengthMax();
             return;
           }
 
-          if (record[1] != 'F' && record[1] != 'G') {
+          if (record[1] !== 'F' && record[1] !== 'G') {
             this.openModalFormatNotValid();
             return;
           }
 
           // check nome
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Nome';
-          if (record[2].length == 0) {
+          if (record[2].length === 0) {
             this.openModalObbligatorio();
             return;
           }
 
           // check cognome
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Cognome';
-          if (record[3].length == 0) {
+          if (record[3].length === 0) {
             this.openModalObbligatorio();
             return;
           }
 
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Nome e Cognome';
           if (record[2].length + record[3].length > 70) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 70;
             this.openModalLengthMax();
             return;
           }
 
           // check indirizzo
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Indirizzo';
-          if (record[4].length == 0) {
+          if (record[4].length === 0) {
             this.openModalObbligatorio();
             return;
           }
           if (record[4].length > 70) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 70;
             this.openModalLengthMax();
             return;
           }
 
           // check civico
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Civico';
-          if (record[5].length == 0) {
+          if (record[5].length === 0) {
             this.openModalObbligatorio();
             return;
           }
           if (record[5].length > 16) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 16;
             this.openModalLengthMax();
             return;
           }
 
           // check località
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Localita';
-          if (record[6].length == 0) {
+          if (record[6].length === 0) {
             this.openModalObbligatorio();
             return;
           }
           if (record[6].length > 35) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 35;
             this.openModalLengthMax();
             return;
           }
 
           // check provincia
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Provincia';
-          if (record[7].length == 0) {
+          if (record[7].length === 0) {
             this.openModalObbligatorio();
             return;
           }
           if (record[7].length > 35) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 35;
             this.openModalLengthMax();
             return;
           }
 
           // check cap
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'CAP';
-          if (record[8].length == 0) {
+          if (record[8].length === 0) {
             this.openModalObbligatorio();
             return;
           }
           if (record[8].length > 16) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 16;
             this.openModalLengthMax();
             return;
           }
 
           // check nazione
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Nazione';
-          if (record[9].length == 0) {
+          if (record[9].length === 0) {
             this.openModalObbligatorio();
             return;
           }
           if (record[9].length > 2) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 2;
             this.openModalLengthMax();
             return;
@@ -231,7 +257,8 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
             return;
           }
 
-          //check riga indirizzo
+          // check riga indirizzo
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Indirizzo Civico Loclita Provincia CAP Nazione';
           if (
             record[4].length +
@@ -242,19 +269,22 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
               record[9].length >
             80
           ) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 80;
             this.openModalLengthMax();
             return;
           }
 
           // check email
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Email';
-          if (record[10].length == 0) {
+          if (record[10].length === 0) {
             this.openModalObbligatorio();
             return;
           }
 
           if (record[10].length > 256) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 256;
             this.openModalLengthMax();
             return;
@@ -266,33 +296,39 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
           }
 
           // check telefono
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Telefono';
-          if (record[11].length == 0) {
+          if (record[11].length === 0) {
             this.openModalObbligatorio();
             return;
           }
           if (record[11].length > 19) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 19;
             this.openModalLengthMax();
             return;
           }
 
           // check idtenanat
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'ID Tenant';
           if (record[12].length > 50) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 50;
             this.openModalLengthMax();
             return;
           }
 
           // check importo
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Importo';
-          if (record[13].length == 0) {
+          if (record[13].length === 0) {
             this.openModalObbligatorio();
             return;
           }
 
           if (record[13].length > 12) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 12;
             this.openModalLengthMax();
             return;
@@ -304,12 +340,14 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
           }
 
           // check causale
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Causale';
-          if (record[14].length == 0) {
+          if (record[14].length === 0) {
             this.openModalObbligatorio();
             return;
           }
           if (record[14].length > 60) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 60;
             this.openModalLengthMax();
             return;
@@ -321,12 +359,14 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
           }
 
           // check riscossione
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'Dati Specifici Riscossione';
-          if (record[15].length == 0) {
+          if (record[15].length === 0) {
             this.openModalObbligatorio();
             return;
           }
           if (record[15].length > 140) {
+            // eslint-disable-next-line functional/immutable-data
             this.maxlength = 60;
             this.openModalLengthMax();
             return;
@@ -337,77 +377,88 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
             return;
           }
 
+          // eslint-disable-next-line functional/immutable-data
           this.field = 'CodiceFiscale/P.IVA';
-          if (record[1] == 'F' && !this.checkcodicefiscale(record[0])) {
+          if (record[1] === 'F' && !this.checkcodicefiscale(record[0])) {
             this.openModalFormatNotValid();
             return;
           }
 
-          if (record[1] == 'G' && !this.checkpiva(record[0])) {
+          if (record[1] === 'G' && !this.checkpiva(record[0])) {
             this.openModalFormatNotValid();
             return;
           }
 
-          const row: CsvRow = {};
-          row.fiscalCode = record[0];
-          row.type = record[1] == 'F' ? 1 : 0;
-          row.name = record[2];
-          row.surname = record[3];
-          row.address = record[4];
-          row.number = record[5];
-          row.area = record[6];
-          row.province = record[7];
-          row.cap = record[8];
-          row.country = record[9];
-          row.email = record[10];
-          row.phone = record[11];
-          row.idTenant = record[12];
-          row.amount = Number(record[13]) / 100;
-          row.reason = record[14];
+          const row: CsvRow = {
+            fiscalCode : record[0],
+            type : record[1] === 'F' ? 1 : 0,
+            name : record[2],
+            surname : record[3],
+            address : record[4],
+            number : record[5],
+            area : record[6],
+            province : record[7],
+            cap : record[8],
+            country : record[9],
+            email : record[10],
+            phone : record[11],
+            idTenant : record[12],
+            amount : Number(record[13]) / 100,
+            reason : record[14]
+          };
+          
+          // eslint-disable-next-line functional/immutable-data
           row.taxonomy = record[15];
+          // eslint-disable-next-line functional/immutable-data
           this.modelJson.push(row);
         }
       }
 
+      // eslint-disable-next-line no-console
       console.log(this.modelJson);
       const tribute = this.tributeService.getService('');
+      // eslint-disable-next-line functional/immutable-data
       this.uploadModel.tributeService = tribute;
     };
   }
 
-  checkcodicefiscale(cf: string): boolean {
-    cf = cf.toUpperCase().trim();
+  // eslint-disable-next-line complexity
+  checkcodicefiscale(codfiscale: string): boolean {
+    const cf = codfiscale.toUpperCase().trim();
 
-    if (cf.length != 16) {
+    if (cf.length !== 16) {
       return false;
     }
 
+    // eslint-disable-next-line functional/no-let
     for (let i = 0; i < 6; i++) {
       if (cf.charAt(i) < 'A' || cf.charAt(i) > 'Z') {
         return false;
       }
     }
     const year = this.getYear(cf.substring(6, 8));
-    if (year == undefined) {
+    if (year === undefined) {
       return false;
     }
     const month = this.getMonth(cf.charAt(8));
-    if (month == undefined) {
+    if (month === undefined) {
       return false;
     }
     const dd = cf.substring(9, 11);
     const cifra1 = this.getDigitPerOmonimia(dd.charAt(0));
     const cifra2 = this.getDigitPerOmonimia(dd.charAt(1));
-    if (cifra1 == undefined || cifra2 == undefined) {
+    if (cifra1 === undefined || cifra2 === undefined) {
       return false;
     }
+
+    // eslint-disable-next-line functional/no-let
     let day: number = Number(String(cifra1) + String(cifra2));
     if (day > 40) {
       day = day - 30;
     }
 
     const date = new Date(year, month - 1, day);
-    if (day != date.getDate()) {
+    if (day !== date.getDate()) {
       return false;
     }
 
@@ -431,12 +482,12 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
   }
 
   getYear(yy: string) {
-    if (yy == null || yy.length != 2) {
+    if (yy === null || yy.length !== 2) {
       return;
     } else {
       const cifra1 = this.getDigitPerOmonimia(yy.charAt(0));
       const cifra2 = this.getDigitPerOmonimia(yy.charAt(1));
-      if (cifra1 == undefined || cifra2 == undefined) {
+      if (cifra1 === undefined || cifra2 === undefined) {
         return;
       }
       const result = String(cifra1) + String(cifra2);
@@ -480,7 +531,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
       case 'T':
         return 12;
     }
-    return;
+    return undefined;
   }
 
   getDigitPerOmonimia(character: string) {
@@ -507,22 +558,27 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
   }
 
   checkpiva(piva: string): boolean {
+    // eslint-disable-next-line functional/no-let
     let c: number = 0;
+    // eslint-disable-next-line functional/no-let
     let s: number = 0;
-    if (piva.length == 0) {
+    if (piva.length === 0) {
       return false;
     }
-    if (piva.length != 11) {
+    if (piva.length !== 11) {
       return false;
     }
+    // eslint-disable-next-line functional/no-let
     for (let i = 0; i < 11; i++) {
       if (piva.charAt(i) < '0' || piva.charAt(i) > '9') {
         return false;
       }
     }
+    // eslint-disable-next-line functional/no-let
     for (let i = 0; i <= 9; i += 2) {
-      s += Number(piva.charAt(i));
+      Object.assign(s + Number(piva.charAt(i)), s);
     }
+    // eslint-disable-next-line functional/no-let
     for (let i = 1; i <= 9; i += 2) {
       c = 2 * Number(piva.charAt(i));
       if (c > 9) {
@@ -530,7 +586,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
       }
       s += c;
     }
-    if ((10 - (s % 10)) % 10 != Number(piva.charAt(10))) {
+    if ((10 - (s % 10)) % 10 !== Number(piva.charAt(10))) {
       return false;
     }
     return true;
