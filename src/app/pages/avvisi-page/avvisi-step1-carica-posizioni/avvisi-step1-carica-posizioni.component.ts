@@ -26,32 +26,39 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
   maxrows: number = environment.cvsMaxRows;
   rownumber: number = 0;
   field: string = '';
+  maxlength: number = 0;
 
   REGEX_NATION = new RegExp('[A-Z]{2,2}');
   REGEX_EMAIL = new RegExp('[a-zA-Z0-9_\\.\\+\\-]+@[a-zA-Z0-9\\-]+(\\.[a-zA-Z0-9\\-]+)*');
   REGEX_DATI_SPECIFICI_RISCOSSIONE = new RegExp('[0129]{1}/\\S{3,138}');
   REGEX_AMOUNT = new RegExp('^[0-9]*$');
+  REGEX_CAUSALE = new RegExp('^/RFB/[a-zA-Z0-9]+/[0-9]+/TXT/Descrizione Causale RPT$');
+
+  @ViewChild('box') image1: any;
 
   @ViewChild('btncontent1') btnmodal1: any;
   @ViewChild('btncontent2') btnmodal2: any;
+  @ViewChild('btncontent3') btnmodal3: any;
+  @ViewChild('btncontent4') btnmodal4: any;
+  @ViewChild('btncontent5') btnmodal5: any;
 
   @HostListener('dragover', ['$event'])
   onDragOver(event: DragEvent) {
-    console.log('A');
+    this.image1.nativeElement.className = 'resize border border-secondary rounded box';
     event.stopPropagation();
     event.preventDefault();
   }
 
   @HostListener('dragleave', ['$event'])
   onDragLeave(event: DragEvent) {
-    console.log('B');
+    this.image1.nativeElement.className = 'border border-secondary rounded box';
     event.stopPropagation();
     event.preventDefault();
   }
 
   @HostListener('drop', ['$event'])
   onDrop(event: DragEvent) {
-    console.log('E');
+    this.image1.nativeElement.className = 'border border-secondary rounded box';
     event.stopPropagation();
     event.preventDefault();
     const file = event.dataTransfer?.files[0];
@@ -65,11 +72,11 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     private tributeService: TributeService
   ) {}
 
-  ngOnInit(): void {}
-
-  // ngAfterViewInit() {
-  //   this.el1.nativeElement.addEventListener('dragenter', console.log('llllllllllllllll'));
-  // }
+  ngOnInit(): void {
+    // ngAfterViewInit() {
+    //   this.el1.nativeElement.addEventListener('dragenter', console.log('llllllllllllllll'));
+    // }
+  }
   nextStep() {
     console.log('aaaaaaaaaaaaaaa');
     this.router.navigate([this.menuEnum.AVVISI_PATH + '/' + this.avvisiStepEnum.STEP2]).catch(reason => reason);
@@ -98,179 +105,246 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
         if (csvRecordsArray[i].length > 0) {
           const record = csvRecordsArray[i].split(';');
           if (record.length < 16) {
-            this.openModalGeneric();
+            this.openModalFileNotValid();
             return;
           }
           // check codicefiscale/piva
           this.field = 'CodiceFiscale/P.IVA';
-          if (record[0].length == 0 || record[0].length > 35) {
-            this.openModalGeneric();
+          if (record[0].length == 0) {
+            this.openModalObbligatorio();
             return;
           }
 
-          // check pagatore
+          //check pagatore
           this.field = 'Tipo Pagatore';
-          if (record[1].length != 1) {
-            this.openModalGeneric();
+          if (record[1].length == 0) {
+            this.openModalObbligatorio();
             return;
           }
+
+          if (record[1].length > 1) {
+            this.maxlength = 1;
+            this.openModalLengthMax();
+            return;
+          }
+
           if (record[1] != 'F' && record[1] != 'G') {
-            this.openModalGeneric();
+            this.openModalFormatNotValid();
             return;
           }
 
           // check nome
           this.field = 'Nome';
           if (record[2].length == 0) {
-            this.openModalGeneric();
+            this.openModalObbligatorio();
             return;
           }
 
           // check cognome
           this.field = 'Cognome';
           if (record[3].length == 0) {
-            this.openModalGeneric();
+            this.openModalObbligatorio();
             return;
           }
 
-          this.field = 'Nome/Cognome';
+          this.field = 'Nome e Cognome';
           if (record[2].length + record[3].length > 70) {
-            this.openModalGeneric();
+            this.maxlength = 70;
+            this.openModalLengthMax();
             return;
           }
 
           // check indirizzo
           this.field = 'Indirizzo';
           if (record[4].length == 0) {
-            this.openModalGeneric();
+            this.openModalObbligatorio();
             return;
           }
           if (record[4].length > 70) {
-            this.openModalGeneric();
+            this.maxlength = 70;
+            this.openModalLengthMax();
             return;
           }
 
           // check civico
           this.field = 'Civico';
           if (record[5].length == 0) {
-            this.openModalGeneric();
+            this.openModalObbligatorio();
             return;
           }
           if (record[5].length > 16) {
-            this.openModalGeneric();
+            this.maxlength = 16;
+            this.openModalLengthMax();
             return;
           }
 
           // check località
           this.field = 'Localita';
           if (record[6].length == 0) {
-            this.openModalGeneric();
+            this.openModalObbligatorio();
             return;
           }
           if (record[6].length > 35) {
-            this.openModalGeneric();
+            this.maxlength = 35;
+            this.openModalLengthMax();
             return;
           }
 
           // check provincia
           this.field = 'Provincia';
           if (record[7].length == 0) {
-            this.openModalGeneric();
+            this.openModalObbligatorio();
             return;
           }
           if (record[7].length > 35) {
-            this.openModalGeneric();
+            this.maxlength = 35;
+            this.openModalLengthMax();
             return;
           }
 
           // check cap
           this.field = 'CAP';
           if (record[8].length == 0) {
-            this.openModalGeneric();
+            this.openModalObbligatorio();
             return;
           }
           if (record[8].length > 16) {
-            this.openModalGeneric();
+            this.maxlength = 16;
+            this.openModalLengthMax();
             return;
           }
 
           // check nazione
           this.field = 'Nazione';
-          if (record[9].length != 2) {
-            this.openModalGeneric();
+          if (record[9].length == 0) {
+            this.openModalObbligatorio();
+            return;
+          }
+          if (record[9].length > 2) {
+            this.maxlength = 2;
+            this.openModalLengthMax();
             return;
           }
 
           if (!this.REGEX_NATION.test(record[9])) {
-            this.openModalGeneric();
+            this.openModalFormatNotValid();
+            return;
+          }
+
+          //check riga indirizzo
+          this.field = 'Indirizzo Civico Loclita Provincia CAP Nazione';
+          if (
+            record[4].length +
+              record[5].length +
+              record[6].length +
+              record[7].length +
+              record[8].length +
+              record[9].length >
+            80
+          ) {
+            this.maxlength = 80;
+            this.openModalLengthMax();
             return;
           }
 
           // check email
           this.field = 'Email';
-          if (record[10].length == 0 || record[10].length > 256) {
-            this.openModalGeneric();
+          if (record[10].length == 0) {
+            this.openModalObbligatorio();
+            return;
+          }
+
+          if (record[10].length > 256) {
+            this.maxlength = 256;
+            this.openModalLengthMax();
             return;
           }
 
           if (!this.REGEX_EMAIL.test(record[10])) {
-            this.openModalGeneric();
+            this.openModalFormatNotValid();
             return;
           }
 
           // check telefono
           this.field = 'Telefono';
-          if (record[11].length == 0 || record[11].length > 19) {
-            this.openModalGeneric();
+          if (record[11].length == 0) {
+            this.openModalObbligatorio();
+            return;
+          }
+          if (record[11].length > 19) {
+            this.maxlength = 19;
+            this.openModalLengthMax();
             return;
           }
 
           // check idtenanat
           this.field = 'ID Tenant';
           if (record[12].length > 50) {
-            this.openModalGeneric();
+            this.maxlength = 50;
+            this.openModalLengthMax();
             return;
           }
 
           // check importo
           this.field = 'Importo';
-          if (record[13].length == 0 || record[13].length > 12) {
-            this.openModalGeneric();
+          if (record[13].length == 0) {
+            this.openModalObbligatorio();
+            return;
+          }
+
+          if (record[13].length > 12) {
+            this.maxlength = 12;
+            this.openModalLengthMax();
             return;
           }
 
           if (!this.REGEX_AMOUNT.test(record[13])) {
-            this.openModalGeneric();
+            this.openModalFormatNotValid();
             return;
           }
 
           // check causale
           this.field = 'Causale';
-          if (record[14].length == 0 || record[14].length > 60) {
-            this.openModalGeneric();
+          if (record[14].length == 0) {
+            this.openModalObbligatorio();
+            return;
+          }
+          if (record[14].length > 60) {
+            this.maxlength = 60;
+            this.openModalLengthMax();
+            return;
+          }
+
+          if (!this.REGEX_CAUSALE.test(record[14])) {
+            this.openModalFormatNotValid();
             return;
           }
 
           // check riscossione
           this.field = 'Dati Specifici Riscossione';
-          if (record[15].length < 3 && record[15].length > 140) {
-            this.openModalGeneric();
+          if (record[15].length == 0) {
+            this.openModalObbligatorio();
+            return;
+          }
+          if (record[15].length > 140) {
+            this.maxlength = 60;
+            this.openModalLengthMax();
             return;
           }
 
           if (!this.REGEX_DATI_SPECIFICI_RISCOSSIONE.test(record[15])) {
-            this.openModalGeneric();
+            this.openModalFormatNotValid();
             return;
           }
 
           this.field = 'CodiceFiscale/P.IVA';
           if (record[1] == 'F' && !this.checkcodicefiscale(record[0])) {
-            this.openModalGeneric();
+            this.openModalFormatNotValid();
             return;
           }
 
           if (record[1] == 'G' && !this.checkpiva(record[0])) {
-            this.openModalGeneric();
+            this.openModalFormatNotValid();
             return;
           }
 
@@ -299,14 +373,6 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
       const tribute = this.tributeService.getService('');
       this.uploadModel.tributeService = tribute;
     };
-  }
-
-  openModalMaxRow() {
-    this.btnmodal1.nativeElement.click();
-  }
-
-  openModalGeneric() {
-    this.btnmodal2.nativeElement.click();
   }
 
   checkcodicefiscale(cf: string): boolean {
@@ -339,7 +405,11 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     if (day > 40) {
       day = day - 30;
     }
-    const date = new Date(year, month, day);
+
+    const date = new Date(year, month - 1, day);
+    if (day != date.getDate()) {
+      return false;
+    }
 
     if (cf.charAt(11) < 'A' || cf.charAt(11) > 'Z') {
       return false;
@@ -437,7 +507,6 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
   }
 
   checkpiva(piva: string): boolean {
-    const i: number = 0;
     let c: number = 0;
     let s: number = 0;
     if (piva.length == 0) {
@@ -475,5 +544,24 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
         this.router.navigate([this.menuEnum.AVVISI_PATH + '/' + this.avvisiStepEnum.STEP2]).catch(reason => reason);
       }
     });
+  }
+
+  openModalMaxRow() {
+    this.btnmodal1.nativeElement.click();
+  }
+
+  openModalObbligatorio() {
+    this.btnmodal2.nativeElement.click();
+  }
+
+  openModalLengthMax() {
+    this.btnmodal3.nativeElement.click();
+  }
+
+  openModalFormatNotValid() {
+    this.btnmodal4.nativeElement.click();
+  }
+  openModalFileNotValid() {
+    this.btnmodal5.nativeElement.click();
   }
 }
