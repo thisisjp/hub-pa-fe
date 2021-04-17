@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable complexity */
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
@@ -76,7 +75,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     private loadingService: LoaderService,
     private uploadService: UploadService,
     private tributeService: TributeService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // ngAfterViewInit() {
@@ -99,327 +98,329 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     reader.onload = () => {
       const csvData: string = reader.result as string;
       const csvRecordsArray = csvData.split(/\r\n|\n/);
-
-      if (csvRecordsArray.length > this.maxrows + 1) {
-        this.openModalMaxRow();
-        return;
-      }
-
-      // eslint-disable-next-line functional/no-let
-      for (let i = 1; i < csvRecordsArray.length; i++) {
-        // eslint-disable-next-line functional/immutable-data
-        this.rownumber = i;
-        if (csvRecordsArray[i].length > 0) {
-          const record = csvRecordsArray[i].split(';');
-          if (record.length < 16) {
-            this.openModalFileNotValid();
-            return;
-          }
-          // check codicefiscale/piva
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'CodiceFiscale/P.IVA';
-          if (record[0].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-
-          // check pagatore
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Tipo Pagatore';
-          if (record[1].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-
-          if (record[1].length > 1) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 1;
-            this.openModalLengthMax();
-            return;
-          }
-
-          if (record[1] !== 'F' && record[1] !== 'G') {
-            this.openModalFormatNotValid();
-            return;
-          }
-
-          // check nome
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Nome';
-          if (record[2].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-
-          // check cognome
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Cognome';
-          if (record[3].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Nome e Cognome';
-          if (record[2].length + record[3].length > 70) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 70;
-            this.openModalLengthMax();
-            return;
-          }
-
-          // check indirizzo
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Indirizzo';
-          if (record[4].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-          if (record[4].length > 70) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 70;
-            this.openModalLengthMax();
-            return;
-          }
-
-          // check civico
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Civico';
-          if (record[5].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-          if (record[5].length > 16) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 16;
-            this.openModalLengthMax();
-            return;
-          }
-
-          // check località
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Localita';
-          if (record[6].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-          if (record[6].length > 35) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 35;
-            this.openModalLengthMax();
-            return;
-          }
-
-          // check provincia
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Provincia';
-          if (record[7].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-          if (record[7].length > 35) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 35;
-            this.openModalLengthMax();
-            return;
-          }
-
-          // check cap
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'CAP';
-          if (record[8].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-          if (record[8].length > 16) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 16;
-            this.openModalLengthMax();
-            return;
-          }
-
-          // check nazione
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Nazione';
-          if (record[9].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-          if (record[9].length > 2) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 2;
-            this.openModalLengthMax();
-            return;
-          }
-
-          if (!this.REGEX_NATION.test(record[9])) {
-            this.openModalFormatNotValid();
-            return;
-          }
-
-          // check riga indirizzo
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Indirizzo Civico Loclita Provincia CAP Nazione';
-          if (
-            record[4].length +
-              record[5].length +
-              record[6].length +
-              record[7].length +
-              record[8].length +
-              record[9].length >
-            80
-          ) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 80;
-            this.openModalLengthMax();
-            return;
-          }
-
-          // check email
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Email';
-          if (record[10].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-
-          if (record[10].length > 256) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 256;
-            this.openModalLengthMax();
-            return;
-          }
-
-          if (!this.REGEX_EMAIL.test(record[10])) {
-            this.openModalFormatNotValid();
-            return;
-          }
-
-          // check telefono
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Telefono';
-          if (record[11].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-          if (record[11].length > 19) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 19;
-            this.openModalLengthMax();
-            return;
-          }
-
-          // check idtenanat
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'ID Tenant';
-          if (record[12].length > 50) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 50;
-            this.openModalLengthMax();
-            return;
-          }
-
-          // check importo
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Importo';
-          if (record[13].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-
-          if (record[13].length > 12) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 12;
-            this.openModalLengthMax();
-            return;
-          }
-
-          if (!this.REGEX_AMOUNT.test(record[13])) {
-            this.openModalFormatNotValid();
-            return;
-          }
-
-          // check causale
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Causale';
-          if (record[14].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-          if (record[14].length > 60) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 60;
-            this.openModalLengthMax();
-            return;
-          }
-
-          if (!this.REGEX_CAUSALE.test(record[14])) {
-            this.openModalFormatNotValid();
-            return;
-          }
-
-          // check riscossione
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'Dati Specifici Riscossione';
-          if (record[15].length === 0) {
-            this.openModalObbligatorio();
-            return;
-          }
-          if (record[15].length > 140) {
-            // eslint-disable-next-line functional/immutable-data
-            this.maxlength = 60;
-            this.openModalLengthMax();
-            return;
-          }
-
-          if (!this.REGEX_DATI_SPECIFICI_RISCOSSIONE.test(record[15])) {
-            this.openModalFormatNotValid();
-            return;
-          }
-
-          // eslint-disable-next-line functional/immutable-data
-          this.field = 'CodiceFiscale/P.IVA';
-          if (record[1] === 'F' && !this.checkcodicefiscale(record[0])) {
-            this.openModalFormatNotValid();
-            return;
-          }
-
-          if (record[1] === 'G' && !this.checkpiva(record[0])) {
-            this.openModalFormatNotValid();
-            return;
-          }
-
-          const row: CsvRow = {
-            fiscalCode : record[0],
-            type : record[1] === 'F' ? 1 : 0,
-            name : record[2],
-            surname : record[3],
-            address : record[4],
-            number : record[5],
-            area : record[6],
-            province : record[7],
-            cap : record[8],
-            country : record[9],
-            email : record[10],
-            phone : record[11],
-            idTenant : record[12],
-            amount : Number(record[13]) / 100,
-            reason : record[14]
-          };
-          
-          // eslint-disable-next-line functional/immutable-data
-          row.taxonomy = record[15];
-          // eslint-disable-next-line functional/immutable-data
-          this.modelJson.push(row);
-        }
-      }
-
-      // eslint-disable-next-line no-console
-      console.log(this.modelJson);
-      const tribute = this.tributeService.getService('');
-      // eslint-disable-next-line functional/immutable-data
-      this.uploadModel.tributeService = tribute;
+      this.parse(csvRecordsArray);
     };
+  }
+
+  parse(csvRecordsArray: Array<string>) {
+    if (csvRecordsArray.length > this.maxrows + 1) {
+      this.openModalMaxRow();
+      return;
+    }
+
+    // eslint-disable-next-line functional/no-let
+    for (let i = 1; i < csvRecordsArray.length; i++) {
+      // eslint-disable-next-line functional/immutable-data
+      this.rownumber = i;
+      if (csvRecordsArray[i].length > 0) {
+        const record = csvRecordsArray[i].split(';');
+        if (record.length < 16) {
+          this.openModalFileNotValid();
+          return;
+        }
+        // check codicefiscale/piva
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'CodiceFiscale/P.IVA';
+        if (record[0].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+
+        // check pagatore
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Tipo Pagatore';
+        if (record[1].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+
+        if (record[1].length > 1) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 1;
+          this.openModalLengthMax();
+          return;
+        }
+
+        if (record[1] !== 'F' && record[1] !== 'G') {
+          this.openModalFormatNotValid();
+          return;
+        }
+
+        // check nome
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Nome';
+        if (record[2].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+
+        // check cognome
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Cognome';
+        if (record[3].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Nome e Cognome';
+        if (record[2].length + record[3].length > 70) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 70;
+          this.openModalLengthMax();
+          return;
+        }
+
+        // check indirizzo
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Indirizzo';
+        if (record[4].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+        if (record[4].length > 70) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 70;
+          this.openModalLengthMax();
+          return;
+        }
+
+        // check civico
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Civico';
+        if (record[5].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+        if (record[5].length > 16) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 16;
+          this.openModalLengthMax();
+          return;
+        }
+
+        // check località
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Localita';
+        if (record[6].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+        if (record[6].length > 35) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 35;
+          this.openModalLengthMax();
+          return;
+        }
+
+        // check provincia
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Provincia';
+        if (record[7].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+        if (record[7].length > 35) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 35;
+          this.openModalLengthMax();
+          return;
+        }
+
+        // check cap
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'CAP';
+        if (record[8].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+        if (record[8].length > 16) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 16;
+          this.openModalLengthMax();
+          return;
+        }
+
+        // check nazione
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Nazione';
+        if (record[9].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+        if (record[9].length > 2) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 2;
+          this.openModalLengthMax();
+          return;
+        }
+
+        if (!this.REGEX_NATION.test(record[9])) {
+          this.openModalFormatNotValid();
+          return;
+        }
+
+        // check riga indirizzo
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Indirizzo Civico Localita Provincia CAP Nazione';
+        if (
+          record[4].length +
+          record[5].length +
+          record[6].length +
+          record[7].length +
+          record[8].length +
+          record[9].length >
+          80
+        ) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 80;
+          this.openModalLengthMax();
+          return;
+        }
+
+        // check email
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Email';
+        if (record[10].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+
+        if (record[10].length > 256) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 256;
+          this.openModalLengthMax();
+          return;
+        }
+
+        if (!this.REGEX_EMAIL.test(record[10])) {
+          this.openModalFormatNotValid();
+          return;
+        }
+
+        // check telefono
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Telefono';
+        if (record[11].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+        if (record[11].length > 19) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 19;
+          this.openModalLengthMax();
+          return;
+        }
+
+        // check idtenanat
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'ID Tenant';
+        if (record[12].length > 50) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 50;
+          this.openModalLengthMax();
+          return;
+        }
+
+        // check importo
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Importo';
+        if (record[13].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+
+        if (record[13].length > 12) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 12;
+          this.openModalLengthMax();
+          return;
+        }
+
+        if (!this.REGEX_AMOUNT.test(record[13])) {
+          this.openModalFormatNotValid();
+          return;
+        }
+
+        // check causale
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Causale';
+        if (record[14].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+        if (record[14].length > 60) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 60;
+          this.openModalLengthMax();
+          return;
+        }
+
+        if (!this.REGEX_CAUSALE.test(record[14])) {
+          this.openModalFormatNotValid();
+          return;
+        }
+
+        // check riscossione
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'Dati Specifici Riscossione';
+        if (record[15].length === 0) {
+          this.openModalObbligatorio();
+          return;
+        }
+        if (record[15].length > 140) {
+          // eslint-disable-next-line functional/immutable-data
+          this.maxlength = 60;
+          this.openModalLengthMax();
+          return;
+        }
+
+        if (!this.REGEX_DATI_SPECIFICI_RISCOSSIONE.test(record[15])) {
+          this.openModalFormatNotValid();
+          return;
+        }
+
+        // eslint-disable-next-line functional/immutable-data
+        this.field = 'CodiceFiscale/P.IVA';
+        if (record[1] === 'F' && !this.checkcodicefiscale(record[0])) {
+          this.openModalFormatNotValid();
+          return;
+        }
+
+        if (record[1] === 'G' && !this.checkpiva(record[0])) {
+          this.openModalFormatNotValid();
+          return;
+        }
+
+        const row: CsvRow = {
+          fiscalCode: record[0],
+          type: record[1] === 'F' ? 1 : 0,
+          name: record[2],
+          surname: record[3],
+          address: record[4],
+          number: record[5],
+          area: record[6],
+          province: record[7],
+          cap: record[8],
+          country: record[9],
+          email: record[10],
+          phone: record[11],
+          idTenant: record[12],
+          amount: Number(record[13]) / 100,
+          reason: record[14]
+        };
+
+        // eslint-disable-next-line functional/immutable-data
+        row.taxonomy = record[15];
+        // eslint-disable-next-line functional/immutable-data
+        this.modelJson.push(row);
+      }
+    }
+
+    //  console.log(this.modelJson);
+    const tribute = this.tributeService.getService('');
+    // eslint-disable-next-line functional/immutable-data
+    this.uploadModel.tributeService = tribute;
   }
 
   // eslint-disable-next-line complexity
@@ -576,7 +577,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     }
     // eslint-disable-next-line functional/no-let
     for (let i = 0; i <= 9; i += 2) {
-      Object.assign(s + Number(piva.charAt(i)), s);
+      s += Number(piva.charAt(i));
     }
     // eslint-disable-next-line functional/no-let
     for (let i = 1; i <= 9; i += 2) {
