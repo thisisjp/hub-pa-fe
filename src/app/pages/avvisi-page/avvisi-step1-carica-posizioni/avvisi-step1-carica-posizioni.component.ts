@@ -26,9 +26,9 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
   private uploadModel: UploadCSVModel = {};
 
   maxrows: number = environment.cvsMaxRows;
-  rownumber: number = 0;
-  field: string = '';
-  maxlength: number = 0;
+  rownumber = 0;
+  field = '';
+  maxlength = 0;
 
   REGEX_NATION = new RegExp('[A-Z]{2,2}');
   REGEX_EMAIL = new RegExp('[a-zA-Z0-9_\\.\\+\\-]+@[a-zA-Z0-9\\-]+(\\.[a-zA-Z0-9\\-]+)*');
@@ -45,7 +45,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
   @ViewChild('btncontent5') btnmodal5: any;
 
   @HostListener('dragover', ['$event'])
-  onDragOver(event: DragEvent) {
+  onDragOver(event: DragEvent): void {
     // eslint-disable-next-line functional/immutable-data
     this.image1.nativeElement.className = 'resize border border-secondary rounded box';
     event.stopPropagation();
@@ -53,7 +53,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
   }
 
   @HostListener('dragleave', ['$event'])
-  onDragLeave(event: DragEvent) {
+  onDragLeave(event: DragEvent): void {
     // eslint-disable-next-line functional/immutable-data
     this.image1.nativeElement.className = 'border border-secondary rounded box';
     event.stopPropagation();
@@ -61,7 +61,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
   }
 
   @HostListener('drop', ['$event'])
-  onDrop(event: DragEvent) {
+  onDrop(event: DragEvent): void {
     // eslint-disable-next-line functional/immutable-data
     this.image1.nativeElement.className = 'border border-secondary rounded box';
     event.stopPropagation();
@@ -75,23 +75,23 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     private loadingService: LoaderService,
     private uploadService: UploadService,
     private tributeService: TributeService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     // ngAfterViewInit() {
     //   this.el1.nativeElement.addEventListener('dragenter', console.log('llllllllllllllll'));
     // }
   }
-  nextStep() {
+  nextStep(): void {
     this.router.navigate([this.menuEnum.AVVISI_PATH + '/' + this.avvisiStepEnum.STEP2]).catch(reason => reason);
   }
 
-  upload(e: any) {
+  upload(e: any): void {
     const file = e.target.files[0];
     this.load(file);
   }
 
-  load(file: File) {
+  load(file: File): void {
     const reader = new FileReader();
     reader.readAsText(file);
     // eslint-disable-next-line functional/immutable-data
@@ -102,7 +102,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     };
   }
 
-  parse(csvRecordsArray: Array<string>) {
+  parse(csvRecordsArray: Array<string>): void {
     if (csvRecordsArray.length > this.maxrows + 1) {
       this.openModalMaxRow();
       return;
@@ -265,11 +265,11 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
         this.field = 'Indirizzo Civico Localita Provincia CAP Nazione';
         if (
           record[4].length +
-          record[5].length +
-          record[6].length +
-          record[7].length +
-          record[8].length +
-          record[9].length >
+            record[5].length +
+            record[6].length +
+            record[7].length +
+            record[8].length +
+            record[9].length >
           80
         ) {
           // eslint-disable-next-line functional/immutable-data
@@ -482,7 +482,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     return true;
   }
 
-  getYear(yy: string) {
+  getYear(yy: string): number | undefined {
     if (yy === null || yy.length !== 2) {
       return;
     } else {
@@ -495,17 +495,17 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
       const now = new Date();
 
       const year = now.getFullYear();
-      const year_sup = String(year).substr(0, 2);
-      const year_inf = String(year).substr(2, 4);
-      if (Number(result) < Number(year_inf)) {
-        return Number(year_sup + result);
+      const yearSup = String(year).substr(0, 2);
+      const yearInf = String(year).substr(2, 4);
+      if (Number(result) < Number(yearInf)) {
+        return Number(yearSup + result);
       } else {
-        return Number(year_sup + result) - 100;
+        return Number(yearSup + result) - 100;
       }
     }
   }
 
-  getMonth(character: string) {
+  getMonth(character: string): undefined | number {
     switch (character) {
       case 'A':
         return 1;
@@ -535,7 +535,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     return undefined;
   }
 
-  getDigitPerOmonimia(character: string) {
+  getDigitPerOmonimia(character: string): number | undefined {
     const map: Map<string, number> = new Map();
     map.set('L', 0);
     map.set('M', 1);
@@ -560,9 +560,9 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
 
   checkpiva(piva: string): boolean {
     // eslint-disable-next-line functional/no-let
-    let c: number = 0;
+    let c = 0;
     // eslint-disable-next-line functional/no-let
-    let s: number = 0;
+    let s = 0;
     if (piva.length === 0) {
       return false;
     }
@@ -593,7 +593,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     return true;
   }
 
-  caricaCSV() {
+  caricaCSV(): void {
     this.loadingService.startRequest();
     this.uploadService.uploadCSV(this.uploadModel).subscribe((res: BaseResponse) => {
       this.loadingService.endRequest();
@@ -603,22 +603,22 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     });
   }
 
-  openModalMaxRow() {
+  openModalMaxRow(): void {
     this.btnmodal1.nativeElement.click();
   }
 
-  openModalObbligatorio() {
+  openModalObbligatorio(): void {
     this.btnmodal2.nativeElement.click();
   }
 
-  openModalLengthMax() {
+  openModalLengthMax(): void {
     this.btnmodal3.nativeElement.click();
   }
 
-  openModalFormatNotValid() {
+  openModalFormatNotValid(): void {
     this.btnmodal4.nativeElement.click();
   }
-  openModalFileNotValid() {
+  openModalFileNotValid(): void {
     this.btnmodal5.nativeElement.click();
   }
 }
