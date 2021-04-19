@@ -12,6 +12,6 @@ export class UploadService {
   constructor(private http: HttpClient) {}
 
   public uploadCSV(model: UploadCSVModel): Observable<BaseResponse> {
-    return this.http.post<BaseResponse>(environment.HOST_URL + '/upload-payments', model);
+    return this.http.post<BaseResponse>(environment.API_URL + '/upload-payments', model);
   }
 }

@@ -4,6 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { LoaderService } from '../../services/loader.service';
 import { LoginSpidService } from '../../services/login-spid.service';
 import { LoginSpidPageComponent } from './login-spid-page.component';
@@ -11,7 +12,12 @@ import { LoginSpidPageComponent } from './login-spid-page.component';
 describe('LoginSpidPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, NgxLocalStorageModule.forRoot(), RouterTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        NgxLocalStorageModule.forRoot(),
+        RouterTestingModule,
+        TranslateModule.forRoot({})
+      ],
       declarations: [LoginSpidPageComponent],
       providers: [LoaderService, LoginSpidService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
