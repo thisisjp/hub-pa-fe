@@ -16,9 +16,9 @@
       </div>
       <div class="form-group row">
         <div class="col-7">
-          <div class="bootstrap-select-wrapper disabled" id="idPrimaryCreditorSelect">
+          <div class="bootstrap-select-wrapper disabled" id="primaryCreditorSelect">
             <label>{{ 'ENTE_CREDITORE' | translate }}</label>
-            <select title="Scegli una opzione" [formControlName]="'idPrimaryCreditor'"></select>
+            <select title="Scegli una opzione" [formControlName]="'fiscalCodePrimaryCreditor'"></select>
           </div>
         </div>
         <div class="col-5">
@@ -38,13 +38,13 @@
       </div>
       <div class="form-group row">
         <div class="col-7">
-          <div class="bootstrap-select-wrapper" id="idSecondaryCreditorSelect">
+          <div class="bootstrap-select-wrapper" id="secondaryCreditorSelect">
             <label>{{ 'ENTE_CREDITORE' | translate }}</label>
             <select
               title="Scegli una opzione"
               data-live-search="true"
               data-live-search-placeholder="Cerca opzioni"
-              [formControlName]="'idSecondaryCreditor'"
+              [formControlName]="'fiscalCodeSecondaryCreditor'"
               (change)="changedSecondaryCreditor()"
             ></select>
           </div>

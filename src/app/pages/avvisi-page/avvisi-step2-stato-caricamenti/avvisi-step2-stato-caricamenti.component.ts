@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Menu } from '../../../models/menu.enum';
-import { AvvisiStep } from '../../../models/avvisi-step';
-import { PaymentJobList } from '../../../models/payment-job-list';
-import { PaymentJobService } from '../../../services/payment-job.service';
 import { PaymentJobStatus } from '../../../models/payment-job-status.enum';
+import { UploadPaymentsService } from '../../../services/upload-payments.service';
+import { TokenService } from '../../../services/token.service';
+import { PaymentJob } from '../../../models/payment-job';
 
 declare const $: any;
 
@@ -15,15 +15,18 @@ declare const $: any;
 })
 export class AvvisiStep2StatoCaricamentiComponent implements OnInit, OnDestroy {
   menuEnum = Menu;
-  avvisiEnum = AvvisiStep;
-  paymentJobList = new PaymentJobList();
-  paymentJobListPending = new PaymentJobList();
+  paymentJobList: Array<PaymentJob> = [];
+  paymentJobListPending: Array<number> = [];
   statusEnum = PaymentJobStatus;
   private AVVISI_STATO_CARICAMENTI_INTERVAL = 5;
   private AVVISI_STATO_CARICAMENTI_MAX_RETRY = 3;
   private interval = 0;
 
-  constructor(private router: Router, private paymentJobService: PaymentJobService) {}
+  constructor(
+    private router: Router,
+    private uploadPaymentsService: UploadPaymentsService,
+    private tokenService: TokenService
+  ) {}
 
   goToPage(path: string): void {
     this.router.navigate([path]).catch(reason => reason);
@@ -38,11 +41,25 @@ export class AvvisiStep2StatoCaricamentiComponent implements OnInit, OnDestroy {
   }
 
   init(): void {
+    this.uploadPaymentsService.getAll(this.tokenService.getFiscalCode()).subscribe(res => {
+      if (res && res.length > 0) {
+        // eslint-disable-next-line functional/immutable-data
+        this.paymentJobList = res;
+        this.checkJobListPending();
+      }
+    });
+  }
+
+  private checkJobListPending(): void {
     // eslint-disable-next-line functional/immutable-data
-    this.paymentJobList = this.paymentJobService.getJobList('');
-    // eslint-disable-next-line functional/immutable-data
-    this.paymentJobListPending.list = this.paymentJobList.list.filter(elem => elem.status === this.statusEnum.IN_CORSO);
-    if (this.paymentJobListPending.list.length > 0) {
+    this.paymentJobListPending = [];
+    for (const elem of this.paymentJobList) {
+      if (elem.status === this.statusEnum.IN_CORSO && elem.jobId) {
+        // eslint-disable-next-line functional/immutable-data
+        this.paymentJobListPending.push(elem.jobId);
+      }
+    }
+    if (this.paymentJobListPending.length > 0) {
       // eslint-disable-next-line functional/no-let
       let retries = 0;
       // eslint-disable-next-line functional/immutable-data
@@ -52,17 +69,18 @@ export class AvvisiStep2StatoCaricamentiComponent implements OnInit, OnDestroy {
           clearInterval(this.interval);
           $('#modalCenter').modal();
         } else {
-          // console.log('getStatus', retries);
-          if (this.paymentJobService.getStatus(this.paymentJobListPending)) {
-            clearInterval(this.interval);
-            this.init();
-          }
+          this.uploadPaymentsService.statusChanged(this.paymentJobListPending).subscribe(res2 => {
+            if (res2 && res2.result) {
+              clearInterval(this.interval);
+              this.init();
+            }
+          });
         }
       }, this.AVVISI_STATO_CARICAMENTI_INTERVAL * 1000);
     }
   }
 
-  getBadgeClass(status: number): string {
+  getBadgeClass(status?: number): string {
     switch (status) {
       case this.statusEnum.IN_CORSO:
         return 'badge-secondary';
@@ -77,7 +95,7 @@ export class AvvisiStep2StatoCaricamentiComponent implements OnInit, OnDestroy {
     }
   }
 
-  getBadgeText(status: number): string {
+  getBadgeText(status?: number): string {
     switch (status) {
       case this.statusEnum.IN_CORSO:
         return 'In corso';
@@ -92,7 +110,7 @@ export class AvvisiStep2StatoCaricamentiComponent implements OnInit, OnDestroy {
     }
   }
 
-  getSvgClass(status: number): string {
+  getSvgClass(status?: number): string {
     switch (status) {
       case this.statusEnum.IN_CORSO:
         return 'icon-secondary';
@@ -107,7 +125,13 @@ export class AvvisiStep2StatoCaricamentiComponent implements OnInit, OnDestroy {
     }
   }
 
-  openDettagli(jobId: number): void {
-    this.paymentJobService.downloadFile(jobId);
+  openDettagli(jobId?: number): void {
+    if (jobId) {
+      this.uploadPaymentsService.downloadFile(jobId);
+    }
+  }
+
+  hasElem(nrecordFound?: number): boolean {
+    return !!nrecordFound && nrecordFound > 0;
   }
 }

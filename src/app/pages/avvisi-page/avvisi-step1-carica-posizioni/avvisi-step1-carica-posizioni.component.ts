@@ -2,15 +2,16 @@
 /* eslint-disable complexity */
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AvvisiStep } from 'src/app/models/avvisi-step';
 import { BaseResponse } from 'src/app/models/base-response';
 import { CsvRow } from 'src/app/models/csv-row';
 import { Menu } from 'src/app/models/menu.enum';
 import { UploadCSVModel } from 'src/app/models/upload-csv-model';
-import { LoaderService } from 'src/app/services/loader.service';
-import { TributeService } from 'src/app/services/tribute.service';
-import { UploadService } from 'src/app/services/upload.service';
 import { environment } from 'src/environments/environment';
+import { TokenService } from '../../../services/token.service';
+import { PaymentJob } from '../../../models/payment-job';
+import { PaymentJobStatus } from '../../../models/payment-job-status.enum';
+import { UploadPaymentsService } from '../../../services/upload-payments.service';
+import { ServiceManagementService } from '../../../services/service-management.service';
 
 @Component({
   selector: 'app-avvisi-step1',
@@ -19,11 +20,9 @@ import { environment } from 'src/environments/environment';
 })
 export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
   private menuEnum = Menu;
-  private avvisiStepEnum = AvvisiStep;
+  private statusEnum = PaymentJobStatus;
 
-  private modelJson: Array<CsvRow> = [];
-
-  private uploadModel: UploadCSVModel = {};
+  private uploadModel = new UploadCSVModel();
 
   maxrows: number = environment.cvsMaxRows;
   rownumber = 0;
@@ -72,9 +71,9 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private loadingService: LoaderService,
-    private uploadService: UploadService,
-    private tributeService: TributeService
+    private uploadPaymentsService: UploadPaymentsService,
+    private serviceManagementService: ServiceManagementService,
+    private tokenService: TokenService
   ) {}
 
   ngOnInit(): void {
@@ -83,7 +82,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     // }
   }
   nextStep(): void {
-    this.router.navigate([this.menuEnum.AVVISI_PATH + '/' + this.avvisiStepEnum.STEP2]).catch(reason => reason);
+    this.router.navigate([this.menuEnum.AVVISI_PATH + '/' + this.menuEnum.AVVISI_STEP2]).catch(reason => reason);
   }
 
   upload(e: any): void {
@@ -94,6 +93,8 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
   load(file: File): void {
     const reader = new FileReader();
     reader.readAsText(file);
+    // eslint-disable-next-line functional/immutable-data
+    this.uploadModel.csv.fileName = file.name;
     // eslint-disable-next-line functional/immutable-data
     reader.onload = () => {
       const csvData: string = reader.result as string;
@@ -114,7 +115,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
       this.rownumber = i;
       if (csvRecordsArray[i].length > 0) {
         const record = csvRecordsArray[i].split(';');
-        if (record.length < 16) {
+        if (record.length < 15) {
           this.openModalFileNotValid();
           return;
         }
@@ -361,25 +362,6 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
           return;
         }
 
-        // check riscossione
-        // eslint-disable-next-line functional/immutable-data
-        this.field = 'Dati Specifici Riscossione';
-        if (record[15].length === 0) {
-          this.openModalObbligatorio();
-          return;
-        }
-        if (record[15].length > 140) {
-          // eslint-disable-next-line functional/immutable-data
-          this.maxlength = 60;
-          this.openModalLengthMax();
-          return;
-        }
-
-        if (!this.REGEX_DATI_SPECIFICI_RISCOSSIONE.test(record[15])) {
-          this.openModalFormatNotValid();
-          return;
-        }
-
         // eslint-disable-next-line functional/immutable-data
         this.field = 'CodiceFiscale/P.IVA';
         if (record[1] === 'F' && !this.checkcodicefiscale(record[0])) {
@@ -411,16 +393,17 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
         };
 
         // eslint-disable-next-line functional/immutable-data
-        row.taxonomy = record[15];
-        // eslint-disable-next-line functional/immutable-data
-        this.modelJson.push(row);
+        this.uploadModel.csv.rows.push(row);
       }
     }
 
-    //  console.log(this.modelJson);
-    const tribute = this.tributeService.getService('');
-    // eslint-disable-next-line functional/immutable-data
-    this.uploadModel.tributeService = tribute;
+    this.serviceManagementService.getService(this.tokenService.getFiscalCode()).subscribe(res => {
+      if (res) {
+        // eslint-disable-next-line functional/immutable-data
+        this.uploadModel.tributeService = res;
+        this.caricaCSV();
+      }
+    });
   }
 
   // eslint-disable-next-line complexity
@@ -594,11 +577,9 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
   }
 
   caricaCSV(): void {
-    this.loadingService.startRequest();
-    this.uploadService.uploadCSV(this.uploadModel).subscribe((res: BaseResponse) => {
-      this.loadingService.endRequest();
+    this.uploadPaymentsService.upload(this.uploadModel).subscribe((res: BaseResponse) => {
       if (res.result) {
-        this.router.navigate([this.menuEnum.AVVISI_PATH + '/' + this.avvisiStepEnum.STEP2]).catch(reason => reason);
+        this.router.navigate([this.menuEnum.AVVISI_PATH + '/' + this.menuEnum.AVVISI_STEP2]).catch(reason => reason);
       }
     });
   }
@@ -609,16 +590,30 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
 
   openModalObbligatorio(): void {
     this.btnmodal2.nativeElement.click();
+    this.createJobRecord();
   }
 
   openModalLengthMax(): void {
     this.btnmodal3.nativeElement.click();
+    this.createJobRecord();
   }
 
   openModalFormatNotValid(): void {
     this.btnmodal4.nativeElement.click();
+    this.createJobRecord();
   }
+
   openModalFileNotValid(): void {
     this.btnmodal5.nativeElement.click();
+    this.createJobRecord();
+  }
+
+  createJobRecord(): void {
+    const model: PaymentJob = {
+      status: this.statusEnum.FALLITO,
+      fiscalCode: this.tokenService.getFiscalCode(),
+      fileName: this.uploadModel.csv.fileName
+    };
+    this.uploadPaymentsService.createJobRecord(model).subscribe();
   }
 }

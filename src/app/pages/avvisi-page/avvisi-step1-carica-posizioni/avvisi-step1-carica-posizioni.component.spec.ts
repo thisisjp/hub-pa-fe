@@ -3,14 +3,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
-import { LoaderService } from 'src/app/services/loader.service';
-import { TributeService } from 'src/app/services/tribute.service';
-import { UploadService } from 'src/app/services/upload.service';
+import { UploadPaymentsService } from '../../../services/upload-payments.service';
+import { ServiceManagementService } from '../../../services/service-management.service';
 import { AvvisiStep1CaricaPosizioniComponent } from './avvisi-step1-carica-posizioni.component';
 
 describe('AvvisiStep1CaricaPosizioniComponent', () => {
   beforeEach(async () => {
-    const loaderService = jasmine.createSpyObj('LoaderService', ['startRequest']);
     // Make the spy return a synchronous Observable with the test data
     await TestBed.configureTestingModule({
       imports: [
@@ -20,7 +18,7 @@ describe('AvvisiStep1CaricaPosizioniComponent', () => {
         RouterTestingModule
       ],
       declarations: [AvvisiStep1CaricaPosizioniComponent],
-      providers: [{ provide: LoaderService, useValue: loaderService }, UploadService, TributeService]
+      providers: [UploadPaymentsService, ServiceManagementService]
     }).compileComponents();
   });
 

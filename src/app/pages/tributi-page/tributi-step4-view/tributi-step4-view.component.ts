@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Tribute } from '../../../models/tribute';
 import { CreditorEntry } from '../../../models/creditor-entry';
-import { CreditorList } from '../../../models/creditor-list';
-import { TributeService } from '../../../services/tribute.service';
+import { TokenService } from '../../../services/token.service';
+import { ServiceManagementService } from '../../../services/service-management.service';
+import { EnteService } from '../../../services/ente.service';
 
 @Component({
   selector: 'app-tributi-step4-view',
@@ -10,27 +11,37 @@ import { TributeService } from '../../../services/tribute.service';
   styleUrls: ['./tributi-step4-view.component.sass']
 })
 export class TributiStep4ViewComponent implements OnInit {
-  compiledForm = new Tribute('', '', '', '', 0, '', '', [], true, true, '', [], '');
+  compiledForm = new Tribute('', '', 0, '', '', [], true, true, '', [], '');
   primaryCreditor = new CreditorEntry();
   secondaryCreditor = new CreditorEntry();
-  private creditorList = new CreditorList();
+  private creditorList = Array<CreditorEntry>();
 
-  constructor(private tributeService: TributeService) {}
+  constructor(
+    private serviceManagementService: ServiceManagementService,
+    private enteService: EnteService,
+    private tokenService: TokenService
+  ) {}
 
   ngOnInit(): void {
     // eslint-disable-next-line functional/immutable-data
-    this.creditorList = this.tributeService.getCreditors();
-    // eslint-disable-next-line functional/immutable-data
-    this.compiledForm = this.tributeService.getService('');
-
-    // eslint-disable-next-line functional/immutable-data
-    this.primaryCreditor = this.creditorList?.creditorList?.filter(
-      elem => elem.id === this.compiledForm.idPrimaryCreditor
-    )[0];
-    // eslint-disable-next-line functional/immutable-data
-    this.secondaryCreditor = this.creditorList?.creditorList?.filter(
-      elem => elem.id === this.compiledForm.idSecondaryCreditor
-    )[0];
+    this.enteService.getAllEcForTefa().subscribe(res => {
+      // eslint-disable-next-line functional/immutable-data
+      this.creditorList = res;
+      // eslint-disable-next-line functional/immutable-data
+      this.primaryCreditor = this.creditorList?.filter(
+        elem => elem.codiceFiscale === this.compiledForm.fiscalCodePrimaryCreditor
+      )[0];
+      // eslint-disable-next-line functional/immutable-data
+      this.secondaryCreditor = this.creditorList?.filter(
+        elem => elem.codiceFiscale === this.compiledForm.fiscalCodeSecondaryCreditor
+      )[0];
+    });
+    this.serviceManagementService.getService(this.tokenService.getFiscalCode()).subscribe(res => {
+      if (res) {
+        // eslint-disable-next-line functional/immutable-data
+        this.compiledForm = res;
+      }
+    });
   }
 
   getFormattedDate(inputDate: string): string {

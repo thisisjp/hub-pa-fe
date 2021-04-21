@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Menu } from '../../../models/menu.enum';
-import { AvvisiStep } from '../../../models/avvisi-step';
 import { Notifica } from '../../../models/notifica';
 
 declare function notificationShow(notificationTarget: string, notificationTimeOut: number): any;
@@ -13,7 +12,6 @@ declare function notificationShow(notificationTarget: string, notificationTimeOu
 })
 export class AvvisiStep0HomeComponent implements OnInit {
   menuEnum = Menu;
-  private avvisiStepEnum = AvvisiStep;
   notifica: Notifica = new Notifica('', '');
 
   constructor(private router: Router) {}
@@ -28,7 +26,7 @@ export class AvvisiStep0HomeComponent implements OnInit {
   }
 
   nextStep(): void {
-    this.router.navigate([this.menuEnum.AVVISI_PATH + '/' + this.avvisiStepEnum.STEP1]).catch(reason => reason);
+    this.router.navigate([this.menuEnum.AVVISI_PATH + '/' + this.menuEnum.AVVISI_STEP1]).catch(reason => reason);
   }
 
   goToPage(path: string): void {

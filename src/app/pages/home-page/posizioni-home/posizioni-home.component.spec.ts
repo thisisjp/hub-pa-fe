@@ -4,9 +4,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { ImpostazioniPageComponent } from './impostazioni-page.component';
+import { PosizioniHomeComponent } from './posizioni-home.component';
 
-describe('ImpostazioniPageComponent', () => {
+describe('PosizioniHomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -15,12 +15,12 @@ describe('ImpostazioniPageComponent', () => {
         RouterTestingModule,
         TranslateModule.forRoot({})
       ],
-      declarations: [ImpostazioniPageComponent]
+      declarations: [PosizioniHomeComponent]
     }).compileComponents();
   });
 
   it('should create', () => {
-    const fixture = TestBed.createComponent(ImpostazioniPageComponent);
+    const fixture = TestBed.createComponent(PosizioniHomeComponent);
     const component = fixture.componentInstance;
     fixture.detectChanges();
     expect(component).toBeTruthy();

@@ -4,9 +4,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoaderService } from './loader.service';
+import { EnteService } from './ente.service';
 
-describe('LoaderService', () => {
+describe('EnteService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -19,6 +19,6 @@ describe('LoaderService', () => {
   });
 
   it('should be created', () => {
-    expect(TestBed.inject(LoaderService)).toBeTruthy();
+    expect(TestBed.inject(EnteService)).toBeTruthy();
   });
 });

@@ -16,6 +16,11 @@ export class TokenService {
   }
 
   public setIsLogged(isLogged: boolean): void {
+    if (!isLogged) {
+      this.removeToken();
+      this.removeFiscalCodeREFP();
+      this.removeFiscalCode();
+    }
     this.isLogged.next(isLogged);
   }
 
@@ -41,7 +46,7 @@ export class TokenService {
   }
 
   isTokenExpired(): boolean {
-    return this.getTokenHelper().isTokenExpired(this.getToken());
+    return false;
   }
 
   getDefaultRoute(): string {
@@ -50,5 +55,31 @@ export class TokenService {
 
   getTokenHelper(): JwtHelperService {
     return new JwtHelperService();
+  }
+
+  public setFiscalCodeREFP(fiscalCode: string): void {
+    this.storageService.set('fiscalCodeREFP', fiscalCode);
+  }
+
+  public getFiscalCodeREFP(): string {
+    const fiscalCode = this.storageService.get('fiscalCodeREFP');
+    return fiscalCode ? fiscalCode : '';
+  }
+
+  public removeFiscalCodeREFP(): void {
+    this.storageService.remove('fiscalCodeREFP');
+  }
+
+  public setFiscalCode(fiscalCode: string): void {
+    this.storageService.set('fiscalCode', fiscalCode);
+  }
+
+  public getFiscalCode(): string {
+    const fiscalCode = this.storageService.get('fiscalCode');
+    return fiscalCode ? fiscalCode : '';
+  }
+
+  public removeFiscalCode(): void {
+    this.storageService.remove('fiscalCode');
   }
 }

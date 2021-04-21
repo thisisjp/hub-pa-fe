@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Menu } from '../../../models/menu.enum';
-import { TributiStep } from '../../../models/tributi-step';
 import { denominationDefault, Tribute } from '../../../models/tribute';
 import { Installment } from '../../../models/installment';
 
@@ -29,7 +28,6 @@ export function conditionalValidator(predicate: BooleanFn, validator: ValidatorF
 })
 export class TributiStep2DefinisciRateComponent implements OnInit {
   private menuEnum = Menu;
-  private tributiStepEnum = TributiStep;
   public formGroup: FormGroup = new FormGroup({});
 
   constructor(private router: Router, private formBuilder: FormBuilder) {}
@@ -47,8 +45,6 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
 
     // eslint-disable-next-line functional/immutable-data
     this.formGroup = this.formBuilder.group({
-      idPrimaryCreditor: [defaultValues?.idPrimaryCreditor],
-      idSecondaryCreditor: [defaultValues?.idSecondaryCreditor],
       ibanPrimary: [defaultValues?.ibanPrimary],
       ibanSecondary: [defaultValues?.ibanSecondary],
       percentageSecondary: [defaultValues?.percentageSecondary],
@@ -80,8 +76,6 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
 
   nextStep(): void {
     const data = new Tribute(
-      this.f.idPrimaryCreditor.value,
-      this.f.idSecondaryCreditor.value,
       this.f.ibanPrimary.value,
       this.f.ibanSecondary.value,
       this.f.percentageSecondary.value,
@@ -99,7 +93,7 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
       return;
     }
     this.router
-      .navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP3], {
+      .navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.menuEnum.TRIBUTI_STEP3], {
         state: { data }
       })
       .catch(reason => reason);
@@ -107,8 +101,6 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
 
   prevStep(): void {
     const data = new Tribute(
-      this.f.idPrimaryCreditor.value,
-      this.f.idSecondaryCreditor.value,
       this.f.ibanPrimary.value,
       this.f.ibanSecondary.value,
       this.f.percentageSecondary.value,
@@ -122,7 +114,7 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
       denominationDefault
     );
     this.router
-      .navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP1], {
+      .navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.menuEnum.TRIBUTI_STEP1], {
         state: { data }
       })
       .catch(reason => reason);

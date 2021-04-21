@@ -1,6 +1,6 @@
 import { CsvRow } from './csv-row';
 
-export interface CsvModel {
-  fileName: string;
-  rows: Array<CsvRow>;
+export class CsvModel {
+  fileName = '';
+  rows = Array<CsvRow>();
 }

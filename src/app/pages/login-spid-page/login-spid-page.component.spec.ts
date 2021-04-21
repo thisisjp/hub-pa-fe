@@ -5,7 +5,6 @@ import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoaderService } from '../../services/loader.service';
 import { LoginSpidService } from '../../services/login-spid.service';
 import { LoginSpidPageComponent } from './login-spid-page.component';
 
@@ -19,7 +18,7 @@ describe('LoginSpidPageComponent', () => {
         TranslateModule.forRoot({})
       ],
       declarations: [LoginSpidPageComponent],
-      providers: [LoaderService, LoginSpidService],
+      providers: [LoginSpidService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   });

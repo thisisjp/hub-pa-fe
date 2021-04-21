@@ -4,9 +4,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { UploadService } from './upload.service';
+import { UploadPaymentsService } from './upload-payments.service';
 
-describe('UploadService', () => {
+describe('UploadPaymentsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -19,6 +19,6 @@ describe('UploadService', () => {
   });
 
   it('should be created', () => {
-    expect(TestBed.inject(UploadService)).toBeTruthy();
+    expect(TestBed.inject(UploadPaymentsService)).toBeTruthy();
   });
 });

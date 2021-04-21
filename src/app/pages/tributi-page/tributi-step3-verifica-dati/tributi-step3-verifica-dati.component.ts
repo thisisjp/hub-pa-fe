@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Menu } from '../../../models/menu.enum';
-import { TributiStep } from '../../../models/tributi-step';
 import { denominationDefault, Tribute } from '../../../models/tribute';
 import { CreditorEntry } from '../../../models/creditor-entry';
-import { TributeService } from '../../../services/tribute.service';
-import { AvvisiStep } from '../../../models/avvisi-step';
 import { Notifica } from '../../../models/notifica';
+import { ServiceManagementService } from '../../../services/service-management.service';
 
 @Component({
   selector: 'app-tributi-step3',
@@ -15,19 +13,15 @@ import { Notifica } from '../../../models/notifica';
 })
 export class TributiStep3VerificaDatiComponent implements OnInit {
   private menuEnum = Menu;
-  private tributiStepEnum = TributiStep;
-  private avvisiStepEnum = AvvisiStep;
-  compiledForm = new Tribute('', '', '', '', 0, '', '', [], true, true, '', [], '');
+  compiledForm = new Tribute('', '', 0, '', '', [], true, true, '', [], '');
   primaryCreditor = new CreditorEntry();
   secondaryCreditor = new CreditorEntry();
 
-  constructor(private router: Router, private tributeService: TributeService) {}
+  constructor(private router: Router, private serviceManagementService: ServiceManagementService) {}
 
   ngOnInit(): void {
     // eslint-disable-next-line functional/immutable-data
     this.compiledForm = new Tribute(
-      history.state?.data?.idPrimaryCreditor,
-      history.state?.data?.idSecondaryCreditor,
       history.state?.data?.ibanPrimary,
       history.state?.data?.ibanSecondary,
       history.state?.data?.percentageSecondary,
@@ -43,33 +37,34 @@ export class TributiStep3VerificaDatiComponent implements OnInit {
 
     // eslint-disable-next-line functional/immutable-data
     this.primaryCreditor = this.compiledForm.creditorList?.filter(
-      elem => elem.id === this.compiledForm.idPrimaryCreditor
+      elem => elem.codiceFiscale === this.compiledForm.fiscalCodePrimaryCreditor
     )[0];
     // eslint-disable-next-line functional/immutable-data
     this.secondaryCreditor = this.compiledForm.creditorList?.filter(
-      elem => elem.id === this.compiledForm.idSecondaryCreditor
+      elem => elem.codiceFiscale === this.compiledForm.fiscalCodeSecondaryCreditor
     )[0];
   }
 
   nextStep(): void {
-    // console.log('submit', this.compiledForm);
-    if (this.tributeService.saveService(this.compiledForm)) {
-      const data = new Notifica(
-        'Configurazione completata',
-        'Il tributo è stato configurato con successo. Adesso puoi caricare le posizioni debitorie.'
-      );
-      this.router
-        .navigate([this.menuEnum.HOME_PATH + '/' + this.avvisiStepEnum.STEP0], {
-          state: { data }
-        })
-        .catch(reason => reason);
-    }
+    this.serviceManagementService.saveService(this.compiledForm).subscribe(res => {
+      if (res && res.result) {
+        const data = new Notifica(
+          'Configurazione completata',
+          'Il tributo è stato configurato con successo. Adesso puoi caricare le posizioni debitorie.'
+        );
+        this.router
+          .navigate([this.menuEnum.HOME_PATH + '/' + this.menuEnum.AVVISI_STEP0], {
+            state: { data }
+          })
+          .catch(reason => reason);
+      }
+    });
   }
 
   prevStep(): void {
     const data = this.compiledForm;
     this.router
-      .navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP2], {
+      .navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.menuEnum.TRIBUTI_STEP2], {
         state: { data }
       })
       .catch(reason => reason);
