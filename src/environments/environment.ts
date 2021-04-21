@@ -5,8 +5,7 @@
 export const environment = {
   production: false,
   environmentName: 'SVILUPPO',
-  API_URL: 'http://localhost',
-  HOST_URL: 'http://localhost:8083',
+  API_URL: 'http://localhost:4200',
   cvsMaxRows: 500
 };
 

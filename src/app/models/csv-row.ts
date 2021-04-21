@@ -14,5 +14,4 @@ export class CsvRow {
   idTenant?: string;
   amount?: number;
   reason?: string;
-  taxonomy?: string;
 }

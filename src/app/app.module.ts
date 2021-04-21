@@ -22,7 +22,6 @@ import { MessageComponent } from './components/common/message/message.component'
 import { AvvisiPageComponent } from './pages/avvisi-page/avvisi-page.component';
 import { TributiPageComponent } from './pages/tributi-page/tributi-page.component';
 import { GuidaPageComponent } from './pages/guida-page/guida-page.component';
-import { ImpostazioniPageComponent } from './pages/impostazioni-page/impostazioni-page.component';
 import { LoginSpidPageComponent } from './pages/login-spid-page/login-spid-page.component';
 import { SessionExpiredPageComponent } from './pages/session-expired-page/session-expired-page.component';
 import { AiutoPageComponent } from './pages/aiuto-page/aiuto-page.component';
@@ -38,6 +37,8 @@ import { AvvisiStep1CaricaPosizioniComponent } from './pages/avvisi-page/avvisi-
 import { AvvisiStep2StatoCaricamentiComponent } from './pages/avvisi-page/avvisi-step2-stato-caricamenti/avvisi-step2-stato-caricamenti.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { TributiStep4ViewComponent } from './pages/tributi-page/tributi-step4-view/tributi-step4-view.component';
+import { LoginSpidSuccessComponent } from './pages/login-spid-success/login-spid-success.component';
+import { PosizioniHomeComponent } from './pages/home-page/posizioni-home/posizioni-home.component';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -55,7 +56,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     AvvisiPageComponent,
     TributiPageComponent,
     GuidaPageComponent,
-    ImpostazioniPageComponent,
     LoginSpidPageComponent,
     SessionExpiredPageComponent,
     AiutoPageComponent,
@@ -68,7 +68,9 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     AvvisiStep1CaricaPosizioniComponent,
     AvvisiStep2StatoCaricamentiComponent,
     NotFoundPageComponent,
-    TributiStep4ViewComponent
+    TributiStep4ViewComponent,
+    LoginSpidSuccessComponent,
+    PosizioniHomeComponent
   ],
   imports: [
     BrowserModule,

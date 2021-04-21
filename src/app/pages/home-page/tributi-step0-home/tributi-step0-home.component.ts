@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Menu } from '../../../models/menu.enum';
-import { TributiStep } from '../../../models/tributi-step';
 
 @Component({
   selector: 'app-tributi-step0',
@@ -10,11 +9,10 @@ import { TributiStep } from '../../../models/tributi-step';
 })
 export class TributiStep0HomeComponent {
   private menuEnum = Menu;
-  private tributiStepEnum = TributiStep;
 
   constructor(private router: Router) {}
 
   nextStep(): void {
-    this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.tributiStepEnum.STEP1]).catch(reason => reason);
+    this.router.navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.menuEnum.TRIBUTI_STEP1]).catch(reason => reason);
   }
 }

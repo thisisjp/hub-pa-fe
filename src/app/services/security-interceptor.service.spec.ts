@@ -4,7 +4,6 @@ import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { ErrorService } from './error.service';
-import { LoaderService } from './loader.service';
 
 import { SecurityInterceptorService } from './security-interceptor.service';
 import { TokenService } from './token.service';
@@ -18,7 +17,7 @@ describe('SecurityInterceptorService', () => {
         RouterTestingModule,
         TranslateModule.forRoot({})
       ],
-      providers: [SecurityInterceptorService, LoaderService, ErrorService, TokenService]
+      providers: [SecurityInterceptorService, ErrorService, TokenService]
     });
   });
 

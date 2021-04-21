@@ -4,8 +4,6 @@ import { CreditorEntry } from './creditor-entry';
 export const denominationDefault = 'TariTefa2021';
 
 export class Tribute {
-  idPrimaryCreditor = '';
-  idSecondaryCreditor = '';
   ibanPrimary = '';
   ibanSecondary = '';
   percentageSecondary = 0;
@@ -19,8 +17,6 @@ export class Tribute {
   creditorList: Array<CreditorEntry> = [];
 
   constructor(
-    idPrimaryCreditor: string,
-    idSecondaryCreditor: string,
     ibanPrimary: string,
     ibanSecondary: string,
     percentageSecondary: number,
@@ -33,8 +29,6 @@ export class Tribute {
     installments: Array<Installment>,
     denomination: string
   ) {
-    this.idPrimaryCreditor = idPrimaryCreditor;
-    this.idSecondaryCreditor = idSecondaryCreditor;
     this.ibanPrimary = ibanPrimary;
     this.ibanSecondary = ibanSecondary;
     this.percentageSecondary = percentageSecondary;

@@ -7,8 +7,15 @@ export enum Menu {
   GUIDA_PATH = 'secure/guida',
   HOME_CODE = 'HOME',
   HOME_PATH = 'secure/home',
-  IMPOSTAZIONI_CODE = 'IMPOSTAZIONI',
-  IMPOSTAZIONI_PATH = 'secure/impostazioni',
   TRIBUTI_CODE = 'TRIBUTI',
-  TRIBUTI_PATH = 'secure/tributi'
+  TRIBUTI_PATH = 'secure/tributi',
+  TRIBUTI_STEP0 = 'tributiHome',
+  TRIBUTI_STEP1 = 'impostaEnti',
+  TRIBUTI_STEP2 = 'definisciRate',
+  TRIBUTI_STEP3 = 'verificaDati',
+  TRIBUTI_STEP4 = 'visualizza',
+  AVVISI_STEP0 = 'avvisiHome',
+  AVVISI_STEP1 = 'caricaPosizioni',
+  AVVISI_STEP2 = 'statoCaricamenti',
+  POSIZIONI_STEP0 = 'posizioni'
 }

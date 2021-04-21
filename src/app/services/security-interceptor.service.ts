@@ -14,20 +14,22 @@ import {
 import { catchError, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ErrorStatus } from '../models/error-status.enum';
 import { Message } from '../models/message';
 import { MessageType } from '../models/message-type.enum';
 import { TokenService } from './token.service';
 import { ErrorService } from './error.service';
-import { LoaderService } from './loader.service';
 
 @Injectable()
 export class SecurityInterceptorService implements HttpInterceptor {
+  private requestCount = 0;
+
   constructor(
-    private loaderService: LoaderService,
     private errorService: ErrorService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private spinnerService: NgxSpinnerService
   ) {}
 
   intercept(
@@ -37,19 +39,15 @@ export class SecurityInterceptorService implements HttpInterceptor {
     const reqUrl = request ? request.url : '';
     const token = this.tokenService.getToken();
     const requestOut = this.createRequest(request, token);
-    // TODO controllare i path
     if (reqUrl.indexOf('secure') >= 0 && !(token && !this.tokenService.isTokenExpired())) {
       this.tokenService.setIsLogged(false);
-      this.tokenService.setToken('');
       this.router.navigate(['/sessionexpired']).catch(reason => reason);
     }
-
+    this.startRequest();
     return next.handle(requestOut).pipe(
       tap(res => {
-        // TODO controllare i path
-        if (reqUrl.indexOf('secure') >= 0 && res instanceof HttpResponse) {
-          const newToken = res.headers.get('API-Token');
-          this.tokenService.setToken(newToken ? newToken : '');
+        if (res instanceof HttpResponse) {
+          this.endRequest();
         }
       }),
       catchError(response => this.mapError(response))
@@ -71,8 +69,8 @@ export class SecurityInterceptorService implements HttpInterceptor {
           this.errorService.setError(new Message('GENERIC_ERROR', MessageType.DANGER));
           break;
       }
+      this.endRequest();
     }
-    this.loaderService.endRequest();
     return throwError(response);
   }
 
@@ -84,6 +82,26 @@ export class SecurityInterceptorService implements HttpInterceptor {
       return requestIn.clone({ headers });
     } else {
       return requestIn;
+    }
+  }
+
+  startRequest(): void {
+    // eslint-disable-next-line functional/immutable-data
+    ++this.requestCount;
+    if (this.requestCount === 1) {
+      this.spinnerService.show().catch(reason => reason);
+    }
+  }
+
+  endRequest(): void {
+    if (this.requestCount === 0) {
+      this.spinnerService.hide().catch(reason => reason);
+      return;
+    }
+    // eslint-disable-next-line functional/immutable-data
+    --this.requestCount;
+    if (this.requestCount === 0) {
+      this.spinnerService.hide().catch(reason => reason);
     }
   }
 }

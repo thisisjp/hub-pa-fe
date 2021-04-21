@@ -4,9 +4,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { MenuService } from './menu.service';
+import { ServiceManagementService } from './service-management.service';
 
-describe('MenuService', () => {
+describe('ServiceManagementService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -19,6 +19,6 @@ describe('MenuService', () => {
   });
 
   it('should be created', () => {
-    expect(TestBed.inject(MenuService)).toBeTruthy();
+    expect(TestBed.inject(ServiceManagementService)).toBeTruthy();
   });
 });
