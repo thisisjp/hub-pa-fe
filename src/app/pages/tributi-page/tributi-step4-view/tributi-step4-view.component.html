@@ -41,8 +41,9 @@
                 <strong>{{ primaryCreditor.desAmm }}</strong>
                 <br />
                 <small class="text-muted"
-                  >{{ 'CF' | translate }}: {{ primaryCreditor.codiceFiscale }} {{ 'CBILL' | translate }}:
-                  {{ primaryCreditor.codiceInterbancario }}</small
+                  >{{ 'CF' | translate }}: {{ primaryCreditor.codiceFiscale }}
+                  {{ (primaryCreditor.codiceInterbancario ? 'CBILL' : '') | translate }}
+                  {{ primaryCreditor.codiceInterbancario ? ':' + primaryCreditor.codiceInterbancario : '' }}</small
                 >
               </td>
               <td>
@@ -57,8 +58,9 @@
                 <strong>{{ secondaryCreditor.desAmm }}</strong>
                 <br />
                 <small class="text-muted"
-                  >{{ 'CF' | translate }}: {{ secondaryCreditor.codiceFiscale }} {{ 'CBILL' | translate }}:
-                  {{ secondaryCreditor.codiceInterbancario }}</small
+                  >{{ 'CF' | translate }}: {{ secondaryCreditor.codiceFiscale }}
+                  {{ (secondaryCreditor.codiceInterbancario ? 'CBILL' : '') | translate }}
+                  {{ secondaryCreditor.codiceInterbancario ? ':' + secondaryCreditor.codiceInterbancario : '' }}</small
                 >
               </td>
               <td>
