@@ -23,23 +23,22 @@ export class TributiStep4ViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // eslint-disable-next-line functional/immutable-data
-    this.enteService.getAllEcForTefa().subscribe(res => {
-      // eslint-disable-next-line functional/immutable-data
-      this.creditorList = res;
-      // eslint-disable-next-line functional/immutable-data
-      this.primaryCreditor = this.creditorList?.filter(
-        elem => elem.codiceFiscale === this.compiledForm.fiscalCodePrimaryCreditor
-      )[0];
-      // eslint-disable-next-line functional/immutable-data
-      this.secondaryCreditor = this.creditorList?.filter(
-        elem => elem.codiceFiscale === this.compiledForm.fiscalCodeSecondaryCreditor
-      )[0];
-    });
     this.serviceManagementService.getService(this.tokenService.getFiscalCode()).subscribe(res => {
       if (res) {
         // eslint-disable-next-line functional/immutable-data
         this.compiledForm = res;
+        this.enteService.getAllEcForTefa().subscribe(res2 => {
+          // eslint-disable-next-line functional/immutable-data
+          this.creditorList = res2;
+          // eslint-disable-next-line functional/immutable-data
+          this.primaryCreditor = this.creditorList?.filter(
+            elem => elem.codiceFiscale === this.compiledForm.fiscalCodePrimaryCreditor
+          )[0];
+          // eslint-disable-next-line functional/immutable-data
+          this.secondaryCreditor = this.creditorList?.filter(
+            elem => elem.codiceFiscale === this.compiledForm.fiscalCodeSecondaryCreditor
+          )[0];
+        });
       }
     });
   }

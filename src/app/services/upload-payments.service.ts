@@ -16,9 +16,10 @@ export class UploadPaymentsService {
    * Indica se lo stato dei job indicati è diverso da In Attesa
    */
   statusChanged(jobIds: Array<number>): Observable<BaseResponse> {
-    const params = new HttpParams();
+    // eslint-disable-next-line functional/no-let
+    let params = new HttpParams();
     for (const elem of jobIds) {
-      params.append('jobIds', String(elem));
+      params = params.append('jobIds', String(elem));
     }
     return this.http.get<BaseResponse>(environment.API_URL + '/upload-payments/statusChanged', { params });
   }

@@ -63,7 +63,7 @@ export class AvvisiStep2StatoCaricamentiComponent implements OnInit, OnDestroy {
       // eslint-disable-next-line functional/no-let
       let retries = 0;
       // eslint-disable-next-line functional/immutable-data
-      this.interval = setInterval(() => {
+      this.interval = window.setInterval(() => {
         ++retries;
         if (retries > this.AVVISI_STATO_CARICAMENTI_MAX_RETRY) {
           clearInterval(this.interval);

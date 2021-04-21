@@ -124,7 +124,7 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
     return this.formGroup.controls;
   }
 
-  private findInvalidControls(): Array<any> {
+  /* private findInvalidControls(): Array<any> {
     const invalid = [];
     const controls = this.f;
     for (const name in controls) {
@@ -134,7 +134,7 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
       }
     }
     return invalid;
-  }
+  } */
 
   get installments(): FormArray {
     return this.formGroup.get('installments') as FormArray;
@@ -202,23 +202,18 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
 
   public ifFormValid(): boolean {
     if (this.formGroup.invalid) {
-      // console.log(1);
       return false;
     }
     if (!this.f.abilitaUnica.value && !this.f.abilitaRate.value) {
-      // console.log(2);
       return false;
     }
     if (this.f.abilitaUnica.value && !this.isDateAfter_30_06_2021(this.f.dueDateUnique.value)) {
-      // console.log(3);
       return false;
     }
     if (this.f.abilitaRate.value && !this.arePercentagesValid()) {
-      // console.log(4);
       return false;
     }
     if (this.f.abilitaRate.value && !this.areInstallmentsDatesValid()) {
-      // console.log(5);
       return false;
     }
     return true;

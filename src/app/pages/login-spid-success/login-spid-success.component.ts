@@ -31,8 +31,6 @@ export class LoginSpidSuccessComponent implements OnInit {
       this.enteService.getEnteCreditoreByRefP(this.tokenService.getFiscalCodeREFP()).subscribe(res => {
         if (res) {
           this.tokenService.setFiscalCode(res.codiceFiscale);
-        } else {
-          this.tokenService.setFiscalCode('82001760675'); // TODO MOCKATO
         }
         this.tokenService.setIsLogged(true);
         this.router.navigate(['/secure']).catch(reason => reason);

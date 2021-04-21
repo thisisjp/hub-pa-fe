@@ -31,28 +31,23 @@ export class TributiStep1ImpostaEntiComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Bootstrap-select initialisation
-    $('.bootstrap-select-wrapper select')
-      .selectpicker()
-      .on('changed.bs.select', () => {
-        $('.dropdown-menu li.selected').find('input[type="checkbox"]').prop('checked', true);
-        $('.dropdown-menu li:not(.selected)').find('input[type="checkbox"]').prop('checked', false);
-      });
+    this.initBootstrapSelect();
 
     const defaultValues = history.state?.data;
 
     this.enteService.getIbanByEnteCreditore(this.tokenService.getFiscalCode()).subscribe(res => {
       $('#ibanPrimarySelect').setOptionsToSelect(this.toSelectedOptionsIban(res));
+      // eslint-disable-next-line functional/immutable-data
+      $('#ibanPrimarySelect > div > button > div > div > div')[0].innerHTML = defaultValues?.ibanPrimary
+        ? defaultValues.ibanPrimary
+        : this.scegliUnaOpzione;
     });
-    // eslint-disable-next-line functional/immutable-data
-    $('#ibanSecondarySelect > div > button')[0].disabled = true;
     if (defaultValues?.fiscalCodeSecondaryCreditor) {
       this.enteService.getIbanByEnteCreditore(defaultValues?.fiscalCodeSecondaryCreditor).subscribe(res => {
-        // eslint-disable-next-line functional/immutable-data
-        $('#ibanSecondarySelect > div > button')[0].disabled = false;
-        $('#ibanSecondarySelect').removeClass('disabled');
-        $('#ibanSecondarySelect').setOptionsToSelect(this.toSelectedOptionsIban(res));
+        this.enableIbanSecondary(res, defaultValues?.ibanSecondary);
       });
+    } else {
+      this.disableIbanSecondary(defaultValues?.ibanSecondary);
     }
     this.enteService.getAllEcForTefa().subscribe(res => {
       if (res && res.length > 0) {
@@ -72,6 +67,8 @@ export class TributiStep1ImpostaEntiComponent implements OnInit {
               elem => elem.value === defaultValues.fiscalCodeSecondaryCreditor
             )[0].text
           : this.scegliUnaOpzione;
+        // eslint-disable-next-line functional/immutable-data
+        $('#primaryCreditorSelect > div > button')[0].disabled = true;
       }
     });
 
@@ -90,16 +87,36 @@ export class TributiStep1ImpostaEntiComponent implements OnInit {
       ],
       creditorList: []
     });
+  }
 
+  private initBootstrapSelect(): void {
+    // Bootstrap-select initialisation
+    $('.bootstrap-select-wrapper select')
+      .selectpicker()
+      .on('changed.bs.select', () => {
+        $('.dropdown-menu li.selected').find('input[type="checkbox"]').prop('checked', true);
+        $('.dropdown-menu li:not(.selected)').find('input[type="checkbox"]').prop('checked', false);
+      });
+  }
+
+  private enableIbanSecondary(res: Array<Iban>, ibanSecondary: string): void {
     // eslint-disable-next-line functional/immutable-data
-    $('#primaryCreditorSelect > div > button')[0].disabled = true;
+    $('#ibanSecondarySelect > div > button')[0].disabled = false;
+    const $ibanSecondarySelect = $('#ibanSecondarySelect');
+    $ibanSecondarySelect.removeClass('disabled');
+    $ibanSecondarySelect.setOptionsToSelect(this.toSelectedOptionsIban(res));
     // eslint-disable-next-line functional/immutable-data
-    $('#ibanPrimarySelect > div > button > div > div > div')[0].innerHTML = defaultValues?.ibanPrimary
-      ? defaultValues.ibanPrimary
+    $('#ibanSecondarySelect > div > button > div > div > div')[0].innerHTML = ibanSecondary
+      ? ibanSecondary
       : this.scegliUnaOpzione;
+  }
+
+  private disableIbanSecondary(ibanSecondary: string): void {
     // eslint-disable-next-line functional/immutable-data
-    $('#ibanSecondarySelect > div > button > div > div > div')[0].innerHTML = defaultValues?.ibanSecondary
-      ? defaultValues.ibanSecondary
+    $('#ibanSecondarySelect > div > button')[0].disabled = true;
+    // eslint-disable-next-line functional/immutable-data
+    $('#ibanSecondarySelect > div > button > div > div > div')[0].innerHTML = ibanSecondary
+      ? ibanSecondary
       : this.scegliUnaOpzione;
   }
 
@@ -135,10 +152,7 @@ export class TributiStep1ImpostaEntiComponent implements OnInit {
   changedSecondaryCreditor(): void {
     if (this.f.fiscalCodeSecondaryCreditor.value) {
       this.enteService.getIbanByEnteCreditore(this.f.fiscalCodeSecondaryCreditor.value).subscribe(res => {
-        // eslint-disable-next-line functional/immutable-data
-        $('#ibanSecondarySelect > div > button')[0].disabled = false;
-        $('#ibanSecondarySelect').removeClass('disabled');
-        $('#ibanSecondarySelect').setOptionsToSelect(this.toSelectedOptionsIban(res));
+        this.enableIbanSecondary(res, '');
         this.f.ibanSecondary.setValue('');
       });
     }
@@ -151,7 +165,8 @@ export class TributiStep1ImpostaEntiComponent implements OnInit {
   toSelectedOptionsCreditor(response: Array<CreditorEntry>): Array<SelectOption> {
     const selectOptionList = new SelectOptionList();
     for (const elem of response) {
-      const text = elem.desAmm + ' (' + elem.codiceFiscale + ' - ' + elem.codiceInterbancario + ')';
+      const optionalCbill = elem.codiceInterbancario ? ' - ' + elem.codiceInterbancario : '';
+      const text = elem.desAmm + ' (' + elem.codiceFiscale + optionalCbill + ')';
       const selectedOption = new SelectOption(text, elem.codiceFiscale);
       // eslint-disable-next-line functional/immutable-data
       selectOptionList.options.push(selectedOption);
