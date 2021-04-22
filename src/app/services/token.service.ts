@@ -17,9 +17,7 @@ export class TokenService {
 
   public setIsLogged(isLogged: boolean): void {
     if (!isLogged) {
-      this.removeToken();
-      this.removeFiscalCodeREFP();
-      this.removeFiscalCode();
+      this.storageService.clear();
     }
     this.isLogged.next(isLogged);
   }
@@ -31,10 +29,6 @@ export class TokenService {
   public getToken(): string {
     const token = this.storageService.get('token');
     return token ? token : '';
-  }
-
-  public removeToken(): void {
-    this.storageService.remove('token');
   }
 
   getDecodedAccessToken(): any {
@@ -66,10 +60,6 @@ export class TokenService {
     return fiscalCode ? fiscalCode : '';
   }
 
-  public removeFiscalCodeREFP(): void {
-    this.storageService.remove('fiscalCodeREFP');
-  }
-
   public setFiscalCode(fiscalCode: string): void {
     this.storageService.set('fiscalCode', fiscalCode);
   }
@@ -79,7 +69,12 @@ export class TokenService {
     return fiscalCode ? fiscalCode : '';
   }
 
-  public removeFiscalCode(): void {
-    this.storageService.remove('fiscalCode');
+  public setDesAmm(desAmm: string): void {
+    this.storageService.set('desAmm', desAmm);
+  }
+
+  public getDesAmm(): string {
+    const desAmm = this.storageService.get('desAmm');
+    return desAmm ? desAmm : '';
   }
 }

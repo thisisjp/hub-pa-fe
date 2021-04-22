@@ -1,7 +1,9 @@
 <nav class="breadcrumb-container" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item">
-      <a (click)="goToPage(menuEnum.AVVISI_PATH + '/' + menuEnum.AVVISI_STEP1)">{{ menuEnum.AVVISI_CODE | translate }}</a
+      <a (click)="goToPage(menuEnum.AVVISI_PATH + '/' + menuEnum.AVVISI_STEP1)">{{
+        menuEnum.AVVISI_CODE | translate
+      }}</a
       ><span class="separator">/</span>
     </li>
     <li class="breadcrumb-item active" aria-current="page">{{ 'STATO_CARICAMENTI' | translate }}</li>
@@ -18,7 +20,7 @@
           <p *ngIf="paymentJobList.length < 1">{{ 'CARICAMENTO_ULTIMO_ASSENTE' | translate }}</p>
         </td>
       </tr>
-      <ng-container *ngFor="let elem of paymentJobList; let i = index">
+      <ng-container *ngFor="let elem of paymentJobList; let i = index; first as isFirst">
         <tr>
           <td class="align-middle">
             <svg class="icon icon-sm" [ngClass]="getSvgClass(paymentJobList[i].status)">
@@ -74,13 +76,13 @@
             </button>
           </td>
         </tr>
+        <tr *ngIf="isFirst">
+          <td colspan="6">
+            <h4>{{ 'CARICAMENTI_PRECEDENTI' | translate }}</h4>
+            <p *ngIf="paymentJobList.length < 2">{{ 'CARICAMENTI_PRECEDENTI_ASSENTI' | translate }}</p>
+          </td>
+        </tr>
       </ng-container>
-      <tr>
-        <td colspan="6">
-          <h4>{{ 'CARICAMENTI_PRECEDENTI' | translate }}</h4>
-          <p *ngIf="paymentJobList.length < 2">{{ 'CARICAMENTI_PRECEDENTI_ASSENTI' | translate }}</p>
-        </td>
-      </tr>
     </tbody>
   </table>
 </div>
