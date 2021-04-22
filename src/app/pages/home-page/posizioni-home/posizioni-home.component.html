@@ -1,5 +1,5 @@
 <div class="alert alert-info" role="alert">
-  PRESTO POTRAI PUBBLICARE E POSTALLIZARE I TUOI AVVISI.
+  {{ 'ALERT_AVVISI_POST'| translate}}
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -7,50 +7,69 @@
 <table style="width: 100%">
   <tr>
     <td>
-      <h3>Posizioni</h3>
+      <h2>{{ 'POSITIONS'| translate}}</h2>
     </td>
-    <td style="width: 150px">
-      <div class="chip chip-simple">
-        <span class="chip-label">Data</span>
+    <td style="width: 130px">
+      <div class="chip chip-simple chip-lg" (click)="datecheckswitch()">
+        <span class="chip-label">{{ 'DATE'| translate}}</span>
+        <button *ngIf="datecheck">
+          <svg class="icon">
+            <use xlink:href="/assets/img/sprite.svg#it-close"></use>
+          </svg>
+          <span class="sr-only">Elimina label</span>
+        </button>
       </div>
     </td>
-    <td style="width: 150px">
-      <div class="chip chip-simple">
-        <span class="chip-label">Stato</span>
+    <td style="width: 130px">
+      <div class="chip chip-simple chip-lg" (click)="statuscheckswitch()">
+        <span class="chip-label">{{ 'STATUS'| translate }}</span>
+        <button *ngIf="statuscheck">
+          <svg class="icon">
+            <use xlink:href="/assets/img/sprite.svg#it-close"></use>
+          </svg>
+          <span class="sr-only">Elimina label</span>
+        </button>
       </div>
     </td>
-    <td style="width: 200px">
-      <div class="form-group autocomplete-wrapper">
+    <td style="width: 350px">
+      <div class="form-group autocomplete-wrapper-big autocomplete">
         <span class="autocomplete-icon" aria-hidden="true">
-          <svg class="icon icon-sm"><use xlink:href="/assets/img/sprite.svg#it-search"></use></svg>
+          <svg class="icon icon-sm">
+            <use xlink:href="/assets/img/sprite.svg#it-search"></use>
+          </svg>
         </span>
-        <input
-          type="search"
-          class="autocomplete"
-          placeholder="Cerca CF o codice avviso"
-          id="autocomplete-regioni"
-          data-autocomplete='[{"text":"Abruzzo","link":"#"},{"text":"Basilicata","link":"#"},{"text":"Calabria","link":"#"},{"text":"Campania","link":"#"},{"text":"Emilia Romagna","link":"#"},{"text":"Friuli Venezia Giulia","link":"#"},{"text":"Lazio","link":"#"},{"text":"Liguria","link":"#"},{"text":"Lombardia","link":"#"},{"text":"Marche","link":"#"},{"text":"Molise","link":"#"},{"text":"Piemonte","link":"#"},{"text":"Puglia","link":"#"},{"text":"Sardegna","link":"#"},{"text":"Sicilia","link":"#"},{"text":"Toscana","link":"#"},{"text":"Trentino Alto Adige","link":"#"},{"text":"Umbria","link":"#"},{"text":"Valle d’Aosta","link":"#"},{"text":"Veneto","link":"#"}]'
-        />
+        <input type="search" class="autocomplete" placeholder="{{ 'CERCA_CF'| translate }}" id="autocomplete-regioni"
+          data-autocomplete='[{"text":"Abruzzo","link":"#"},{"text":"Basilicata","link":"#"},{"text":"Calabria","link":"#"},{"text":"Campania","link":"#"},{"text":"Emilia Romagna","link":"#"},{"text":"Friuli Venezia Giulia","link":"#"},{"text":"Lazio","link":"#"},{"text":"Liguria","link":"#"},{"text":"Lombardia","link":"#"},{"text":"Marche","link":"#"},{"text":"Molise","link":"#"},{"text":"Piemonte","link":"#"},{"text":"Puglia","link":"#"},{"text":"Sardegna","link":"#"},{"text":"Sicilia","link":"#"},{"text":"Toscana","link":"#"},{"text":"Trentino Alto Adige","link":"#"},{"text":"Umbria","link":"#"},{"text":"Valle d’Aosta","link":"#"},{"text":"Veneto","link":"#"}]' />
         <label for="autocomplete-regioni" class="sr-only">Cerca nel sito</label>
       </div>
     </td>
   </tr>
 </table>
+<div class="counter">
+  {{ rowstart }}-{{ rowend }} {{ 'OF'| translate}} {{ rowtot }}
+</div>
 <nav class="pagination-wrapper justify-content-end" aria-label="Navigazione allineata a destra">
   <ul class="pagination">
     <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1" aria-hidden="true">
+      <a class="page-link" tabindex="-1" aria-hidden="true" [routerLink]="" (click)="passleft()">
         <svg class="icon icon-primary">
           <use xlink:href="/assets/img/sprite.svg#it-arrow-left"></use>
         </svg>
         <span class="sr-only">Pagina precedente</span>
       </a>
     </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="pagelink" [ngClass]="{'pagesel': page+1 === page1 }" [routerLink]=""
+        (click)="pass(page1)">{{ page1}}</a></li>
+    <li class="page-item"><a class="pagelink" [ngClass]="{'pagesel': page+1 === page2 }" [routerLink]=""
+        (click)="pass(page2)">{{ page2 }}</a></li>
+    <li class="page-item"><a class="pagelink" [ngClass]="{'pagesel': page+1 === page3 }" [routerLink]=""
+        (click)="pass(page3)">{{ page3 }}</a></li>
+    <li class="page-item"><a class="pagelink" [ngClass]="{'pagesel': page+1 === page4 }" [routerLink]=""
+        (click)="pass(page4)">{{ page4 }}</a></li>
+    <li class="page-item"><a class="pagelink" [ngClass]="{'pagesel': page+1 === page5 }" [routerLink]=""
+        (click)="pass(page5)">{{ page5 }}</a></li>
     <li class="page-item">
-      <a class="page-link" href="#">
+      <a class="page-link" [routerLink]="" (click)="passright()">
         <span class="sr-only">Pagina successiva</span>
         <svg class="icon icon-primary">
           <use xlink:href="/assets/img/sprite.svg#it-arrow-right"></use>
@@ -63,10 +82,10 @@
   <thead>
     <tr>
       <th scope="col"></th>
-      <th scope="col">CF</th>
-      <th scope="col">CODICE AVVISO</th>
-      <th scope="col">DATA</th>
-      <th scope="col">STATO</th>
+      <th scope="col">{{ 'CF'| translate}}</th>
+      <th scope="col">{{ 'CODICE_AVVISO'| translate}}</th>
+      <th scope="col">{{ 'DATE'| translate | uppercase}}</th>
+      <th scope="col">{{ 'STATUS'| translate | uppercase}}</th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -80,22 +99,31 @@
       </td>
       <td>
         <div>
-          <p>{{ elem.fiscalCode }}</p>
-          <p>{{ elem.name }} {{ elem.surname }}</p>
+          <p class="cf">{{ elem.fiscalCode }}</p>
+          <p class="name">{{ elem.name }} {{ elem.surname }}</p>
         </div>
       </td>
       <td>
         {{ elem.notifyCode }}
+        <svg class="icon">
+          <use xlink:href="/assets/img/sprite.svg#it-tool"></use>
+        </svg>
       </td>
       <td>
         {{ elem.date | date: 'dd/MM/yyyy' }}
       </td>
       <td>
-        <div>Bozza</div>
+        <div class="stato" *ngIf="elem.status==0">{{ 'BOZZA' | translate }}</div>
+        <div class="stato" *ngIf="elem.status==1">{{ 'PUBBLICATO'| translate }}</div>
+        <div class="stato" *ngIf="elem.status==2">{{ 'PAGATO' | translate }}</div>
       </td>
       <td class="align-middle">
-        <svg class="icon icon-sm"><use xlink:href="/assets/img/sprite.svg#it-download"></use></svg>
-        <svg class="icon icon-sm"><use xlink:href="/assets/img/sprite.svg#it-info-circle"></use></svg>
+        <svg class="icon disable">
+          <use xlink:href="/assets/img/sprite.svg#it-download"></use>
+        </svg>
+        <svg class="icon icon-primary">
+          <use xlink:href="/assets/img/sprite.svg#it-info-circle"></use>
+        </svg>
       </td>
     </tr>
   </tbody>
