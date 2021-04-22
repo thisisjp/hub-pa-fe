@@ -77,12 +77,5 @@
   "OBBLIGATORIO": " è obbligatorio",
   "MAX_LENGTH": " supera la lunghezza massima di ",
   "CARATTERI": " caratteri",
-  "NOT_VALID_FORM": " non ha un formato valido",
-  "OF": "di",
-  "POSITIONS": "Posizioni",
-  "CODICE_AVVISO": "CODICE AVVISO",
-  "DATE": "Data",
-  "STATUS": "Stato",
-  "ALERT_AVVISI_POST": "PRESTO POTRAI PUBBLICARE E POSTALIZZARE I TUOI AVVISI",
-  "CERCA_CF": "Cerca CF o codice avviso"
+  "NOT_VALID_FORM": " non ha un formato valido"
 }
