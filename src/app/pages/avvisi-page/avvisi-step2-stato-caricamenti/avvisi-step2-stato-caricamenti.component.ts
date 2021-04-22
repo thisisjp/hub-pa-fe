@@ -134,4 +134,8 @@ export class AvvisiStep2StatoCaricamentiComponent implements OnInit, OnDestroy {
   hasElem(nrecordFound?: number): boolean {
     return !!nrecordFound && nrecordFound > 0;
   }
+
+  getFormattedDate(insertDate?: string): string {
+    return insertDate ? new Date(insertDate).toLocaleString() : '';
+  }
 }

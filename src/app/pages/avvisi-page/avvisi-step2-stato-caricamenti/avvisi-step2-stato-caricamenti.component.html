@@ -45,7 +45,7 @@
           <td class="align-middle">
             <strong>{{ paymentJobList[i].fileName }}</strong>
             <br />
-            <small class="text-muted">{{ paymentJobList[i].insertDate }}</small>
+            <small class="text-muted">{{ getFormattedDate(paymentJobList[i].insertDate) }}</small>
           </td>
           <td class="align-middle">
             <ng-container *ngIf="hasElem(paymentJobList[i].nrecordFound)">
