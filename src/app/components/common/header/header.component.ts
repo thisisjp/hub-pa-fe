@@ -13,7 +13,7 @@ import { Menu } from '../../../models/menu.enum';
 export class HeaderComponent {
   menuEnum = Menu;
 
-  constructor(private router: Router, private errorService: ErrorService, private tokenService: TokenService) {}
+  constructor(private router: Router, private errorService: ErrorService, public tokenService: TokenService) {}
 
   goToPage(path: string): void {
     if (!this.isPathActive(path)) {

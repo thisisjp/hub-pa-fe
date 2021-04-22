@@ -12,11 +12,6 @@
       "^/auth": ""
     }
   },
-  "/microservice/*": {
-    "target": "http://localhost:8081",
-    "secure": false,
-    "logLevel": "debug"
-  },
   "/ente/*": {
     "target": "http://localhost:8082",
     "secure": false,

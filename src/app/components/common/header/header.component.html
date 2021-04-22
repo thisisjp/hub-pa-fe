@@ -43,8 +43,9 @@
                 <a href="#">
                   <div class="it-brand-text">
                     <h2 class="no_toc">Portale TARI/TEFA</h2>
-                    <h3 class="no_toc d-none d-md-block" *ngIf="canShowSecureComponents()">Comune di Controguerra</h3>
-                    <!--TODO-->
+                    <h3 class="no_toc d-none d-md-block" *ngIf="canShowSecureComponents()">
+                      {{ tokenService.getDesAmm() }}
+                    </h3>
                   </div>
                 </a>
               </div>
