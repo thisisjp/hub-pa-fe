@@ -3,5 +3,5 @@ import { Tribute } from './tribute';
 
 export class UploadCSVModel {
   csv = new CsvModel();
-  tributeService?: Tribute;
+  fiscalCodeCreditor = '';
 }
