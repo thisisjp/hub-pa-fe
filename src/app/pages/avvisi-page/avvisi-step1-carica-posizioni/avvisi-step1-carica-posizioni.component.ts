@@ -397,13 +397,9 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
       }
     }
 
-    this.serviceManagementService.getService(this.tokenService.getFiscalCode()).subscribe(res => {
-      if (res) {
-        // eslint-disable-next-line functional/immutable-data
-        this.uploadModel.tributeService = res;
-        this.caricaCSV();
-      }
-    });
+    // eslint-disable-next-line functional/immutable-data
+    this.uploadModel.fiscalCodeCreditor = this.tokenService.getFiscalCode();
+    this.caricaCSV();
   }
 
   // eslint-disable-next-line complexity
