@@ -12,6 +12,8 @@ import { PaymentJob } from '../models/payment-job';
 export class UploadPaymentsService {
   constructor(private http: HttpClient) {}
 
+  private url = environment.API_URL + environment.PREFIX_URL_UPLOAD_PAYMENTS + '/upload-payments';
+
   /**
    * Indica se lo stato dei job indicati è diverso da In Attesa
    */
@@ -21,35 +23,35 @@ export class UploadPaymentsService {
     for (const elem of jobIds) {
       params = params.append('jobIds', String(elem));
     }
-    return this.http.get<BaseResponse>(environment.API_URL + '/upload-payments/statusChanged', { params });
+    return this.http.get<BaseResponse>(this.url + '/statusChanged', { params });
   }
 
   /**
    * Verifica se sono stati caricati dei job non andati in errore
    */
   isPaymentJobAvailable(fiscalCode: string): Observable<BaseResponse> {
-    return this.http.get<BaseResponse>(environment.API_URL + '/upload-payments/isPaymentJobAvailable/' + fiscalCode);
+    return this.http.get<BaseResponse>(this.url + '/isPaymentJobAvailable/' + fiscalCode);
   }
 
   /**
    * Registra un caricamento di file csv
    */
   createJobRecord(model: PaymentJob): Observable<BaseResponse> {
-    return this.http.post<BaseResponse>(environment.API_URL + '/upload-payments/createJobRecord', model);
+    return this.http.post<BaseResponse>(this.url + '/createJobRecord', model);
   }
 
   /**
    * Recupera la lista dei file csv caricati
    */
   getAll(fiscalCode: string): Observable<Array<PaymentJob>> {
-    return this.http.get<Array<PaymentJob>>(environment.API_URL + '/upload-payments/getAll/' + fiscalCode);
+    return this.http.get<Array<PaymentJob>>(this.url + '/getAll/' + fiscalCode);
   }
 
   /**
    * Carica sulla coda gli oggetti rappresentati il file csv
    */
   upload(model: UploadCSVModel): Observable<BaseResponse> {
-    return this.http.post<BaseResponse>(environment.API_URL + '/upload-payments/upload', model);
+    return this.http.post<BaseResponse>(this.url + '/upload', model);
   }
 
   downloadFile(jobId: number): void {

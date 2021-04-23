@@ -11,24 +11,26 @@ import { Tribute } from '../models/tribute';
 export class ServiceManagementService {
   constructor(private http: HttpClient) {}
 
+  private url = environment.API_URL + environment.PREFIX_URL_SERVICE_MANAGEMENT + '/service-management';
+
   /**
    * Indica se è presente un tributo
    */
   isServiceConfigurated(fiscalCode: string): Observable<BaseResponse> {
-    return this.http.get<BaseResponse>(environment.API_URL + '/service-management/service/info/' + fiscalCode);
+    return this.http.get<BaseResponse>(this.url + '/service/info/' + fiscalCode);
   }
 
   /**
    * Salva il tributo
    */
   saveService(request: Tribute): Observable<BaseResponse> {
-    return this.http.post<BaseResponse>(environment.API_URL + '/service-management/service', request);
+    return this.http.post<BaseResponse>(this.url + '/service', request);
   }
 
   /**
    * Recupera i dati del tributo
    */
   getService(fiscalCode: string): Observable<Tribute> {
-    return this.http.get<Tribute>(environment.API_URL + '/service-management/service/' + fiscalCode);
+    return this.http.get<Tribute>(this.url + '/service/' + fiscalCode);
   }
 }
