@@ -1,1 +1,283 @@
-<p>posizioni-home works!</p>
+<div class="alert alert-info" role="alert">
+  {{ 'ALERT_AVVISI_POST' | translate }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<table style="width: 100%">
+  <tr>
+    <td>
+      <h3>{{ 'POSITIONS' | translate }}</h3>
+    </td>
+    <td style="width: 130px">
+      <div class="chip chip-simple chip-lg" (click)="datecheckswitch()">
+        <span class="chip-label">{{ 'DATE' | translate }}</span>
+        <button *ngIf="datecheck">
+          <svg class="icon icon-primary">
+            <use xlink:href="/assets/img/sprite.svg#it-close"></use>
+          </svg>
+        </button>
+      </div>
+    </td>
+    <td style="width: 130px">
+      <div class="chip chip-simple chip-lg" (click)="statuscheckswitch()">
+        <span class="chip-label">{{ 'STATUS' | translate }}</span>
+        <button *ngIf="statuscheck">
+          <svg class="icon icon-primary">
+            <use xlink:href="/assets/img/sprite.svg#it-close"></use>
+          </svg>
+        </button>
+      </div>
+    </td>
+    <td style="width: 270px">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <svg class="icon icon-sm icon-secondary"><use xlink:href="/assets/img/sprite.svg#it-search"></use></svg>
+          </div>
+        </div>
+        <input type="text" class="form-control" placeholder="{{ 'CERCA_CF' | translate }}" />
+      </div>
+    </td>
+  </tr>
+</table>
+<div class="counter">{{ rowstart }}-{{ rowend }} {{ 'OF' | translate }} {{ rowtot }}</div>
+<nav class="pagination-wrapper justify-content-end" aria-label="Navigazione allineata a destra">
+  <div class="pagination">
+    <a class="pagelink" tabindex="-1" aria-hidden="true" [routerLink]="" (click)="passleft()">
+      <svg class="icon icon-primary" [ngClass]="{ disable: page === 0 }">
+        <use xlink:href="/assets/img/sprite.svg#it-arrow-left"></use>
+      </svg>
+    </a>
+
+    <a
+      class="pagelink"
+      [ngClass]="{ pagesel: page + 1 === page1, disable: page1 > pagetot }"
+      [routerLink]=""
+      (click)="pass(page1)"
+      >{{ page1 }}</a
+    >
+    <a
+      class="pagelink"
+      [ngClass]="{ pagesel: page + 1 === page2, disable: page2 > pagetot }"
+      [routerLink]=""
+      (click)="pass(page2)"
+      >{{ page2 }}</a
+    >
+
+    <a
+      class="pagelink"
+      [ngClass]="{ pagesel: page + 1 === page3, disable: page3 > pagetot }"
+      [routerLink]=""
+      (click)="pass(page3)"
+      >{{ page3 }}</a
+    >
+
+    <a
+      class="pagelink"
+      [ngClass]="{ pagesel: page + 1 === page4, disable: page4 > pagetot }"
+      [routerLink]=""
+      (click)="pass(page4)"
+      >{{ page4 }}</a
+    >
+
+    <a
+      class="pagelink"
+      [ngClass]="{ pagesel: page + 1 === page5, disable: page5 > pagetot }"
+      [routerLink]=""
+      (click)="pass(page5)"
+      >{{ page5 }}</a
+    >
+    <a class="pagelink" [routerLink]="" (click)="passright()">
+      <svg class="icon icon-primary" [ngClass]="{ disable: page === pagetot - 1 }">
+        <use xlink:href="/assets/img/sprite.svg#it-arrow-right"></use>
+      </svg>
+    </a>
+  </div>
+</nav>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">{{ 'CF' | translate }}</th>
+      <!-- <th scope="col">{{ 'CODICE_AVVISO' | translate }}</th> -->
+      <th scope="col">{{ 'DATE' | translate | uppercase }}</th>
+      <th scope="col">{{ 'STATUS' | translate | uppercase }}</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let elem of listPosition; let i = index">
+      <td class="tdcheck">
+        <div class="form-check">
+          <input id="checkbox1" type="checkbox" disabled />
+          <label for="checkbox1" class="labcheck disabled"></label>
+        </div>
+      </td>
+      <td>
+        <div>
+          <strong>{{ elem.fiscalCode }}</strong>
+          <br />
+          <small class="text-muted">{{ elem.name }} {{ elem.surname }}</small>
+        </div>
+      </td>
+      <!-- <td>
+        {{ elem.notifyCode }}
+        <svg class="icon">
+          <use xlink:href="/assets/img/sprite.svg#it-tool"></use>
+        </svg>
+      </td> -->
+      <td>
+        {{ elem.date | date: 'dd/MM/yyyy' }}
+      </td>
+      <td>
+        <span class="badge app-display-block" [ngClass]="getBadgeClass(elem.status)">{{
+          getBadgeText(elem.status) | translate
+        }}</span>
+      </td>
+      <td class="align-middle tdicon">
+        <svg class="icon disable">
+          <use xlink:href="/assets/img/sprite.svg#it-download"></use>
+        </svg>
+        <svg class="icon icon-primary" (click)="openDetail(elem.id)">
+          <use xlink:href="/assets/img/sprite.svg#it-info-circle"></use>
+        </svg>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#myModal1" #btncontent1 />
+<div class="modal fade" role="dialog" id="myModal1">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ 'FILTRA_PER_STATO' | translate }}</h5>
+      </div>
+      <div class="modal-body">
+        <div class="form-check" aria-describedby="">
+          <input name="gruppo1" value="0" type="radio" id="radio1" [(ngModel)]="stato" />
+          <label for="radio1">{{ 'BOZZA' | translate }}</label>
+        </div>
+        <div class="form-check" aria-describedby="">
+          <input name="gruppo1" value="1" type="radio" id="radio2" [(ngModel)]="stato" />
+          <label for="radio2">{{ 'PUBBLICATO' | translate }}</label>
+        </div>
+        <div class="form-check" aria-describedby="">
+          <input name="gruppo1" value="2" type="radio" id="radio3" [(ngModel)]="stato" />
+          <label for="radio3">{{ 'PAGATO' | translate }}</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="primary-color left" (click)="resetstato()">{{ 'REIMPOSTA_FILTRO' | translate }}</div>
+        <button class="btn btn-primary btn-sm right" data-dismiss="modal" type="button" (click)="closestato()">
+          {{ 'OK' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#myModal2" #btncontent2 />
+<div class="modal fade" role="dialog" id="myModal2">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ 'FILTRA_PER_DATA' | translate | uppercase }}</h5>
+      </div>
+      <div class="modal-body">
+        <div class="it-datepicker-wrapper">
+          <div class="form-group">
+            <input
+              class="form-control it-date-datepicker"
+              id="startdate"
+              type="date"
+              placeholder="gg/mm/aaaa"
+              [(ngModel)]="startDate"
+            />
+            <label for="startdate">{{ 'DATE_FROM' | translate }}</label>
+          </div>
+        </div>
+        <div class="it-datepicker-wrapper">
+          <div class="form-group">
+            <input
+              class="form-control it-date-datepicker"
+              id="enddate"
+              type="date"
+              placeholder="gg/mm/aaaa"
+              [(ngModel)]="endDate"
+            />
+            <label for="enddate">{{ 'DATE_TO' | translate }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="primary-color left" (click)="resetdata()">{{ 'REIMPOSTA_FILTRO' | translate }}</div>
+        <button class="btn btn-primary btn-sm right" data-dismiss="modal" type="button" (click)="closedata()">
+          {{ 'OK' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#myModal3" #btncontent3 />
+<div class="modal fade" role="dialog" id="myModal3">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">{{ 'DETTAGLIO_AVVISO' | translate }}</h3>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <svg class="icon icon-primary icon-lg">
+            <use xlink:href="/assets/img/sprite.svg#it-close"></use>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table>
+          <tr>
+            <td>
+              <table>
+                <tr>
+                  <td>
+                    <p>{{ 'DESTINATARIO' | translate }}</p>
+                    <p>Mario Rossi</p>
+                  </td>
+                  <td>
+                    <p>{{ 'CODICE_FISCALE' | translate }}</p>
+                    <p>RSSMRA30A01H50I</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>{{ 'INDIRIZZO' | translate }}</p>
+                    <p>Mario Rossi</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>{{ 'OGGETTO_PAGAMENTO' | translate }}</p>
+                    <p>Mario Rossi</p>
+                  </td>
+                  <td>
+                    <span class="badge" [ngClass]="getBadgeClass(statusEnum.BOZZA)">{{
+                      getBadgeText(statusEnum.BOZZA) | translate
+                    }}</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="detailright">
+              <button class="btn btn-primary btn-sm btndetail" type="button">{{ 'PUBBLICA' | translate }}</button>
+              <button class="btn btn-primary btn-sm btndetail" data-dismiss="modal" type="button">
+                {{ 'ANTEPRIMA' | translate }}
+              </button>
+              <div class="primary-color left">{{ 'ELIMINA_AVVISO' | translate }}</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
