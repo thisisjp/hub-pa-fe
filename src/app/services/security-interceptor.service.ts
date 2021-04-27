@@ -15,9 +15,9 @@ import { catchError, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ErrorStatus } from '../models/error-status.enum';
+import { ErrorStatus } from '../models/enums/error-status.enum';
 import { Message } from '../models/message';
-import { MessageType } from '../models/message-type.enum';
+import { MessageType } from '../models/enums/message-type.enum';
 import { TokenService } from './token.service';
 import { ErrorService } from './error.service';
 

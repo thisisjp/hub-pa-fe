@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Menu } from '../../../models/menu.enum';
+import { Menu } from '../../../models/enums/menu.enum';
 import { Notifica } from '../../../models/notifica';
 
 declare function notificationShow(notificationTarget: string, notificationTimeOut: number): any;

@@ -7,9 +7,11 @@ export const environment = {
   environmentName: 'SVILUPPO',
   API_URL: 'http://localhost:4200',
   cvsMaxRows: 500,
+  positionsItemsPerPage: 3,
   PREFIX_URL_ENTE: '',
   PREFIX_URL_SERVICE_MANAGEMENT: '',
-  PREFIX_URL_UPLOAD_PAYMENTS: ''
+  PREFIX_URL_UPLOAD_PAYMENTS: '',
+  PREFIX_URL_PAYMENTS: ''
 };
 
 /*

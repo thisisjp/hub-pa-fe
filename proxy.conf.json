@@ -26,5 +26,10 @@
     "target": "http://localhost:8084",
     "secure": false,
     "logLevel": "debug"
+  },
+  "/payments/*": {
+    "target": "http://localhost:8085",
+    "secure": false,
+    "logLevel": "debug"
   }
 }

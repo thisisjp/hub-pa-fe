@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { Menu } from '../../../models/menu.enum';
+import { Menu } from '../../../models/enums/menu.enum';
 import { denominationDefault, Tribute } from '../../../models/tribute';
 import { Installment } from '../../../models/installment';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { UploadCSVModel } from '../models/upload-csv-model';
+import { UploadCSVModel } from '../models/upload-csvmodel';
 import { BaseResponse } from '../models/base-response';
 import { environment } from '../../environments/environment';
 import { PaymentJob } from '../models/payment-job';

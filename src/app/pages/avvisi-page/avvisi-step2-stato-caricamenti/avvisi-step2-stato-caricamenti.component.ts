@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Menu } from '../../../models/menu.enum';
-import { PaymentJobStatus } from '../../../models/payment-job-status.enum';
+import { Menu } from '../../../models/enums/menu.enum';
+import { PaymentJobStatus } from '../../../models/enums/payment-job-status.enum';
 import { UploadPaymentsService } from '../../../services/upload-payments.service';
 import { TokenService } from '../../../services/token.service';
 import { PaymentJob } from '../../../models/payment-job';

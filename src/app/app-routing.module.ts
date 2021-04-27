@@ -7,7 +7,7 @@ import { GuidaPageComponent } from './pages/guida-page/guida-page.component';
 import { AvvisiPageComponent } from './pages/avvisi-page/avvisi-page.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LoginSpidPageComponent } from './pages/login-spid-page/login-spid-page.component';
-import { Menu } from './models/menu.enum';
+import { Menu } from './models/enums/menu.enum';
 import { TributiStep0HomeComponent } from './pages/home-page/tributi-step0-home/tributi-step0-home.component';
 import { TributiStep2DefinisciRateComponent } from './pages/tributi-page/tributi-step2-definisci-rate/tributi-step2-definisci-rate.component';
 import { TributiStep1ImpostaEntiComponent } from './pages/tributi-page/tributi-step1-imposta-enti/tributi-step1-imposta-enti.component';
