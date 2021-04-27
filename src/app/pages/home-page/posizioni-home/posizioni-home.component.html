@@ -42,25 +42,25 @@
     </td>
   </tr>
 </table>
-<div class="counter">{{ rowstart }}-{{ rowend }} {{ 'OF' | translate }} {{ rowtot }}</div>
+<div class="counter">{{ rowstart }}-{{ rowend }} {{ 'OF' | translate }} {{ totalItems }}</div>
 <nav class="pagination-wrapper justify-content-end" aria-label="Navigazione allineata a destra">
   <div class="pagination">
     <a class="pagelink" tabindex="-1" aria-hidden="true" [routerLink]="" (click)="passleft()">
-      <svg class="icon icon-primary" [ngClass]="{ disable: page === 0 }">
+      <svg class="icon icon-primary" [ngClass]="{ disable: currentPage === 0 }">
         <use xlink:href="/assets/img/sprite.svg#it-arrow-left"></use>
       </svg>
     </a>
 
     <a
       class="pagelink"
-      [ngClass]="{ pagesel: page + 1 === page1, disable: page1 > pagetot }"
+      [ngClass]="{ pagesel: currentPage + 1 === page1, disable: page1 > totalPages }"
       [routerLink]=""
       (click)="pass(page1)"
       >{{ page1 }}</a
     >
     <a
       class="pagelink"
-      [ngClass]="{ pagesel: page + 1 === page2, disable: page2 > pagetot }"
+      [ngClass]="{ pagesel: currentPage + 1 === page2, disable: page2 > totalPages }"
       [routerLink]=""
       (click)="pass(page2)"
       >{{ page2 }}</a
@@ -68,7 +68,7 @@
 
     <a
       class="pagelink"
-      [ngClass]="{ pagesel: page + 1 === page3, disable: page3 > pagetot }"
+      [ngClass]="{ pagesel: currentPage + 1 === page3, disable: page3 > totalPages }"
       [routerLink]=""
       (click)="pass(page3)"
       >{{ page3 }}</a
@@ -76,7 +76,7 @@
 
     <a
       class="pagelink"
-      [ngClass]="{ pagesel: page + 1 === page4, disable: page4 > pagetot }"
+      [ngClass]="{ pagesel: currentPage + 1 === page4, disable: page4 > totalPages }"
       [routerLink]=""
       (click)="pass(page4)"
       >{{ page4 }}</a
@@ -84,13 +84,13 @@
 
     <a
       class="pagelink"
-      [ngClass]="{ pagesel: page + 1 === page5, disable: page5 > pagetot }"
+      [ngClass]="{ pagesel: currentPage + 1 === page5, disable: page5 > totalPages }"
       [routerLink]=""
       (click)="pass(page5)"
       >{{ page5 }}</a
     >
     <a class="pagelink" [routerLink]="" (click)="passright()">
-      <svg class="icon icon-primary" [ngClass]="{ disable: page === pagetot - 1 }">
+      <svg class="icon icon-primary" [ngClass]="{ disable: currentPage === totalPages - 1 }">
         <use xlink:href="/assets/img/sprite.svg#it-arrow-right"></use>
       </svg>
     </a>
@@ -108,7 +108,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let elem of listPosition; let i = index">
+    <tr *ngFor="let elem of payments; let i = index">
       <td class="tdcheck">
         <div class="form-check">
           <input id="checkbox1" type="checkbox" disabled />
@@ -122,12 +122,6 @@
           <small class="text-muted">{{ elem.name }} {{ elem.surname }}</small>
         </div>
       </td>
-      <!-- <td>
-        {{ elem.notifyCode }}
-        <svg class="icon">
-          <use xlink:href="/assets/img/sprite.svg#it-tool"></use>
-        </svg>
-      </td> -->
       <td>
         {{ elem.date | date: 'dd/MM/yyyy' }}
       </td>

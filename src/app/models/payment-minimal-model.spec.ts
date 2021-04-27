@@ -1,6 +1,6 @@
 import { PaymentMinimalModel } from './payment-minimal-model';
 
-describe('Position', () => {
+describe('PaymentMinimalModel', () => {
   it('should create an instance', () => {
     expect(new PaymentMinimalModel()).toBeTruthy();
   });

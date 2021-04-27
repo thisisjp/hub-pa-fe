@@ -4,12 +4,12 @@ import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseResponse } from 'src/app/models/base-response';
 import { CsvRow } from 'src/app/models/csv-row';
-import { Menu } from 'src/app/models/menu.enum';
-import { UploadCSVModel } from 'src/app/models/upload-csv-model';
+import { Menu } from 'src/app/models/enums/menu.enum';
+import { UploadCSVModel } from 'src/app/models/upload-csvmodel';
 import { environment } from 'src/environments/environment';
 import { TokenService } from '../../../services/token.service';
 import { PaymentJob } from '../../../models/payment-job';
-import { PaymentJobStatus } from '../../../models/payment-job-status.enum';
+import { PaymentJobStatus } from '../../../models/enums/payment-job-status.enum';
 import { UploadPaymentsService } from '../../../services/upload-payments.service';
 import { ServiceManagementService } from '../../../services/service-management.service';
 

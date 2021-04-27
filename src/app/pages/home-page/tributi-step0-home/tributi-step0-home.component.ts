@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Menu } from '../../../models/menu.enum';
+import { Menu } from '../../../models/enums/menu.enum';
 
 @Component({
   selector: 'app-tributi-step0',

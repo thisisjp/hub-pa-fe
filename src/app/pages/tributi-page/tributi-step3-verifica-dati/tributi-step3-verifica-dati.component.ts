@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Menu } from '../../../models/menu.enum';
+import { Menu } from '../../../models/enums/menu.enum';
 import { denominationDefault, Tribute } from '../../../models/tribute';
 import { CreditorEntry } from '../../../models/creditor-entry';
 import { Notifica } from '../../../models/notifica';

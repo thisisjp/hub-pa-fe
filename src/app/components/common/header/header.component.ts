@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ErrorService } from '../../../services/error.service';
 import { Message } from '../../../models/message';
 import { TokenService } from '../../../services/token.service';
-import { Menu } from '../../../models/menu.enum';
+import { Menu } from '../../../models/enums/menu.enum';
 
 @Component({
   selector: 'app-header',
