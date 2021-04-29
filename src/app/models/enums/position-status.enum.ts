@@ -1,5 +1,6 @@
 export enum PositionStatusEnum {
-  BOZZA,
-  PUBBLICATO,
-  PAGATO
+  BOZZA = 1,
+  PUBBLICATO = 2,
+  PAGATO = 3,
+  PAGATO_PARZIALE = 4
 }

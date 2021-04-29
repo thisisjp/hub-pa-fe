@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PaymentMinimalModel } from 'src/app/models/payment-minimal-model';
+import { PaymentMinimalModel } from 'src/app/models/payments/payment-minimal-model';
 import { PositionStatusEnum } from '../../../models/enums/position-status.enum';
 import { PaymentsService } from '../../../services/payments.service';
-import { FindRequestModel } from '../../../models/find-request-model';
-import { FilterModel } from '../../../models/filter-model';
+import { FindRequestModel } from '../../../models/payments/find-request-model';
+import { FilterModel } from '../../../models/payments/filter-model';
 import { environment } from '../../../../environments/environment';
 import { TokenService } from '../../../services/token.service';
 
@@ -21,9 +21,7 @@ export class PosizioniHomeComponent implements OnInit {
 
   payments: Array<PaymentMinimalModel> = [];
 
-  startDate: Date | undefined;
-  endDate: Date | undefined;
-  stato: number | undefined;
+  filterModel = new FilterModel();
 
   rowstart = 0;
   rowend = 0;
@@ -46,9 +44,6 @@ export class PosizioniHomeComponent implements OnInit {
   page4 = 0;
   page5 = 0;
 
-  datecheck = false;
-  statuscheck = false;
-
   constructor(private paymentsService: PaymentsService, private tokenService: TokenService) {}
 
   ngOnInit(): void {
@@ -56,12 +51,18 @@ export class PosizioniHomeComponent implements OnInit {
   }
 
   pass(pagenumber: number): void {
+    if (this.totalPages === 0) {
+      return;
+    }
     // eslint-disable-next-line functional/immutable-data
     this.currentPage = pagenumber - 1;
     this.getListPositionBE();
   }
 
   passleft(): void {
+    if (this.totalPages === 0) {
+      return;
+    }
     if (this.currentPage !== 0) {
       // eslint-disable-next-line functional/immutable-data
       this.currentPage = this.currentPage - 1;
@@ -70,6 +71,9 @@ export class PosizioniHomeComponent implements OnInit {
   }
 
   passright(): void {
+    if (this.totalPages === 0) {
+      return;
+    }
     if (this.currentPage + 1 < this.totalPages) {
       // eslint-disable-next-line functional/immutable-data
       this.currentPage = this.currentPage + 1;
@@ -77,10 +81,8 @@ export class PosizioniHomeComponent implements OnInit {
     }
   }
 
-  datecheckswitch(): void {
-    // eslint-disable-next-line functional/immutable-data
-    this.datecheck = !this.datecheck;
-    if (this.datecheck) {
+  datecheckswitch(isCloseButton: boolean): void {
+    if (!isCloseButton) {
       this.btnmodal2.nativeElement.click();
     } else {
       this.resetdata();
@@ -88,10 +90,8 @@ export class PosizioniHomeComponent implements OnInit {
     }
   }
 
-  statuscheckswitch(): void {
-    // eslint-disable-next-line functional/immutable-data
-    this.statuscheck = !this.statuscheck;
-    if (this.statuscheck) {
+  statuscheckswitch(isCloseButton: boolean): void {
+    if (!isCloseButton) {
       this.btnmodal1.nativeElement.click();
     } else {
       this.resetstato();
@@ -101,14 +101,22 @@ export class PosizioniHomeComponent implements OnInit {
 
   resetdata(): void {
     // eslint-disable-next-line functional/immutable-data
-    this.startDate = undefined;
+    this.filterModel.dateFrom = undefined;
     // eslint-disable-next-line functional/immutable-data
-    this.endDate = undefined;
+    this.filterModel.dateTo = undefined;
   }
 
   resetstato(): void {
     // eslint-disable-next-line functional/immutable-data
-    this.stato = undefined;
+    this.filterModel.status = undefined;
+  }
+
+  resetAllFilters(): void {
+    this.resetdata();
+    this.resetstato();
+    // eslint-disable-next-line functional/immutable-data
+    this.filterModel.textSearch = undefined;
+    this.getListPositionBE();
   }
 
   closedata(): void {
@@ -121,14 +129,15 @@ export class PosizioniHomeComponent implements OnInit {
 
   openDetail(e: any): void {
     // chiamata al servizio che prende il dettaglio e chiama il metodo in basso
-    this.btnmodal3.nativeElement.click();
+    // TODO abilitare
+    // this.btnmodal3.nativeElement.click();
   }
 
   calcpagination(): void {
     // eslint-disable-next-line functional/immutable-data
-    this.rowstart = this.currentPage * this.itemsPerPage + 1;
+    this.rowstart = this.totalPages === 0 ? 0 : this.currentPage * this.itemsPerPage + 1;
     // eslint-disable-next-line functional/immutable-data
-    this.rowend = this.currentPage * this.itemsPerPage + this.itemsPerPage;
+    this.rowend = this.currentPage * this.itemsPerPage + this.payments.length;
 
     if (this.currentPage === 0) {
       // eslint-disable-next-line functional/immutable-data
@@ -156,30 +165,31 @@ export class PosizioniHomeComponent implements OnInit {
 
   getListPositionBE(): void {
     // chiamata al servizio che mappa i campi e chiama il metodo in basso
-    const filterModel = new FilterModel();
     const findRequestModel = new FindRequestModel(
-      filterModel,
+      this.filterModel,
       this.tokenService.getFiscalCode(),
       this.itemsPerPage,
       this.currentPage
     );
-    const findResponseModel = this.paymentsService.findMock(findRequestModel);
-    // eslint-disable-next-line functional/immutable-data
-    this.payments = findResponseModel.payments;
-    // eslint-disable-next-line functional/immutable-data
-    this.totalPages = findResponseModel.totalPages;
-    // eslint-disable-next-line functional/immutable-data
-    this.totalItems = findResponseModel.totalItems;
-    this.calcpagination();
+    this.paymentsService.find(findRequestModel).subscribe(res => {
+      if (res) {
+        // eslint-disable-next-line functional/immutable-data
+        this.payments = res.payments;
+        // eslint-disable-next-line functional/immutable-data
+        this.totalPages = res.totalPages;
+        // eslint-disable-next-line functional/immutable-data
+        this.totalItems = res.totalItems;
+        this.calcpagination();
+      }
+    });
   }
 
   getBadgeClass(status?: number): string {
     switch (status) {
       case this.statusEnum.BOZZA:
-        return 'badge-secondary';
       case this.statusEnum.PUBBLICATO:
-        return 'badge-secondary';
       case this.statusEnum.PAGATO:
+      case this.statusEnum.PAGATO_PARZIALE:
         return 'badge-secondary';
       default:
         return '';
@@ -189,13 +199,42 @@ export class PosizioniHomeComponent implements OnInit {
   getBadgeText(status?: number): string {
     switch (status) {
       case this.statusEnum.BOZZA:
-        return 'BOZZA';
+        return 'Bozza';
       case this.statusEnum.PUBBLICATO:
-        return 'PUBBLICATO';
+        return 'Pubblicato';
       case this.statusEnum.PAGATO:
-        return 'PAGATO';
+        return 'Pagato';
+      case this.statusEnum.PAGATO_PARZIALE:
+        return 'Pagato parziale';
       default:
         return '';
     }
+  }
+
+  getFormattedDate(inputDate: string): string {
+    const inputParts = inputDate.split('-');
+    return inputParts[2] + '/' + inputParts[1] + '/' + inputParts[0];
+  }
+
+  getChipDates(): string {
+    if (this.filterModel.dateFrom && this.filterModel.dateTo) {
+      return (
+        'Dal ' +
+        this.getFormattedDate(String(this.filterModel.dateFrom)) +
+        ' al ' +
+        this.getFormattedDate(String(this.filterModel.dateTo))
+      );
+    }
+    if (this.filterModel.dateFrom) {
+      return 'Dal ' + this.getFormattedDate(String(this.filterModel.dateFrom));
+    }
+    if (this.filterModel.dateTo) {
+      return 'Al ' + this.getFormattedDate(String(this.filterModel.dateTo));
+    }
+    return '';
+  }
+
+  onBlurTextSearch(): void {
+    this.getListPositionBE();
   }
 }

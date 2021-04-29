@@ -10,34 +10,56 @@
     <td>
       <h3>{{ 'POSITIONS' | translate }}</h3>
     </td>
-    <td style="width: 130px">
-      <div class="chip chip-simple chip-lg" (click)="datecheckswitch()">
-        <span class="chip-label">{{ 'DATE' | translate }}</span>
-        <button *ngIf="datecheck">
-          <svg class="icon icon-primary">
-            <use xlink:href="/assets/img/sprite.svg#it-close"></use>
-          </svg>
-        </button>
-      </div>
+    <td>
+      <ng-container *ngIf="filterModel.dateFrom === undefined && filterModel.dateTo === undefined">
+        <div class="chip chip-simple chip-lg" (click)="datecheckswitch(false)">
+          <span class="chip-label">{{ 'DATE' | translate }}</span>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!(filterModel.dateFrom === undefined && filterModel.dateTo === undefined)">
+        <div class="chip chip-simple chip-lg">
+          <span class="chip-label" (click)="datecheckswitch(false)">{{ getChipDates() }}</span>
+          <button (click)="datecheckswitch(true)">
+            <svg class="icon icon-primary">
+              <use xlink:href="/assets/img/sprite.svg#it-close"></use>
+            </svg>
+          </button>
+        </div>
+      </ng-container>
     </td>
-    <td style="width: 130px">
-      <div class="chip chip-simple chip-lg" (click)="statuscheckswitch()">
-        <span class="chip-label">{{ 'STATUS' | translate }}</span>
-        <button *ngIf="statuscheck">
-          <svg class="icon icon-primary">
-            <use xlink:href="/assets/img/sprite.svg#it-close"></use>
-          </svg>
-        </button>
-      </div>
+    <td>
+      <ng-container *ngIf="filterModel.status === undefined">
+        <div class="chip chip-simple chip-lg" (click)="statuscheckswitch(false)">
+          <span class="chip-label">{{ 'STATUS' | translate }}</span>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!(filterModel.status === undefined)">
+        <div class="chip chip-simple chip-lg">
+          <span class="chip-label" (click)="statuscheckswitch(false)">{{
+            getBadgeText(filterModel.status) | translate
+          }}</span>
+          <button (click)="statuscheckswitch(true)">
+            <svg class="icon icon-primary">
+              <use xlink:href="/assets/img/sprite.svg#it-close"></use>
+            </svg>
+          </button>
+        </div>
+      </ng-container>
     </td>
-    <td style="width: 270px">
+    <td>
       <div class="input-group">
         <div class="input-group-prepend">
           <div class="input-group-text">
             <svg class="icon icon-sm icon-secondary"><use xlink:href="/assets/img/sprite.svg#it-search"></use></svg>
           </div>
         </div>
-        <input type="text" class="form-control" placeholder="{{ 'CERCA_CF' | translate }}" />
+        <input
+          type="text"
+          class="form-control"
+          placeholder="{{ 'CERCA_CF' | translate }}"
+          [(ngModel)]="filterModel.textSearch"
+          (blur)="onBlurTextSearch()"
+        />
       </div>
     </td>
   </tr>
@@ -46,7 +68,7 @@
 <nav class="pagination-wrapper justify-content-end" aria-label="Navigazione allineata a destra">
   <div class="pagination">
     <a class="pagelink" tabindex="-1" aria-hidden="true" [routerLink]="" (click)="passleft()">
-      <svg class="icon icon-primary" [ngClass]="{ disable: currentPage === 0 }">
+      <svg class="icon icon-primary" [ngClass]="{ disable: currentPage === 0 || totalPages === 0 }">
         <use xlink:href="/assets/img/sprite.svg#it-arrow-left"></use>
       </svg>
     </a>
@@ -90,7 +112,7 @@
       >{{ page5 }}</a
     >
     <a class="pagelink" [routerLink]="" (click)="passright()">
-      <svg class="icon icon-primary" [ngClass]="{ disable: currentPage === totalPages - 1 }">
+      <svg class="icon icon-primary" [ngClass]="{ disable: currentPage === totalPages - 1 || totalPages === 0 }">
         <use xlink:href="/assets/img/sprite.svg#it-arrow-right"></use>
       </svg>
     </a>
@@ -101,7 +123,6 @@
     <tr>
       <th scope="col"></th>
       <th scope="col">{{ 'CF' | translate }}</th>
-      <!-- <th scope="col">{{ 'CODICE_AVVISO' | translate }}</th> -->
       <th scope="col">{{ 'DATE' | translate | uppercase }}</th>
       <th scope="col">{{ 'STATUS' | translate | uppercase }}</th>
       <th scope="col"></th>
@@ -142,6 +163,18 @@
   </tbody>
 </table>
 
+<div class="text-center" *ngIf="payments.length === 0">
+  <br />
+  <p>{{ 'NESSUN_ELEMENTO' | translate }}</p>
+  <button
+    (click)="resetAllFilters()"
+    class="btn btn-outline-primary btn-sm d-none d-lg-block col-md-2 offset-5"
+    type="button"
+  >
+    {{ 'REIMPOSTA_TUTTO' | translate }}
+  </button>
+</div>
+
 <input type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#myModal1" #btncontent1 />
 <div class="modal fade" role="dialog" id="myModal1">
   <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -151,16 +184,26 @@
       </div>
       <div class="modal-body">
         <div class="form-check" aria-describedby="">
-          <input name="gruppo1" value="0" type="radio" id="radio1" [(ngModel)]="stato" />
+          <input name="gruppo1" [value]="statusEnum.BOZZA" type="radio" id="radio1" [(ngModel)]="filterModel.status" />
           <label for="radio1">{{ 'BOZZA' | translate }}</label>
         </div>
         <div class="form-check" aria-describedby="">
-          <input name="gruppo1" value="1" type="radio" id="radio2" [(ngModel)]="stato" />
+          <input
+            name="gruppo1"
+            [value]="statusEnum.PUBBLICATO"
+            type="radio"
+            id="radio2"
+            [(ngModel)]="filterModel.status"
+          />
           <label for="radio2">{{ 'PUBBLICATO' | translate }}</label>
         </div>
         <div class="form-check" aria-describedby="">
-          <input name="gruppo1" value="2" type="radio" id="radio3" [(ngModel)]="stato" />
+          <input name="gruppo1" [value]="statusEnum.PAGATO" type="radio" id="radio3" [(ngModel)]="filterModel.status" />
           <label for="radio3">{{ 'PAGATO' | translate }}</label>
+        </div>
+        <div class="form-check" aria-describedby="">
+          <input name="gruppo1" [value]="statusEnum.PAGATO_PARZIALE" type="radio" id="radio4" [(ngModel)]="filterModel.status" />
+          <label for="radio4">{{ 'PAGATO_PARZIALE' | translate }}</label>
         </div>
       </div>
       <div class="modal-footer">
@@ -188,7 +231,7 @@
               id="startdate"
               type="date"
               placeholder="gg/mm/aaaa"
-              [(ngModel)]="startDate"
+              [(ngModel)]="filterModel.dateFrom"
             />
             <label for="startdate">{{ 'DATE_FROM' | translate }}</label>
           </div>
@@ -200,7 +243,7 @@
               id="enddate"
               type="date"
               placeholder="gg/mm/aaaa"
-              [(ngModel)]="endDate"
+              [(ngModel)]="filterModel.dateTo"
             />
             <label for="enddate">{{ 'DATE_TO' | translate }}</label>
           </div>

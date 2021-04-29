@@ -53,8 +53,4 @@ export class UploadPaymentsService {
   upload(model: UploadCSVModel): Observable<BaseResponse> {
     return this.http.post<BaseResponse>(this.url + '/upload', model);
   }
-
-  downloadFile(jobId: number): void {
-    //
-  }
 }

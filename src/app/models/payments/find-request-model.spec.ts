@@ -1,5 +1,5 @@
-import { FindRequestModel } from './find-request-model';
 import { FilterModel } from './filter-model';
+import { FindRequestModel } from './find-request-model';
 
 describe('FindRequestModel', () => {
   it('should create an instance', () => {
