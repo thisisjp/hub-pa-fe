@@ -1,4 +1,4 @@
-import { PaymentMinimalModel } from './payment-minimal-model';
+import { PaymentMinimalModel } from './payments/payment-minimal-model';
 
 describe('Position', () => {
   it('should create an instance', () => {

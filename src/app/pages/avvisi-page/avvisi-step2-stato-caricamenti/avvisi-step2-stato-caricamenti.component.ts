@@ -5,6 +5,7 @@ import { PaymentJobStatus } from '../../../models/enums/payment-job-status.enum'
 import { UploadPaymentsService } from '../../../services/upload-payments.service';
 import { TokenService } from '../../../services/token.service';
 import { PaymentJob } from '../../../models/payment-job';
+import { PaymentsService } from '../../../services/payments.service';
 
 declare const $: any;
 
@@ -25,6 +26,7 @@ export class AvvisiStep2StatoCaricamentiComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private uploadPaymentsService: UploadPaymentsService,
+    private paymentsService: PaymentsService,
     private tokenService: TokenService
   ) {}
 
@@ -127,7 +129,7 @@ export class AvvisiStep2StatoCaricamentiComponent implements OnInit, OnDestroy {
 
   openDettagli(jobId?: number): void {
     if (jobId) {
-      this.uploadPaymentsService.downloadFile(jobId);
+      this.paymentsService.export(jobId);
     }
   }
 
