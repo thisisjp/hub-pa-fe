@@ -4,12 +4,15 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageComponent } from './message.component';
 
 describe('MessageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
+        FormsModule,
+        ReactiveFormsModule,
         HttpClientTestingModule,
         NgxLocalStorageModule.forRoot(),
         RouterTestingModule,

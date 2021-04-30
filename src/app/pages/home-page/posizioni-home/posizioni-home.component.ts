@@ -6,6 +6,8 @@ import { FindRequestModel } from '../../../models/payments/find-request-model';
 import { FilterModel } from '../../../models/payments/filter-model';
 import { environment } from '../../../../environments/environment';
 import { TokenService } from '../../../services/token.service';
+import { PaymentPositionDetailModel } from '../../../models/payments/payment-position-detail-model';
+import { PositionOptionStatusEnum } from '../../../models/enums/position-option-status.enum';
 
 @Component({
   selector: 'app-posizioni-home',
@@ -18,8 +20,10 @@ export class PosizioniHomeComponent implements OnInit {
   @ViewChild('btncontent3') btnmodal3: any;
 
   statusEnum = PositionStatusEnum;
+  optionStatusEnum = PositionOptionStatusEnum;
 
   payments: Array<PaymentMinimalModel> = [];
+  modalDetail = new PaymentPositionDetailModel();
 
   filterModel = new FilterModel();
 
@@ -51,9 +55,6 @@ export class PosizioniHomeComponent implements OnInit {
   }
 
   pass(pagenumber: number): void {
-    if (this.totalPages === 0) {
-      return;
-    }
     // eslint-disable-next-line functional/immutable-data
     this.currentPage = pagenumber - 1;
     this.getListPositionBE();
@@ -127,10 +128,17 @@ export class PosizioniHomeComponent implements OnInit {
     this.getListPositionBE();
   }
 
-  openDetail(e: any): void {
-    // chiamata al servizio che prende il dettaglio e chiama il metodo in basso
-    // TODO abilitare
-    // this.btnmodal3.nativeElement.click();
+  openDetail(e: number | undefined): void {
+    if (e) {
+      // chiamata al servizio che prende il dettaglio e chiama il metodo in basso
+      this.paymentsService.info(e).subscribe(res => {
+        if (res) {
+          // eslint-disable-next-line functional/immutable-data
+          this.modalDetail = res;
+          this.btnmodal3.nativeElement.click();
+        }
+      });
+    }
   }
 
   calcpagination(): void {
@@ -211,7 +219,31 @@ export class PosizioniHomeComponent implements OnInit {
     }
   }
 
-  getFormattedDate(inputDate: string): string {
+  getBadgeClassOption(status?: number): string {
+    switch (status) {
+      case this.optionStatusEnum.PAGATO:
+      case this.optionStatusEnum.NON_PAGATO:
+        return 'badge-secondary';
+      default:
+        return '';
+    }
+  }
+
+  getBadgeTextOption(status?: number): string {
+    switch (status) {
+      case this.optionStatusEnum.PAGATO:
+        return 'Pagato';
+      case this.optionStatusEnum.NON_PAGATO:
+        return 'Non pagato';
+      default:
+        return '';
+    }
+  }
+
+  getFormattedDate(inputDate: string | undefined): string {
+    if (!inputDate) {
+      return '';
+    }
     const inputParts = inputDate.split('-');
     return inputParts[2] + '/' + inputParts[1] + '/' + inputParts[0];
   }
@@ -236,5 +268,31 @@ export class PosizioniHomeComponent implements OnInit {
 
   onBlurTextSearch(): void {
     this.getListPositionBE();
+  }
+
+  getFormattedCurrency(amount: number | undefined): string {
+    if (!amount) {
+      return '';
+    }
+    const inputParts = String(amount).split('.');
+    if (!inputParts[1]) {
+      return inputParts[0] + ',' + '00';
+    } else if (inputParts[1].length === 1) {
+      return inputParts[0] + ',' + inputParts[1] + '0';
+    } else {
+      return inputParts[0] + ',' + inputParts[1];
+    }
+  }
+
+  getFormattedNotificationCode(notificationCode: string | undefined): string {
+    if (!notificationCode) {
+      return '';
+    }
+    const parts = notificationCode.match(/.{1,4}/g);
+    if (parts) {
+      return parts.join(' ');
+    } else {
+      return '';
+    }
   }
 }

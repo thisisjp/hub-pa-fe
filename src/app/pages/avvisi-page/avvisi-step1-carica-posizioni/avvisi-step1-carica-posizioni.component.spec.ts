@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UploadPaymentsService } from '../../../services/upload-payments.service';
 import { ServiceManagementService } from '../../../services/service-management.service';
 import { AvvisiStep1CaricaPosizioniComponent } from './avvisi-step1-carica-posizioni.component';
@@ -12,6 +13,8 @@ describe('AvvisiStep1CaricaPosizioniComponent', () => {
     // Make the spy return a synchronous Observable with the test data
     await TestBed.configureTestingModule({
       imports: [
+        FormsModule,
+        ReactiveFormsModule,
         TranslateModule.forRoot({}),
         HttpClientTestingModule,
         NgxLocalStorageModule.forRoot(),

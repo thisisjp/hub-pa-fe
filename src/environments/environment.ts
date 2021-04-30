@@ -8,10 +8,12 @@ export const environment = {
   API_URL: 'http://localhost:4200',
   cvsMaxRows: 500,
   positionsItemsPerPage: 3,
-  PREFIX_URL_ENTE: '',
-  PREFIX_URL_SERVICE_MANAGEMENT: '',
-  PREFIX_URL_UPLOAD_PAYMENTS: '',
-  PREFIX_URL_PAYMENTS: ''
+  PREFIX_URL_ENTE: '/dev',
+  PREFIX_URL_SERVICE_MANAGEMENT: '/dev',
+  PREFIX_URL_UPLOAD_PAYMENTS: '/dev',
+  PREFIX_URL_PAYMENTS: '/dev',
+  PREFIX_URL_IDP: '/dev',
+  PREFIX_URL_AUTH: '/dev'
 };
 
 /*

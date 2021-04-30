@@ -14,16 +14,19 @@ export class LoginSpidService {
   constructor(private http: HttpClient) {}
 
   public getProvidersList(): void {
-    this.http.get<ProvidersList>(environment.API_URL + '/list-providers').subscribe(res => {
-      if (res) {
-        // eslint-disable-next-line functional/immutable-data
-        this.providers = res;
-      }
-    });
+    this.http
+      .get<ProvidersList>(environment.API_URL + environment.PREFIX_URL_IDP + '/list-providers')
+      .subscribe(res => {
+        if (res) {
+          // eslint-disable-next-line functional/immutable-data
+          this.providers = res;
+        }
+      });
   }
 
   public getAuthSpid(testFormEl: any, entityId: string): void {
     // eslint-disable-next-line functional/immutable-data
-    location.href = environment.API_URL + '/auth/login?entityID=' + entityId + '&authLevel=SpidL2';
+    location.href =
+      environment.API_URL + environment.PREFIX_URL_AUTH + '/auth/login?entityID=' + entityId + '&authLevel=SpidL2';
   }
 }

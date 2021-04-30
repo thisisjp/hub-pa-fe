@@ -1,10 +1,8 @@
 ---
 __Advertisement :)__
 
-- __[pica](https://nodeca.github.io/pica/demo/)__ - high quality and fast image
-resize in browser.
-- __[babelfish](https://github.com/nodeca/babelfish/)__ - developer friendly
-i18n with plurals support and easy syntax.
+- __[pica](https://nodeca.github.io/pica/demo/)__ - high quality and fast image resize in browser.
+- __[babelfish](https://github.com/nodeca/babelfish/)__ - developer friendly i18n with plurals support and easy syntax.
 
 You will like those projects!
 ---
@@ -67,10 +65,15 @@ Unordered
 
 - Create a list by starting a line with `+`, `-`, or `*`
 - Sub-lists are made by indenting 2 spaces:
+
   - Marker character change forces new list start:
+
     - Ac tristique libero volutpat at
+
     * Facilisis in pretium nisl aliquet
+
     - Nulla volutpat aliquam velit
+
 - Very easy!
 
 Ordered
@@ -197,8 +200,7 @@ Duplicated footnote reference[^second].
 
 Term 1
 
-: Definition 1
-with lazy continuation.
+: Definition 1 with lazy continuation.
 
 Term 2 with _inline markup_
 

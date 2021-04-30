@@ -50,7 +50,9 @@
       <div class="input-group">
         <div class="input-group-prepend">
           <div class="input-group-text">
-            <svg class="icon icon-sm icon-secondary"><use xlink:href="/assets/img/sprite.svg#it-search"></use></svg>
+            <svg class="icon icon-sm icon-secondary">
+              <use xlink:href="/assets/img/sprite.svg#it-search"></use>
+            </svg>
           </div>
         </div>
         <input
@@ -65,7 +67,7 @@
   </tr>
 </table>
 <div class="counter">{{ rowstart }}-{{ rowend }} {{ 'OF' | translate }} {{ totalItems }}</div>
-<nav class="pagination-wrapper justify-content-end" aria-label="Navigazione allineata a destra">
+<nav class="pagination-wrapper justify-content-end" aria-label="Navigazione allineata a destra" *ngIf="totalPages > 0">
   <div class="pagination">
     <a class="pagelink" tabindex="-1" aria-hidden="true" [routerLink]="" (click)="passleft()">
       <svg class="icon icon-primary" [ngClass]="{ disable: currentPage === 0 || totalPages === 0 }">
@@ -80,9 +82,11 @@
       (click)="pass(page1)"
       >{{ page1 }}</a
     >
+
     <a
       class="pagelink"
-      [ngClass]="{ pagesel: currentPage + 1 === page2, disable: page2 > totalPages }"
+      [ngClass]="{ pagesel: currentPage + 1 === page2 }"
+      *ngIf="page2 <= totalPages"
       [routerLink]=""
       (click)="pass(page2)"
       >{{ page2 }}</a
@@ -90,7 +94,8 @@
 
     <a
       class="pagelink"
-      [ngClass]="{ pagesel: currentPage + 1 === page3, disable: page3 > totalPages }"
+      [ngClass]="{ pagesel: currentPage + 1 === page3 }"
+      *ngIf="page3 <= totalPages"
       [routerLink]=""
       (click)="pass(page3)"
       >{{ page3 }}</a
@@ -98,7 +103,8 @@
 
     <a
       class="pagelink"
-      [ngClass]="{ pagesel: currentPage + 1 === page4, disable: page4 > totalPages }"
+      [ngClass]="{ pagesel: currentPage + 1 === page4 }"
+      *ngIf="page4 <= totalPages"
       [routerLink]=""
       (click)="pass(page4)"
       >{{ page4 }}</a
@@ -106,7 +112,8 @@
 
     <a
       class="pagelink"
-      [ngClass]="{ pagesel: currentPage + 1 === page5, disable: page5 > totalPages }"
+      [ngClass]="{ pagesel: currentPage + 1 === page5 }"
+      *ngIf="page5 <= totalPages"
       [routerLink]=""
       (click)="pass(page5)"
       >{{ page5 }}</a
@@ -132,6 +139,7 @@
     <tr *ngFor="let elem of payments; let i = index">
       <td class="tdcheck">
         <div class="form-check">
+          <!--TODO disabilitato-->
           <input id="checkbox1" type="checkbox" disabled />
           <label for="checkbox1" class="labcheck disabled"></label>
         </div>
@@ -152,7 +160,8 @@
         }}</span>
       </td>
       <td class="align-middle tdicon">
-        <svg class="icon disable">
+        <svg class="icon disable app-disabled">
+          <!--TODO disabilitato-->
           <use xlink:href="/assets/img/sprite.svg#it-download"></use>
         </svg>
         <svg class="icon icon-primary" (click)="openDetail(elem.id)">
@@ -202,7 +211,13 @@
           <label for="radio3">{{ 'PAGATO' | translate }}</label>
         </div>
         <div class="form-check" aria-describedby="">
-          <input name="gruppo1" [value]="statusEnum.PAGATO_PARZIALE" type="radio" id="radio4" [(ngModel)]="filterModel.status" />
+          <input
+            name="gruppo1"
+            [value]="statusEnum.PAGATO_PARZIALE"
+            type="radio"
+            id="radio4"
+            [(ngModel)]="filterModel.status"
+          />
           <label for="radio4">{{ 'PAGATO_PARZIALE' | translate }}</label>
         </div>
       </div>
@@ -261,7 +276,7 @@
 
 <input type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#myModal3" #btncontent3 />
 <div class="modal fade" role="dialog" id="myModal3">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+  <div class="modal-dialog modal-dialog-centered app-modal-xxl" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title">{{ 'DETTAGLIO_AVVISO' | translate }}</h3>
@@ -272,49 +287,96 @@
         </button>
       </div>
       <div class="modal-body">
-        <table>
+        <table class="table table-borderless">
           <tr>
             <td>
-              <table>
+              <table class="table table-borderless">
                 <tr>
                   <td>
-                    <p>{{ 'DESTINATARIO' | translate }}</p>
-                    <p>Mario Rossi</p>
+                    <small class="text-muted">{{ 'DESTINATARIO' | translate }}</small>
+                    <br />
+                    <strong>{{ modalDetail.nominative }}</strong>
                   </td>
                   <td>
-                    <p>{{ 'CODICE_FISCALE' | translate }}</p>
-                    <p>RSSMRA30A01H50I</p>
+                    <small class="text-muted">{{ 'CODICE_FISCALE' | translate }}</small>
+                    <br />
+                    <strong>{{ modalDetail.fiscalCode }}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <small class="text-muted">{{ 'INDIRIZZO' | translate }}</small>
+                    <br />
+                    <strong>{{ modalDetail.addressLine1 }}</strong>
+                    <br />
+                    <strong>{{ modalDetail.addressLine2 }}</strong>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <p>{{ 'INDIRIZZO' | translate }}</p>
-                    <p>Mario Rossi</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>{{ 'OGGETTO_PAGAMENTO' | translate }}</p>
-                    <p>Mario Rossi</p>
+                    <small class="text-muted">{{ 'OGGETTO_PAGAMENTO' | translate }}</small>
+                    <br />
+                    <strong>{{ modalDetail.description }}</strong>
                   </td>
                   <td>
-                    <span class="badge" [ngClass]="getBadgeClass(statusEnum.BOZZA)">{{
-                      getBadgeText(statusEnum.BOZZA) | translate
+                    <span class="badge right" [ngClass]="getBadgeClass(modalDetail.status)">{{
+                      getBadgeText(modalDetail.status) | translate
                     }}</span>
                   </td>
                 </tr>
               </table>
             </td>
             <td class="detailright">
-              <button class="btn btn-primary btn-sm btndetail" type="button">{{ 'PUBBLICA' | translate }}</button>
-              <button class="btn btn-primary btn-sm btndetail" data-dismiss="modal" type="button">
+              <button class="btn btn-primary btn-sm btndetail disabled app-disabled" type="button">
+                {{ 'PUBBLICA' | translate }}
+              </button>
+              <button class="btn btn-primary btn-sm btndetail disabled app-disabled" type="button">
                 {{ 'ANTEPRIMA' | translate }}
               </button>
-              <div class="primary-color left">{{ 'ELIMINA_AVVISO' | translate }}</div>
+              <p class="app-disabled">{{ 'ELIMINA_AVVISO' | translate }}</p>
+              <!--TODO disabilitato-->
+              <!--<button class="btn btn-primary btn-sm btndetail" type="button">{{ 'PUBBLICA' | translate }}</button>
+              <button class="btn btn-outline-primary btn-sm btndetail" type="button">
+                {{ 'ANTEPRIMA' | translate }}
+              </button>
+              <a href="javascript:void(0)" class="text-danger">{{ 'ELIMINA_AVVISO' | translate }}</a>-->
             </td>
           </tr>
         </table>
+        <table class="table table-borderless">
+          <tbody>
+            <ng-container *ngFor="let elem of modalDetail.installments; let i = index">
+              <tr>
+                <td>
+                  <strong *ngIf="elem.isConclusive">{{ 'PAGAMENTO_UNICO' | translate }}</strong>
+                  <strong *ngIf="!elem.isConclusive">{{ 'RATA' | translate }} {{ i + 1 }}</strong>
+                </td>
+                <td>
+                  <small class="text-muted">{{ 'IMPORTO_EUR' | translate }}</small>
+                  <br />
+                  <strong>{{ getFormattedCurrency(elem.amount) }}</strong>
+                </td>
+                <td>
+                  <small class="text-muted">{{ 'CODICE_AVVISO' | translate }}</small>
+                  <br />
+                  <strong>{{ getFormattedNotificationCode(elem.notificationCode) }}</strong>
+                </td>
+                <td>
+                  <small class="text-muted">{{ 'ENTRO' | translate }}</small>
+                  <br />
+                  <strong>{{ getFormattedDate(elem.dueDate) }}</strong>
+                </td>
+                <td>
+                  <span class="badge app-display-block" [ngClass]="getBadgeClassOption(elem.status)">{{
+                    getBadgeTextOption(elem.status) | translate
+                  }}</span>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
       </div>
+      <div class="modal-footer"></div>
     </div>
   </div>
 </div>

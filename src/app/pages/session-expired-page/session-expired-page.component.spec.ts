@@ -4,12 +4,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SessionExpiredPageComponent } from './session-expired-page.component';
 
 describe('SessionExpiredPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
+        FormsModule,
+        ReactiveFormsModule,
         HttpClientTestingModule,
         NgxLocalStorageModule.forRoot(),
         RouterTestingModule,

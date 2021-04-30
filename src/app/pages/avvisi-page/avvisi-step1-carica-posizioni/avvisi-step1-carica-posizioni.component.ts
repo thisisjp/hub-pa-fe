@@ -81,6 +81,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     //   this.el1.nativeElement.addEventListener('dragenter', console.log('llllllllllllllll'));
     // }
   }
+
   nextStep(): void {
     this.router.navigate([this.menuEnum.AVVISI_PATH + '/' + this.menuEnum.AVVISI_STEP2]).catch(reason => reason);
   }

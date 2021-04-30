@@ -16,7 +16,6 @@ import { AppComponent } from './app.component';
 import { ButtonComponent } from './components/common/button/button.component';
 import { FooterComponent } from './components/common/footer/footer.component';
 import { HeaderComponent } from './components/common/header/header.component';
-import { InputComponent } from './components/common/input/input.component';
 import { LoaderComponent } from './components/common/loader/loader.component';
 import { MessageComponent } from './components/common/message/message.component';
 import { AvvisiPageComponent } from './pages/avvisi-page/avvisi-page.component';
@@ -50,7 +49,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     ButtonComponent,
     FooterComponent,
     HeaderComponent,
-    InputComponent,
     LoaderComponent,
     MessageComponent,
     AvvisiPageComponent,
