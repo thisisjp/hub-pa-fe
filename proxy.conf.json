@@ -1,35 +1,50 @@
 {
-  "/list-providers/*": {
+  "/dev/list-providers/*": {
     "target": "http://localhost:8080",
     "secure": false,
-    "logLevel": "debug"
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/dev": ""
+    }
   },
-  "/auth/*": {
+  "/dev/auth/*": {
     "target": "http://localhost:3000",
     "secure": false,
     "logLevel": "debug",
     "pathRewrite": {
-      "^/auth": ""
+      "^/dev/auth": ""
     }
   },
-  "/ente/*": {
+  "/dev/ente/*": {
     "target": "http://localhost:8082",
     "secure": false,
-    "logLevel": "debug"
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/dev": ""
+    }
   },
-  "/service-management/*": {
+  "/dev/service-management/*": {
     "target": "http://localhost:8083",
     "secure": false,
-    "logLevel": "debug"
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/dev": ""
+    }
   },
-  "/upload-payments/*": {
+  "/dev/upload-payments/*": {
     "target": "http://localhost:8084",
     "secure": false,
-    "logLevel": "debug"
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/dev": ""
+    }
   },
-  "/payments/*": {
+  "/dev/payments/*": {
     "target": "http://localhost:8085",
     "secure": false,
-    "logLevel": "debug"
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/dev": ""
+    }
   }
 }

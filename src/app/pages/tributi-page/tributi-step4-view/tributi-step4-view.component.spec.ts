@@ -4,12 +4,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TributiStep4ViewComponent } from './tributi-step4-view.component';
 
 describe('TributiStep4ViewComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
+        FormsModule,
+        ReactiveFormsModule,
         HttpClientTestingModule,
         NgxLocalStorageModule.forRoot(),
         RouterTestingModule,

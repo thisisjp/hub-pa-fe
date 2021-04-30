@@ -4,12 +4,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 
 import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginSpidService } from './login-spid.service';
 
 describe('LoginSpidService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+        FormsModule,
+        ReactiveFormsModule,
         HttpClientTestingModule,
         NgxLocalStorageModule.forRoot(),
         RouterTestingModule,

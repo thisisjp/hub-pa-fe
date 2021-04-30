@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorService } from './error.service';
 
 import { SecurityInterceptorService } from './security-interceptor.service';
@@ -12,6 +13,8 @@ describe('SecurityInterceptorService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+        FormsModule,
+        ReactiveFormsModule,
         HttpClientTestingModule,
         NgxLocalStorageModule.forRoot(),
         RouterTestingModule,

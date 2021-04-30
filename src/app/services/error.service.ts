@@ -11,6 +11,7 @@ export class ErrorService {
   public getErrorObservable(): Observable<Message> {
     return this.error.asObservable();
   }
+
   public setError(error: Message): void {
     this.error.next(error);
   }
