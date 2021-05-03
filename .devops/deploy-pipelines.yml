@@ -18,13 +18,6 @@ parameters:
 trigger: none
 pr: none
 
-# This pipeline has been implemented to be run on hosted agent pools based both
-# on 'windows' and 'ubuntu' virtual machine images and using the scripts defined
-# in the package.json file. Since we are deploying on Azure functions on Windows
-# runtime, the pipeline is currently configured to use a Windows hosted image for
-# the build and deploy.
-pool:
-  vmImage: 'ubuntu-latest'
 
 resources:
   repositories:
@@ -102,6 +95,8 @@ stages:
   - stage: Deploy_production
     dependsOn:
       - Prepare_artifact
+    pool:
+      vmImage: 'windows-2019'
     jobs:
       - job: 'deploy_to_container'
         steps:
