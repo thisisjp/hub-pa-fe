@@ -106,7 +106,7 @@ stages:
           - script: |
               yarn build:collaudo
 
-          - publish: $(System.DefaultWorkingDirectory)/dist
+          - publish: $(System.DefaultWorkingDirectory)/dist/hub-pa-fe
             artifact: Bundle
  
   # Deploy 
