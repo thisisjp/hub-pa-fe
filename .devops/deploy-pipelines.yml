@@ -108,16 +108,16 @@ stages:
           - task: AzureFileCopy@4
             inputs:
               sourcePath: '$(Pipeline.Workspace)/Bundle/*'
-              azureSubscription: '$(UAT_AZURE_SUBSCRIPTION)'
+              azureSubscription: '$(DEV_AZURE_SUBSCRIPTION)'
               destination: 'AzureBlob'
-              storage: '$(UAT_STORAGE_ACCOUNT_NAME)'
+              storage: '$(DEV_STORAGE_ACCOUNT_NAME)'
               containerName: '$(BLOB_CONTAINER_NAME)' # usually the dir $web
             displayName: Deploy to container blob
 
           - task: AzureCLI@1
             displayName: 'Purge CDN'
             inputs:
-              azureSubscription: '$(UAT_AZURE_SUBSCRIPTION)'
+              azureSubscription: '$(DEV_AZURE_SUBSCRIPTION)'
               scriptLocation: inlineScript
               inlineScript: |
-                call az cdn endpoint purge -g $(RESOURCE_GROUP_AZURE) -n $(ENDPOINT_AZURE) --profile-name $(PROFILE_NAME_CDN_AZURE) --content-paths "/*"
+                call az cdn endpoint purge -g $(DEV_RESOURCE_GROUP_NAME) -n $(DEV_ENDPOINT_NAME) --profile-name $(DEV_PROFILE_CDN_NAME) --content-paths "/*"
