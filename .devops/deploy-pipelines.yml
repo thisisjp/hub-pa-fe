@@ -21,7 +21,7 @@ parameters:
       - dev
       - prod
 
-# variables setted on azdevops to avoid circular dependency warning
+# variables set on azdevops to avoid circular dependency warning
 # $(DEFAULT_BRANCH)
 # $(MY_INDEX)
 # $(BLOB_CONTAINER_NAME)
@@ -124,15 +124,6 @@ stages:
 
           - download: current
             artifact: Bundle
-          
-          # - task: AzureFileCopy@4
-          #   displayName: 'Deploy to container blob'
-          #   inputs:
-          #     sourcePath: '$(Pipeline.Workspace)/Bundle/*'
-          #     azureSubscription: '$(AZURE_SUBSCRIPTION)'
-          #     destination: 'AzureBlob'
-          #     storage: '$(STORAGE_ACCOUNT_NAME)'
-          #     containerName: '$(BLOB_CONTAINER_NAME)' # usually the dir $web
           
           - task: AzureCLI@1
             displayName: 'Sync Storage'
