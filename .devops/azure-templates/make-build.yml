@@ -1,7 +1,0 @@
-# Azure DevOps pipeline template used to build bundle.
-
-steps:
-
-  - bash: 
-      yarn build:collaudo
-    displayName: 'Build web app'
