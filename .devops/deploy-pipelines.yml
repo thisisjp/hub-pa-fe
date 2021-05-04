@@ -23,7 +23,6 @@ parameters:
 
 # variables setted on azdevops to avoid circular dependency warning
 # $(DEFAULT_BRANCH)
-# $(HEALTHCHECK_CONTAINER_SUBNET)
 # $(MY_INDEX)
 # $(BLOB_CONTAINER_NAME)
 variables:
