@@ -125,14 +125,22 @@ stages:
           - download: current
             artifact: Bundle
           
-          - task: AzureFileCopy@4
-            displayName: 'Deploy to container blob'
+          # - task: AzureFileCopy@4
+          #   displayName: 'Deploy to container blob'
+          #   inputs:
+          #     sourcePath: '$(Pipeline.Workspace)/Bundle/*'
+          #     azureSubscription: '$(AZURE_SUBSCRIPTION)'
+          #     destination: 'AzureBlob'
+          #     storage: '$(STORAGE_ACCOUNT_NAME)'
+          #     containerName: '$(BLOB_CONTAINER_NAME)' # usually the dir $web
+          
+          - task: AzureCLI@1
+            displayName: 'Sync Storage'
             inputs:
-              sourcePath: '$(Pipeline.Workspace)/Bundle/*'
               azureSubscription: '$(AZURE_SUBSCRIPTION)'
-              destination: 'AzureBlob'
-              storage: '$(STORAGE_ACCOUNT_NAME)'
-              containerName: '$(BLOB_CONTAINER_NAME)' # usually the dir $web
+              scriptLocation: inlineScript
+              inlineScript: |
+                call az storage blob sync --container $(BLOB_CONTAINER_NAME) --account-name $(STORAGE_ACCOUNT_NAME) -s "$(Pipeline.Workspace)/Bundle/*"
 
           - task: AzureCLI@1
             displayName: 'Purge CDN'
