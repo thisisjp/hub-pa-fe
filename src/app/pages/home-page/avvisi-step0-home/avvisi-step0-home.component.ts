@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Menu } from '../../../models/enums/menu.enum';
-import { Notifica } from '../../../models/notifica';
-
-declare function notificationShow(notificationTarget: string, notificationTimeOut: number): any;
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-avvisi-step0',
@@ -12,16 +10,17 @@ declare function notificationShow(notificationTarget: string, notificationTimeOu
 })
 export class AvvisiStep0HomeComponent implements OnInit {
   menuEnum = Menu;
-  notifica: Notifica = new Notifica('', '');
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     const defaultValues = history.state?.data;
     if (defaultValues?.title && defaultValues?.message) {
-      // eslint-disable-next-line functional/immutable-data
-      this.notifica = new Notifica(defaultValues?.title, defaultValues?.message);
-      notificationShow('not2dms', 0);
+      this.notificationService.showNotification({
+        title: defaultValues?.title ? defaultValues?.title : '',
+        message: defaultValues?.message ? defaultValues?.message : '',
+        isError: false
+      });
     }
   }
 

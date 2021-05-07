@@ -8,6 +8,7 @@ export const environment = {
   PREFIX_URL_SERVICE_MANAGEMENT: '/service',
   PREFIX_URL_UPLOAD_PAYMENTS: '/job',
   PREFIX_URL_PAYMENTS: '/payments',
+  PREFIX_URL_SUPPORT: '',
   PREFIX_URL_IDP: '',
   PREFIX_URL_AUTH: ''
 };

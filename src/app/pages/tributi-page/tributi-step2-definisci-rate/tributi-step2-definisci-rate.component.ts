@@ -213,10 +213,7 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
     if (this.f.abilitaRate.value && !this.arePercentagesValid()) {
       return false;
     }
-    if (this.f.abilitaRate.value && !this.areInstallmentsDatesValid()) {
-      return false;
-    }
-    return true;
+    return !(this.f.abilitaRate.value && !this.areInstallmentsDatesValid());
   }
 
   addPercentage(i: number, isPrimary: boolean): void {

@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ErrorService } from '../../../services/error.service';
-import { Message } from '../../../models/message';
-import { TokenService } from '../../../services/token.service';
-import { Menu } from '../../../models/enums/menu.enum';
+import { TokenService } from '../../services/token.service';
+import { Menu } from '../../models/enums/menu.enum';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +11,7 @@ import { Menu } from '../../../models/enums/menu.enum';
 export class HeaderComponent {
   menuEnum = Menu;
 
-  constructor(private router: Router, private errorService: ErrorService, public tokenService: TokenService) {}
+  constructor(private router: Router, public tokenService: TokenService) {}
 
   goToPage(path: string): void {
     if (!this.isPathActive(path)) {
@@ -23,7 +21,6 @@ export class HeaderComponent {
 
   logout(): void {
     this.tokenService.setIsLogged(false);
-    this.errorService.setError(new Message('', ''));
     this.router.navigate(['']).catch(reason => reason);
   }
 

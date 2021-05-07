@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ImageHtml } from '../../../models/image-html';
+import { ImageHtml } from '../../models/image-html';
 
 @Component({
   selector: 'app-button',

@@ -6,40 +6,9 @@
     </button>
   </div>
   <div class="border border-secondary rounded box" #box>
-    <!-- <p><button type="button" class="btn btn-primary" onClick="testAnimation()">Simula Upload</button></p>
-
-    <form class="upload-dragdrop" method="post" action="" enctype="multipart/form-data" id="uploadChangeStateTarget">
+    <form class="boxinside" method="post" action="" enctype="multipart/form-data">
       <div class="upload-dragdrop-image">
-        <img src="/assets/img/csv_upload.png" alt="imagealt" aria-hidden="true" />
-        <div class="upload-dragdrop-loading">
-          <div id="divProgress2" class="upload-progress"></div>
-        </div>
-        <div class="upload-dragdrop-success">
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-check"></use>
-          </svg>
-        </div>
-      </div>
-      <div class="upload-dragdrop-text">
-        <p class="upload-dragdrop-weight">
-          <svg class="icon icon-xs" aria-hidden="true">
-            <use xlink:href="/bootstrap-italia/dist/svg/sprite.svg#it-file"></use>
-          </svg>
-          PDF (3.7MB)
-        </p>
-        <h5 id="simTitle">Trascina il file per caricarlo</h5>
-        <p id="simText">
-          oppure <input type="file" name="upload8" id="upload8" class="upload-dragdrop-input" /><label for="upload8"
-            >selezionalo dal dispositivo</label
-          >
-        </p>
-      </div>
-      <input value="Submit" type="submit" class="d-none" />
-    </form> -->
-
-    <form class="boxinside" method="post" action="" enctype="multipart/form-data" #uploadChangeStateTarget>
-      <div class="upload-dragdrop-image">
-        <img src="/assets/img/upload-drag-drop-icon.svg" alt="imagealt" aria-hidden="true" #image1 />
+        <img src="/assets/img/upload-drag-drop-icon.svg" alt="imagealt" aria-hidden="true" />
         <div class="upload-dragdrop-loading">
           <div id="divProgress0" class="upload-progress"></div>
         </div>
@@ -63,14 +32,6 @@
         </p>
       </div>
       <input value="Submit" type="submit" class="d-none" />
-      <!-- <div class="mt-5 ml-3 text-left">
-          <h4 class="font-weight-bold">{{ 'TRASCINA_CSV' | translate }}</h4>
-          <span class="">{{ 'OPPURE' | translate }} </span>
-          <input type="file" name="upload8" id="upload8" class="upload-dragdrop-input" (change)="upload($event)" />
-          <label for="upload8">{{ 'SELECT_DISPOSITIVO' | translate }}</label>
-        </div>
-      </div>
-      <input value="Submit" type="submit" class="d-none" /> -->
     </form>
   </div>
 </div>

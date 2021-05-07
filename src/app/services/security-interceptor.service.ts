@@ -15,18 +15,15 @@ import { catchError, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ErrorStatus } from '../models/enums/error-status.enum';
-import { Message } from '../models/message';
-import { MessageType } from '../models/enums/message-type.enum';
 import { TokenService } from './token.service';
-import { ErrorService } from './error.service';
+import { NotificationService } from './notification.service';
 
 @Injectable()
 export class SecurityInterceptorService implements HttpInterceptor {
   private requestCount = 0;
 
   constructor(
-    private errorService: ErrorService,
+    private notificationService: NotificationService,
     private tokenService: TokenService,
     private router: Router,
     private spinnerService: NgxSpinnerService
@@ -50,25 +47,17 @@ export class SecurityInterceptorService implements HttpInterceptor {
           this.endRequest();
         }
       }),
-      catchError(response => this.mapError(response))
+      catchError(response => this.onError(response))
     );
   }
 
-  buildError(error: any): Message {
-    return new Message(JSON.parse(error).code, MessageType.DANGER);
-  }
-
-  mapError(response: { status: any; error: any }): Observable<never> {
+  onError(response: { status: any; error: any }): Observable<never> {
     if (response instanceof HttpErrorResponse) {
-      switch (response.status) {
-        case ErrorStatus.EXCEPTION_FAILED:
-        case ErrorStatus.USER_NOT_FOUND:
-          this.errorService.setError(this.buildError(response.error));
-          break;
-        default:
-          this.errorService.setError(new Message('GENERIC_ERROR', MessageType.DANGER));
-          break;
-      }
+      this.notificationService.showNotification({
+        title: 'Attenzione',
+        message: 'Si è verificato un errore',
+        isError: true
+      });
       this.endRequest();
     }
     return throwError(response);

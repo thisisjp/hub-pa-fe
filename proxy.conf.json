@@ -46,5 +46,13 @@
     "pathRewrite": {
       "^/dev": ""
     }
+  },
+  "/dev/support/*": {
+    "target": "http://localhost:8086",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/dev": ""
+    }
   }
 }

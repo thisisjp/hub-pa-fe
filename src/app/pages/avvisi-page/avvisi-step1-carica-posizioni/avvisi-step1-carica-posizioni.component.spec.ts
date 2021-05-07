@@ -115,5 +115,4 @@ describe('AvvisiStep1CaricaPosizioniComponent', () => {
       component.parse(['MRARSS20L06G702F', 'F', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'P'])
     ).toBeUndefined();
   });
-  // yarn test:pipe --include=src\app\pages\avvisi-page\avvisi-step1-carica-posizioni\*.spec.ts
 });
