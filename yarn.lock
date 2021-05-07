@@ -6407,10 +6407,10 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-ngx-localstorage@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/ngx-localstorage/-/ngx-localstorage-3.3.0.tgz#aaee1227d6fc79c8dacae7380316416ef6f75845"
-  integrity sha512-fMYymnqrGXgX5/Rs1/sCl2gt0N6/C3VGjVN6RP5/oR2cxKNJmdG4s9L9asDU9ewanicjTfPmpWzUo6CifgLWgg==
+ngx-localstorage@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/ngx-localstorage/-/ngx-localstorage-3.3.1.tgz#150924418a65288289deb3a619a2480e80a37562"
+  integrity sha512-khagWSAyupgcAXkBYxeBPnm8yOB+nLV8b9U/S8+gG03iF21vJ1GIyJN63U+pIJLgeqTwgtu48qtavHueWClOXA==
   dependencies:
     "@angular/platform-browser-dynamic" "^10.1.4"
     core-js "^2.5.4"
