@@ -36,13 +36,7 @@
         <div class="col-5">
           <div class="form-group">
             <label for="dueDateUnique" class="active">{{ 'SCADENZA' | translate }}</label>
-            <input
-              type="date"
-              class="form-control"
-              id="dueDateUnique"
-              placeholder="Inserisci la data in formato gg/mm/aaaa"
-              [formControlName]="'dueDateUnique'"
-            />
+            <input type="date" class="form-control" id="dueDateUnique" [formControlName]="'dueDateUnique'" />
           </div>
         </div>
       </div>
@@ -101,13 +95,7 @@
             </div>
             <div class="col-5">
               <label for="dueDate" class="active">{{ 'SCADENZA' | translate }}</label>
-              <input
-                type="date"
-                class="form-control"
-                id="dueDate"
-                placeholder="Inserisci la data in formato gg/mm/aaaa"
-                formControlName="dueDate"
-              />
+              <input type="date" class="form-control" id="dueDate" formControlName="dueDate" />
             </div>
             <div class="col-2">
               <label for="percentagePrimary" class="active">% {{ 'QUOTA_TARI' | translate }}</label>

@@ -1,0 +1,20 @@
+<div
+  class="notification with-icon dismissable"
+  [ngClass]="notificationService.notification.isError ? 'error' : 'success'"
+  role="alert"
+  id="app-notification"
+>
+  <h5>
+    <svg class="icon">
+      <use *ngIf="!notificationService.notification.isError" xlink:href="/assets/img/sprite.svg#it-check-circle"></use>
+      <use *ngIf="notificationService.notification.isError" xlink:href="/assets/img/sprite.svg#it-close-circle"></use>
+    </svg>
+    {{ notificationService.notification.title }}
+  </h5>
+  <p>{{ notificationService.notification.message }}</p>
+  <button type="button" class="btn notification-close">
+    <svg class="icon">
+      <use xlink:href="/assets/img/sprite.svg#it-close"></use>
+    </svg>
+  </button>
+</div>

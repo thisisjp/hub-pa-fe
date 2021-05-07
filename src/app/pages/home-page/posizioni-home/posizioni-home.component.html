@@ -245,7 +245,6 @@
               class="form-control it-date-datepicker"
               id="startdate"
               type="date"
-              placeholder="gg/mm/aaaa"
               [(ngModel)]="filterModel.dateFrom"
             />
             <label for="startdate">{{ 'DATE_FROM' | translate }}</label>
@@ -253,13 +252,7 @@
         </div>
         <div class="it-datepicker-wrapper">
           <div class="form-group">
-            <input
-              class="form-control it-date-datepicker"
-              id="enddate"
-              type="date"
-              placeholder="gg/mm/aaaa"
-              [(ngModel)]="filterModel.dateTo"
-            />
+            <input class="form-control it-date-datepicker" id="enddate" type="date" [(ngModel)]="filterModel.dateTo" />
             <label for="enddate">{{ 'DATE_TO' | translate }}</label>
           </div>
         </div>

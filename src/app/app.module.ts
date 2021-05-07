@@ -13,11 +13,10 @@ import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ButtonComponent } from './components/common/button/button.component';
-import { FooterComponent } from './components/common/footer/footer.component';
-import { HeaderComponent } from './components/common/header/header.component';
-import { LoaderComponent } from './components/common/loader/loader.component';
-import { MessageComponent } from './components/common/message/message.component';
+import { ButtonComponent } from './components/button/button.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { LoaderComponent } from './components/loader/loader.component';
 import { AvvisiPageComponent } from './pages/avvisi-page/avvisi-page.component';
 import { TributiPageComponent } from './pages/tributi-page/tributi-page.component';
 import { GuidaPageComponent } from './pages/guida-page/guida-page.component';
@@ -38,6 +37,7 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { TributiStep4ViewComponent } from './pages/tributi-page/tributi-step4-view/tributi-step4-view.component';
 import { LoginSpidSuccessComponent } from './pages/login-spid-success/login-spid-success.component';
 import { PosizioniHomeComponent } from './pages/home-page/posizioni-home/posizioni-home.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -50,7 +50,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     FooterComponent,
     HeaderComponent,
     LoaderComponent,
-    MessageComponent,
     AvvisiPageComponent,
     TributiPageComponent,
     GuidaPageComponent,
@@ -68,7 +67,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     NotFoundPageComponent,
     TributiStep4ViewComponent,
     LoginSpidSuccessComponent,
-    PosizioniHomeComponent
+    PosizioniHomeComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

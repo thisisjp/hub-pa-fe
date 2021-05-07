@@ -1,14 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NgxLocalStorageModule } from 'ngx-localstorage';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TranslateModule } from '@ngx-translate/core';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NgxLocalStorageModule } from 'ngx-localstorage';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { NotificationService } from './notification.service';
 
-import { SecurityInterceptorService } from './security-interceptor.service';
-import { TokenService } from './token.service';
-
-describe('SecurityInterceptorService', () => {
+describe('NotificationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -18,12 +17,11 @@ describe('SecurityInterceptorService', () => {
         NgxLocalStorageModule.forRoot(),
         RouterTestingModule,
         TranslateModule.forRoot({})
-      ],
-      providers: [SecurityInterceptorService, TokenService]
+      ]
     });
   });
 
   it('should be created', () => {
-    expect(TestBed.inject(SecurityInterceptorService)).toBeTruthy();
+    expect(TestBed.inject(NotificationService)).toBeTruthy();
   });
 });

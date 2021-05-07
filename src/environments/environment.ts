@@ -12,6 +12,7 @@ export const environment = {
   PREFIX_URL_SERVICE_MANAGEMENT: '/dev',
   PREFIX_URL_UPLOAD_PAYMENTS: '/dev',
   PREFIX_URL_PAYMENTS: '/dev',
+  PREFIX_URL_SUPPORT: '/dev',
   PREFIX_URL_IDP: '/dev',
   PREFIX_URL_AUTH: '/dev'
 };

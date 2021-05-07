@@ -50,13 +50,9 @@
                 </a>
               </div>
               <div class="it-right-zone" *ngIf="canShowSecureComponents()">
-                <div class="it-search-wrapper">
-                  <span class="d-none d-md-block">{{ menuEnum.GUIDA_CODE | translate }}</span>
-                  <a
-                    class="search-link rounded-icon"
-                    (click)="goToPage(menuEnum.GUIDA_PATH)"
-                    [ngClass]="{ active: isPathActive(menuEnum.GUIDA_PATH) }"
-                  >
+                <div class="it-search-wrapper" (click)="goToPage(menuEnum.GUIDA_PATH)">
+                  <span class="d-none d-md-block app-cursor-pointer">{{ menuEnum.GUIDA_CODE | translate }}</span>
+                  <a class="search-link rounded-icon" [ngClass]="{ active: isPathActive(menuEnum.GUIDA_PATH) }">
                     <svg class="icon">
                       <use xlink:href="/assets/img/sprite.svg#it-files"></use>
                     </svg>

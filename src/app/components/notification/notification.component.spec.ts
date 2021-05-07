@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MessageComponent } from './message.component';
+import { NotificationComponent } from './notification.component';
 
-describe('MessageComponent', () => {
+describe('NotificationComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -18,12 +18,12 @@ describe('MessageComponent', () => {
         RouterTestingModule,
         TranslateModule.forRoot({})
       ],
-      declarations: [MessageComponent]
+      declarations: [NotificationComponent]
     }).compileComponents();
   });
 
   it('should create', () => {
-    const fixture = TestBed.createComponent(MessageComponent);
+    const fixture = TestBed.createComponent(NotificationComponent);
     const component = fixture.componentInstance;
     fixture.detectChanges();
     expect(component).toBeTruthy();
