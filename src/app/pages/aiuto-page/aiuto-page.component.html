@@ -27,11 +27,11 @@
     </div>
     <div class="col-3">
       <label for="id4">{{ 'PEC' | translate }}</label>
-      <input type="text" class="form-control" id="id4" formControlName="certifiedmail" />
-      <small class="form-text error-label" *ngIf="submitted && f.certifiedmail.errors?.required">{{
+      <input type="text" class="form-control" id="id4" formControlName="certifiedMail" />
+      <small class="form-text error-label" *ngIf="submitted && f.certifiedMail.errors?.required">{{
         'REQUIRED_FIELD' | translate
       }}</small>
-      <small class="form-text error-label" *ngIf="f.certifiedmail.errors?.email || f.certifiedmail.errors?.pattern">{{
+      <small class="form-text error-label" *ngIf="f.certifiedMail.errors?.email || f.certifiedMail.errors?.pattern">{{
         'MAIL_NON_VALIDA' | translate
       }}</small>
     </div>

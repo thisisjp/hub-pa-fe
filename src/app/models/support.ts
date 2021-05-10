@@ -1,8 +1,9 @@
 export class Support {
+  fiscalCodeRp = '';
   municipality = '';
   region = '';
   province = '';
-  certifiedmail = '';
+  certifiedMail = '';
   telephoneMunicipality = '';
   fullName = '';
   email = '';

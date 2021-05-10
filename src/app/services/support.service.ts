@@ -13,6 +13,9 @@ export class SupportService {
 
   private url = environment.API_URL + environment.PREFIX_URL_SUPPORT + '/support';
 
+  /**
+   * Salva la richiesta di supporto
+   */
   send(model: Support): Observable<BaseResponse> {
     return this.http.post<BaseResponse>(this.url + '/send', model);
   }

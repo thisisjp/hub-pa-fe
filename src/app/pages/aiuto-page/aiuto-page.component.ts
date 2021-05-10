@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Support } from '../../models/support';
 import { SupportService } from '../../services/support.service';
+import { TokenService } from '../../services/token.service';
 
 declare const $: any;
 
@@ -38,7 +39,11 @@ export class AiutoPageComponent implements OnInit {
   submitted = false;
   today = new Date();
 
-  constructor(private formBuilder: FormBuilder, private supportService: SupportService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private supportService: SupportService,
+    private tokenService: TokenService
+  ) {}
 
   ngOnInit(): void {
     this.initBootstrapSelect();
@@ -48,7 +53,7 @@ export class AiutoPageComponent implements OnInit {
       municipality: ['', [Validators.required]],
       region: ['', [Validators.required]],
       province: ['', [Validators.required, Validators.maxLength(2)]],
-      certifiedmail: [
+      certifiedMail: [
         '',
         [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]
       ],
@@ -90,10 +95,11 @@ export class AiutoPageComponent implements OnInit {
       return;
     }
     const supportData: Support = {
+      fiscalCodeRp: this.tokenService.getFiscalCodeREFP(),
       municipality: this.f.municipality.value,
       region: this.f.region.value,
       province: this.f.province.value,
-      certifiedmail: this.f.certifiedmail.value,
+      certifiedMail: this.f.certifiedMail.value,
       telephoneMunicipality: this.f.telephoneMunicipality.value,
       fullName: this.f.fullName.value,
       email: this.f.email.value,
