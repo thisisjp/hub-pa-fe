@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
 import { Support } from '../../models/support';
 import { SupportService } from '../../services/support.service';
 import { TokenService } from '../../services/token.service';
+import { NotificationService } from '../../services/notification.service';
 
 declare const $: any;
 
@@ -42,7 +43,8 @@ export class AiutoPageComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private supportService: SupportService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -110,8 +112,18 @@ export class AiutoPageComponent implements OnInit {
       timeRequest: this.f.timeRequest.value
     };
     this.supportService.send(supportData).subscribe(res => {
-      if (res) {
-        // console.log('ok');
+      if (res && res.result) {
+        this.notificationService.showNotification({
+          title: 'Richiesta inviata',
+          message: 'La tua richiesta di supporto è stata inviata',
+          isError: false
+        });
+      } else {
+        this.notificationService.showNotification({
+          title: 'Attenzione',
+          message: 'Si è verificato un errore',
+          isError: true
+        });
       }
     });
   }
