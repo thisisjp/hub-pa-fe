@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   environmentName: 'COLLAUDO',
-  API_URL: 'http://api-ptt-test.pagopa.it:80',
+  API_URL: 'https://api.hubpad.pagopa.it:443',
   cvsMaxRows: 500,
   positionsItemsPerPage: 3,
   IDPS: {
@@ -67,9 +67,9 @@ export const environment = {
       { title: 'Serve aiuto?', url: 'https://www.spid.gov.it/serve-aiuto' }
     ]
   },
-  PREFIX_URL_ENTE: '/creditor',
-  PREFIX_URL_SERVICE_MANAGEMENT: '/service',
-  PREFIX_URL_UPLOAD_PAYMENTS: '/job',
-  PREFIX_URL_PAYMENTS: '/payments',
+  PREFIX_URL_ENTE: '/creditor/v1',
+  PREFIX_URL_SERVICE_MANAGEMENT: '/service/v1',
+  PREFIX_URL_UPLOAD_PAYMENTS: '/job/v1',
+  PREFIX_URL_PAYMENTS: '/payments/v1',
   PREFIX_URL_AUTH: ''
 };
