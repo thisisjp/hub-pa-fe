@@ -60,13 +60,12 @@ export class TributiStep1ImpostaEntiComponent implements OnInit {
           this.creditorList
         ).filter(elem => elem.value === this.tokenService.getFiscalCode())[0].text;
         // eslint-disable-next-line functional/immutable-data
-        $(
-          '#secondaryCreditorSelect > div > button > div > div > div'
-        )[0].innerHTML = defaultValues?.fiscalCodeSecondaryCreditor
-          ? this.toSelectedOptionsCreditor(this.creditorList).filter(
-              elem => elem.value === defaultValues.fiscalCodeSecondaryCreditor
-            )[0].text
-          : this.scegliUnaOpzione;
+        $('#secondaryCreditorSelect > div > button > div > div > div')[0].innerHTML =
+          defaultValues?.fiscalCodeSecondaryCreditor
+            ? this.toSelectedOptionsCreditor(this.creditorList).filter(
+                elem => elem.value === defaultValues.fiscalCodeSecondaryCreditor
+              )[0].text
+            : this.scegliUnaOpzione;
         // eslint-disable-next-line functional/immutable-data
         $('#primaryCreditorSelect > div > button')[0].disabled = true;
       }

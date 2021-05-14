@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'ngx-localstorage';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +10,9 @@ export class TokenService {
 
   private isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  public isLoggedObservable(): Observable<boolean> {
-    return this.isLogged.asObservable();
-  }
+  // public isLoggedObservable(): Observable<boolean> {
+  //   return this.isLogged.asObservable();
+  // }
 
   public setIsLogged(isLogged: boolean): void {
     if (!isLogged) {
@@ -31,25 +30,25 @@ export class TokenService {
     return token ? token : '';
   }
 
-  getDecodedAccessToken(): any {
-    try {
-      return this.getTokenHelper().decodeToken(this.getToken());
-    } catch (Error) {
-      return null;
-    }
-  }
+  // getDecodedAccessToken(): any {
+  //   try {
+  //     return this.getTokenHelper().decodeToken(this.getToken());
+  //   } catch (Error) {
+  //     return null;
+  //   }
+  // }
 
   isTokenExpired(): boolean {
     return false;
   }
 
-  getDefaultRoute(): string {
-    return this.getDecodedAccessToken() ? this.getDecodedAccessToken().defaultRoute : '';
-  }
+  // getDefaultRoute(): string {
+  //   return this.getDecodedAccessToken() ? this.getDecodedAccessToken().defaultRoute : '';
+  // }
 
-  getTokenHelper(): JwtHelperService {
-    return new JwtHelperService();
-  }
+  // getTokenHelper(): JwtHelperService {
+  //   return new JwtHelperService();
+  // }
 
   public setFiscalCodeREFP(fiscalCode: string): void {
     this.storageService.set('fiscalCodeREFP', fiscalCode);

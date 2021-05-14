@@ -29,9 +29,8 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
   field = '';
   maxlength = 0;
 
-  REGEX_NATION = new RegExp('[A-Z]{2,2}');
-  REGEX_EMAIL = new RegExp('[a-zA-Z0-9_\\.\\+\\-]+@[a-zA-Z0-9\\-]+(\\.[a-zA-Z0-9\\-]+)*');
-  REGEX_DATI_SPECIFICI_RISCOSSIONE = new RegExp('[0129]{1}/\\S{3,138}');
+  REGEX_NATION = new RegExp('[A-Z]{2}');
+  REGEX_EMAIL = new RegExp('[a-zA-Z0-9_.+\\-]+@[a-zA-Z0-9\\-]+(\\.[a-zA-Z0-9\\-]+)*');
   REGEX_AMOUNT = new RegExp('^[0-9]*$');
   REGEX_CAUSALE = new RegExp('^/RFB/[a-zA-Z0-9]+/[0-9]+/TXT/Descrizione Causale RPT$');
 
@@ -455,11 +454,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     if (cf.charAt(14) < '0' || cf.charAt(14) > '9') {
       return false;
     }
-    if (cf.charAt(15) < 'A' || cf.charAt(15) > 'Z') {
-      return false;
-    }
-
-    return true;
+    return !(cf.charAt(15) < 'A' || cf.charAt(15) > 'Z');
   }
 
   getYear(yy: string): number | undefined {
@@ -567,10 +562,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
       }
       s += c;
     }
-    if ((10 - (s % 10)) % 10 !== Number(piva.charAt(10))) {
-      return false;
-    }
-    return true;
+    return (10 - (s % 10)) % 10 === Number(piva.charAt(10));
   }
 
   caricaCSV(): void {

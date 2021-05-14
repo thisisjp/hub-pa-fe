@@ -1,28 +1,27 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ErrorService } from './error.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { SupportService } from './support.service';
 
-describe('ErrorService', () => {
+describe('SupportService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot({}),
         HttpClientTestingModule,
         NgxLocalStorageModule.forRoot(),
-        RouterTestingModule
-      ],
-      providers: [ErrorService]
+        RouterTestingModule,
+        TranslateModule.forRoot({})
+      ]
     });
   });
 
   it('should be created', () => {
-    expect(TestBed.inject(ErrorService)).toBeTruthy();
+    expect(TestBed.inject(SupportService)).toBeTruthy();
   });
 });

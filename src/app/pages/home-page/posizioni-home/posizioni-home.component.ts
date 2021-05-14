@@ -31,7 +31,7 @@ export class PosizioniHomeComponent implements OnInit {
   rowend = 0;
 
   // risultato dalla response
-  totalItems = 5;
+  totalItems = 0;
 
   // selezionata
   currentPage = 0;
@@ -40,7 +40,7 @@ export class PosizioniHomeComponent implements OnInit {
   itemsPerPage = environment.positionsItemsPerPage;
 
   // risultato dalla response
-  totalPages = 1;
+  totalPages = 0;
 
   page1 = 0;
   page2 = 0;
