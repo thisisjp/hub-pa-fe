@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   environmentName: 'COLLAUDO',
-  API_URL: 'https://api.hubpad.pagopa.it:443',
+  API_URL: 'https://api.hubpad.pagopa.it',
   cvsMaxRows: 500,
   positionsItemsPerPage: 3,
   IDPS: {
@@ -71,5 +71,5 @@ export const environment = {
   PREFIX_URL_SERVICE_MANAGEMENT: '/service/v1',
   PREFIX_URL_UPLOAD_PAYMENTS: '/job/v1',
   PREFIX_URL_PAYMENTS: '/payments/v1',
-  PREFIX_URL_AUTH: ''
+  PREFIX_URL_AUTH: '/auth/v1'
 };
