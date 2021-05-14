@@ -71,5 +71,6 @@ export const environment = {
   PREFIX_URL_SERVICE_MANAGEMENT: '/service/v1',
   PREFIX_URL_UPLOAD_PAYMENTS: '/job/v1',
   PREFIX_URL_PAYMENTS: '/payments/v1',
+  PREFIX_URL_SUPPORT: '/support/v1',
   PREFIX_URL_AUTH: '/auth/v1'
 };
