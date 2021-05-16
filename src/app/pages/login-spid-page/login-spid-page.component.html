@@ -14,15 +14,8 @@
     </div>
   </div>
   <div class="row" style="margin-top: 60px">
-    <div class="col-xs-12">
-      <form
-        #testForm
-        name="spid_idp_access"
-        [action]="loginSrv.authSpid?.destinationUrl"
-        method="post"
-        accept-charset="ISO-8859-1"
-      >
-        <input type="hidden" name="SAMLRequest" [value]="loginSrv.authSpid?.xmlAuthRequest" />
+    <div class="col-xs-12 horizontal-center">
+      <form name="spid_idp_access" method="post" accept-charset="ISO-8859-1">
         <a
           href="#"
           class="italia-it-button italia-it-button-size-l button-spid"
@@ -35,13 +28,13 @@
         </a>
         <div id="spid-idp-button-large-post" class="spid-idp-button spid-idp-button-tip spid-idp-button-relative">
           <ul id="spid-idp-list-large-root-post" class="spid-idp-button-menu" aria-labelledby="spid-idp">
-            <li class="spid-idp-button-link" *ngFor="let p of loginSrv.providers?.identityProviders">
+            <li class="spid-idp-button-link" *ngFor="let p of providers.identityProviders">
               <button class="idp-button-idp-logo" type="button" (click)="onGetAuthSpid(p.entityId)">
                 <input class="spid-sr-only" readonly [value]="p.identifier" />
                 <img [src]="p.imageUrl" [alt]="p.name" />
               </button>
             </li>
-            <li class="spid-idp-support-link" *ngFor="let e of loginSrv.providers?.extraInfo">
+            <li class="spid-idp-support-link" *ngFor="let e of providers.extraInfo">
               <a [href]="e.url">{{ e.title }}</a>
             </li>
           </ul>

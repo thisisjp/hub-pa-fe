@@ -6,7 +6,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginSpidService } from '../../services/login-spid.service';
 import { LoginSpidPageComponent } from './login-spid-page.component';
 
 describe('LoginSpidPageComponent', () => {
@@ -21,7 +20,6 @@ describe('LoginSpidPageComponent', () => {
         TranslateModule.forRoot({})
       ],
       declarations: [LoginSpidPageComponent],
-      providers: [LoginSpidService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   });

@@ -1,12 +1,4 @@
 {
-  "/dev/list-providers/*": {
-    "target": "http://localhost:8080",
-    "secure": false,
-    "logLevel": "debug",
-    "pathRewrite": {
-      "^/dev": ""
-    }
-  },
   "/dev/auth/*": {
     "target": "http://localhost:3000",
     "secure": false,
