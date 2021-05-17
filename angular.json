@@ -111,6 +111,9 @@
           "configurations": {
             "production": {
               "browserTarget": "hub-pa-fe:build:production"
+            },
+            "collaudo": {
+              "browserTarget": "hub-pa-fe:build:collaudo"
             }
           }
         },

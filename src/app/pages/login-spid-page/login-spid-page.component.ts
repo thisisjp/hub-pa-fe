@@ -13,6 +13,6 @@ export class LoginSpidPageComponent {
   onGetAuthSpid(entityId: string): void {
     // eslint-disable-next-line functional/immutable-data
     location.href =
-      environment.API_URL + environment.PREFIX_URL_AUTH + '/auth/login?entityID=' + entityId + '&authLevel=SpidL2';
+      environment.API_URL + environment.PREFIX_URL_AUTH + '/login?entityID=' + entityId + '&authLevel=SpidL2';
   }
 }
