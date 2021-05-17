@@ -15,6 +15,14 @@
       "^/dev": ""
     }
   },
+  "/dev/privacy/*": {
+    "target": "http://localhost:8082",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/dev": ""
+    }
+  },
   "/dev/service-management/*": {
     "target": "http://localhost:8083",
     "secure": false,

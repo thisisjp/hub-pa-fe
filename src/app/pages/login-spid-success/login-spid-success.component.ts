@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from '../../services/token.service';
 import { EnteService } from '../../services/ente.service';
@@ -10,6 +10,10 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login-spid-success.component.sass']
 })
 export class LoginSpidSuccessComponent implements OnInit {
+  @ViewChild('modalPrivacy') modalPrivacy: any;
+  canCreatePrivacy = false;
+  togglePrivacy = false;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -27,25 +31,55 @@ export class LoginSpidSuccessComponent implements OnInit {
         this.authService.getFiscalCodeByToken(this.tokenService.getToken()).subscribe(resTIR => {
           if (resTIR && resTIR.user.fiscal_number) {
             this.tokenService.setFiscalCodeREFP(resTIR.user.fiscal_number);
-            this.enteService.getEnteCreditoreByRefP(this.tokenService.getFiscalCodeREFP()).subscribe(resCE => {
-              if (resCE && resCE.codiceFiscale) {
-                this.tokenService.setFiscalCode(resCE.codiceFiscale);
-                this.enteService.getAllEcForTefa().subscribe(resCEA => {
-                  if (resCEA && resCEA.length > 0) {
-                    const desAmm = resCEA.filter(elem => elem.codiceFiscale === this.tokenService.getFiscalCode())[0]
-                      .desAmm;
-                    if (desAmm) {
-                      this.tokenService.setDesAmm(desAmm);
-                      this.tokenService.setIsLogged(true);
-                      this.router.navigate(['/secure']).catch(reason => reason);
-                    }
-                  }
-                });
+            this.enteService.checkPrivacyByRefP(this.tokenService.getFiscalCodeREFP()).subscribe(resBR1 => {
+              if (resBR1 && resBR1.result) {
+                this.privacyCallback();
+              } else {
+                // eslint-disable-next-line functional/immutable-data
+                this.canCreatePrivacy = true;
               }
             });
           }
         });
       }
     });
+  }
+
+  createPrivacy(): void {
+    this.enteService.createPrivacy(this.tokenService.getFiscalCodeREFP()).subscribe(resBR2 => {
+      if (resBR2 && resBR2.result) {
+        this.privacyCallback();
+      }
+    });
+  }
+
+  privacyCallback(): void {
+    this.enteService.getEnteCreditoreByRefP(this.tokenService.getFiscalCodeREFP()).subscribe(resCE => {
+      if (resCE && resCE.codiceFiscale) {
+        this.tokenService.setFiscalCode(resCE.codiceFiscale);
+        this.enteService.getAllEcForTefa().subscribe(resCEA => {
+          if (resCEA && resCEA.length > 0) {
+            const desAmm = resCEA.filter(elem => elem.codiceFiscale === this.tokenService.getFiscalCode())[0].desAmm;
+            if (desAmm) {
+              this.tokenService.setDesAmm(desAmm);
+              this.tokenService.setIsLogged(true);
+              this.router.navigate(['/secure']).catch(reason => reason);
+            }
+          }
+        });
+      }
+    });
+  }
+
+  openModal(): void {
+    this.modalPrivacy.nativeElement.click();
+  }
+
+  getButtonClass(): string {
+    if (this.togglePrivacy) {
+      return 'btn-outline-primary';
+    } else {
+      return 'btn-primary disabled';
+    }
   }
 }
