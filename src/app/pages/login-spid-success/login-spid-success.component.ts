@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from '../../services/token.service';
 import { EnteService } from '../../services/ente.service';
-import { CreditorEntry } from '../../models/creditor-entry';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-spid-success',
@@ -14,54 +14,38 @@ export class LoginSpidSuccessComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private tokenService: TokenService,
+    private authService: AuthService,
     private enteService: EnteService
   ) {}
 
   ngOnInit(): void {
+    // eslint-disable-next-line sonarjs/cognitive-complexity
     this.activatedRoute.queryParamMap.subscribe(params => {
-      if (this.setParams(params)) {
-        this.enteService.getEnteCreditoreByRefP(this.tokenService.getFiscalCodeREFP()).subscribe(res => {
-          this.setFiscalCode(res);
+      const token = params.get('token');
+      if (token) {
+        this.tokenService.setToken(token);
+        this.authService.getFiscalCodeByToken(this.tokenService.getToken()).subscribe(resTIR => {
+          if (resTIR && resTIR.user.fiscal_number) {
+            this.tokenService.setFiscalCodeREFP(resTIR.user.fiscal_number);
+            this.enteService.getEnteCreditoreByRefP(this.tokenService.getFiscalCodeREFP()).subscribe(resCE => {
+              if (resCE && resCE.codiceFiscale) {
+                this.tokenService.setFiscalCode(resCE.codiceFiscale);
+                this.enteService.getAllEcForTefa().subscribe(resCEA => {
+                  if (resCEA && resCEA.length > 0) {
+                    const desAmm = resCEA.filter(elem => elem.codiceFiscale === this.tokenService.getFiscalCode())[0]
+                      .desAmm;
+                    if (desAmm) {
+                      this.tokenService.setDesAmm(desAmm);
+                      this.tokenService.setIsLogged(true);
+                      this.router.navigate(['/secure']).catch(reason => reason);
+                    }
+                  }
+                });
+              }
+            });
+          }
         });
       }
     });
-  }
-
-  private setParams(params: ParamMap): boolean {
-    const token = params.get('token');
-    if (token) {
-      this.tokenService.setToken(token);
-      const fiscalCode = params.get('fiscalCode');
-      if (fiscalCode) {
-        this.tokenService.setFiscalCodeREFP(fiscalCode);
-        return true;
-      } else {
-        // return false; // TODO scommentare
-        this.tokenService.setFiscalCodeREFP('12345'); // TODO MOCKATO
-        return true; // TODO MOCKATO
-      }
-    } else {
-      return false;
-    }
-  }
-
-  private setFiscalCode(res: CreditorEntry): void {
-    if (res && res.codiceFiscale) {
-      this.tokenService.setFiscalCode(res.codiceFiscale);
-      this.enteService.getAllEcForTefa().subscribe(res2 => {
-        this.setDesAmm(res2);
-      });
-    }
-  }
-
-  private setDesAmm(res2: Array<CreditorEntry>): void {
-    if (res2 && res2.length > 0) {
-      const desAmm = res2.filter(elem => elem.codiceFiscale === this.tokenService.getFiscalCode())[0].desAmm;
-      if (desAmm) {
-        this.tokenService.setDesAmm(desAmm);
-        this.tokenService.setIsLogged(true);
-        this.router.navigate(['/secure']).catch(reason => reason);
-      }
-    }
   }
 }
