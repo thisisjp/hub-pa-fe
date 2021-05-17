@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Iban } from '../models/iban';
 import { environment } from '../../environments/environment';
 import { CreditorEntry } from '../models/creditor-entry';
+import { BaseResponse } from '../models/base-response';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +12,32 @@ import { CreditorEntry } from '../models/creditor-entry';
 export class EnteService {
   constructor(private http: HttpClient) {}
 
-  private url = environment.API_URL + environment.PREFIX_URL_ENTE + '/ente';
+  private urlEnte = environment.API_URL + environment.PREFIX_URL_ENTE + '/ente';
+  private urlPrivacy = environment.API_URL + environment.PREFIX_URL_ENTE + '/privacy';
 
   getEnteCreditoreByRefP(codiceFiscaleRefP: string): Observable<CreditorEntry> {
-    return this.http.get<CreditorEntry>(this.url + '/refp/' + codiceFiscaleRefP);
+    return this.http.get<CreditorEntry>(this.urlEnte + '/refp/' + codiceFiscaleRefP);
   }
 
   getIbanByEnteCreditore(codiceFiscaleEnteCreditore: string): Observable<Array<Iban>> {
-    return this.http.get<Array<Iban>>(this.url + '/' + codiceFiscaleEnteCreditore + '/iban');
+    return this.http.get<Array<Iban>>(this.urlEnte + '/' + codiceFiscaleEnteCreditore + '/iban');
   }
 
   getAllEcForTefa(): Observable<Array<CreditorEntry>> {
-    return this.http.get<Array<CreditorEntry>>(this.url + '/pa');
+    return this.http.get<Array<CreditorEntry>>(this.urlEnte + '/pa');
+  }
+
+  /**
+   * Verifica se un Ref-P ha accettato la privacy
+   */
+  checkPrivacyByRefP(codiceFiscaleRefP: string): Observable<BaseResponse> {
+    return this.http.get<BaseResponse>(this.urlPrivacy + '/refp/' + codiceFiscaleRefP);
+  }
+
+  /**
+   * Crea un record di accettazione privacy
+   */
+  createPrivacy(codiceFiscaleRefP: string): Observable<BaseResponse> {
+    return this.http.post<BaseResponse>(this.urlPrivacy + '/' + codiceFiscaleRefP, {});
   }
 }

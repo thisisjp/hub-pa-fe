@@ -1,0 +1,45 @@
+<div class="text-center" *ngIf="canCreatePrivacy">
+  <h3>{{ 'PER_INIZIARE_PRIVACY' | translate }}</h3>
+  <p>{{ 'PER_INIZIARE_PRIVACY_DETTAGLI' | translate }}</p>
+  <div class="row">
+    <div class="form-check">
+      <div class="toggles">
+        <label for="toggle1">
+          {{ 'PER_INIZIARE_PRIVACY_TOGGLE1' | translate }}
+          <a href="javascript:void(0)" (click)="openModal()">{{ 'PER_INIZIARE_PRIVACY_TOGGLE2' | translate }}</a>
+          <input type="checkbox" id="toggle1" [(ngModel)]="togglePrivacy" />
+          <span class="lever"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <br />
+  <button
+    (click)="createPrivacy()"
+    class="btn btn-sm d-none d-lg-block col-md-2 offset-5"
+    [ngClass]="getButtonClass()"
+    type="button"
+    [disabled]="!togglePrivacy"
+  >
+    {{ 'CONTINUA' | translate }}
+  </button>
+</div>
+
+<input type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#modalPrivacy" #modalPrivacy />
+<div class="modal fade" role="dialog" id="modalPrivacy">
+  <div class="modal-dialog modal-dialog-centered app-modal-xxl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <svg class="icon icon-secondary icon-lg">
+            <use xlink:href="/assets/img/sprite.svg#it-close"></use>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <markdown [src]="'assets/markdown/privacy.md'" emoji lineNumbers katex ngPreserveWhitespaces> </markdown>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
