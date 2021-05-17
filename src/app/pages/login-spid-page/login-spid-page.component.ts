@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ProvidersList } from '../../models/providers-list';
 import { environment } from '../../../environments/environment';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-spid-page',
@@ -10,9 +11,9 @@ import { environment } from '../../../environments/environment';
 export class LoginSpidPageComponent {
   providers: ProvidersList = environment.IDPS;
 
+  constructor(private authService: AuthService) {}
+
   onGetAuthSpid(entityId: string): void {
-    // eslint-disable-next-line functional/immutable-data
-    location.href =
-      environment.API_URL + environment.PREFIX_URL_AUTH + '/login?entityID=' + entityId + '&authLevel=SpidL2';
+    this.authService.onGetAuthSpid(entityId);
   }
 }
