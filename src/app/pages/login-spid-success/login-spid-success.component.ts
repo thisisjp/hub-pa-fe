@@ -24,23 +24,26 @@ export class LoginSpidSuccessComponent implements OnInit {
 
   ngOnInit(): void {
     // eslint-disable-next-line sonarjs/cognitive-complexity
-    this.activatedRoute.queryParamMap.subscribe(params => {
-      const token = params.get('token');
-      if (token) {
-        this.tokenService.setToken(token);
-        this.authService.getFiscalCodeByToken(this.tokenService.getToken()).subscribe(resTIR => {
-          if (resTIR && resTIR.user.fiscal_number) {
-            this.tokenService.setFiscalCodeREFP(resTIR.user.fiscal_number);
-            this.enteService.checkPrivacyByRefP(this.tokenService.getFiscalCodeREFP()).subscribe(resBR1 => {
-              if (resBR1 && resBR1.result) {
-                this.privacyCallback();
-              } else {
-                // eslint-disable-next-line functional/immutable-data
-                this.canCreatePrivacy = true;
-              }
-            });
-          }
-        });
+    this.activatedRoute.fragment.subscribe((fragment: string | null) => {
+      if(fragment) {
+        const urlParams = new URLSearchParams(fragment);
+        const token = urlParams.get('token');
+        if (token) {
+          this.tokenService.setToken(token);
+          this.authService.getFiscalCodeByToken(this.tokenService.getToken()).subscribe(resTIR => {
+            if (resTIR && resTIR.user.fiscal_number) {
+              this.tokenService.setFiscalCodeREFP(resTIR.user.fiscal_number);
+              this.enteService.checkPrivacyByRefP(this.tokenService.getFiscalCodeREFP()).subscribe(resBR1 => {
+                if (resBR1 && resBR1.result) {
+                  this.privacyCallback();
+                } else {
+                  // eslint-disable-next-line functional/immutable-data
+                  this.canCreatePrivacy = true;
+                }
+              });
+            }
+          });
+        }
       }
     });
   }
