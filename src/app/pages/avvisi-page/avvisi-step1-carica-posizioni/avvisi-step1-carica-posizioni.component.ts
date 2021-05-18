@@ -601,7 +601,8 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     const model: PaymentJob = {
       status: this.statusEnum.FALLITO,
       fiscalCode: this.tokenService.getFiscalCode(),
-      fileName: this.uploadModel.csv.fileName
+      fileName: this.uploadModel.csv.fileName,
+      insertDate: new Date().toISOString()
     };
     this.uploadPaymentsService.createJobRecord(model).subscribe();
   }
