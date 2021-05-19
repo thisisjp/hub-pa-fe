@@ -1,6 +1,6 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable complexity */
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseResponse } from 'src/app/models/base-response';
 import { CsvRow } from 'src/app/models/csv-row';
@@ -12,13 +12,14 @@ import { PaymentJob } from '../../../models/payment-job';
 import { PaymentJobStatus } from '../../../models/enums/payment-job-status.enum';
 import { UploadPaymentsService } from '../../../services/upload-payments.service';
 import { ServiceManagementService } from '../../../services/service-management.service';
+import { CsvModel } from '../../../models/csv-model';
 
 @Component({
   selector: 'app-avvisi-step1',
   templateUrl: './avvisi-step1-carica-posizioni.component.html',
   styleUrls: ['./avvisi-step1-carica-posizioni.component.sass']
 })
-export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
+export class AvvisiStep1CaricaPosizioniComponent {
   private menuEnum = Menu;
   private statusEnum = PaymentJobStatus;
 
@@ -41,6 +42,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
   @ViewChild('btncontent3') btnmodal3: any;
   @ViewChild('btncontent4') btnmodal4: any;
   @ViewChild('btncontent5') btnmodal5: any;
+  @ViewChild('btncontent6') btnmodal6: any;
 
   @HostListener('dragover', ['$event'])
   onDragOver(event: DragEvent): void {
@@ -75,12 +77,6 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     private tokenService: TokenService
   ) {}
 
-  ngOnInit(): void {
-    // ngAfterViewInit() {
-    //   this.el1.nativeElement.addEventListener('dragenter', console.log('llllllllllllllll'));
-    // }
-  }
-
   nextStep(): void {
     this.router.navigate([this.menuEnum.AVVISI_PATH + '/' + this.menuEnum.AVVISI_STEP2]).catch(reason => reason);
   }
@@ -93,6 +89,8 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
   load(file: File): void {
     const reader = new FileReader();
     reader.readAsText(file);
+    // eslint-disable-next-line functional/immutable-data
+    this.uploadModel.csv = new CsvModel();
     // eslint-disable-next-line functional/immutable-data
     this.uploadModel.csv.fileName = file.name;
     // eslint-disable-next-line functional/immutable-data
@@ -107,6 +105,9 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
     if (csvRecordsArray.length > this.maxrows + 1) {
       this.openModalMaxRow();
       return;
+    } else if (csvRecordsArray.length < 2) {
+      this.openModalMinRow();
+      return;
     }
 
     // eslint-disable-next-line functional/no-let
@@ -115,7 +116,7 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
       this.rownumber = i;
       if (csvRecordsArray[i].length > 0) {
         const record = csvRecordsArray[i].split(';');
-        if (record.length < 15) {
+        if (record.length !== 15) {
           this.openModalFileNotValid();
           return;
         }
@@ -575,6 +576,10 @@ export class AvvisiStep1CaricaPosizioniComponent implements OnInit {
 
   openModalMaxRow(): void {
     this.btnmodal1.nativeElement.click();
+  }
+
+  openModalMinRow(): void {
+    this.btnmodal6.nativeElement.click();
   }
 
   openModalObbligatorio(): void {
