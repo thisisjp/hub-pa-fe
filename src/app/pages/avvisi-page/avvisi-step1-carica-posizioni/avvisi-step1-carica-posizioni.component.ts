@@ -84,6 +84,8 @@ export class AvvisiStep1CaricaPosizioniComponent {
   upload(e: any): void {
     const file = e.target.files[0];
     this.load(file);
+    // eslint-disable-next-line functional/immutable-data
+    e.target.value = null;
   }
 
   load(file: File): void {
