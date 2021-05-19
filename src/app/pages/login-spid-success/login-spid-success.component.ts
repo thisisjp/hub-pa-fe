@@ -25,7 +25,7 @@ export class LoginSpidSuccessComponent implements OnInit {
   ngOnInit(): void {
     // eslint-disable-next-line sonarjs/cognitive-complexity
     this.activatedRoute.fragment.subscribe((fragment: string | null) => {
-      if(fragment) {
+      if (fragment) {
         const urlParams = new URLSearchParams(fragment);
         const token = urlParams.get('token');
         if (token) {
