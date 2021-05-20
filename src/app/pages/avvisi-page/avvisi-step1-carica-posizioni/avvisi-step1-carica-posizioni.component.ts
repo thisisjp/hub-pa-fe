@@ -360,11 +360,6 @@ export class AvvisiStep1CaricaPosizioniComponent {
           return;
         }
 
-        if (!this.REGEX_CAUSALE.test(record[14])) {
-          this.openModalFormatNotValid();
-          return;
-        }
-
         // eslint-disable-next-line functional/immutable-data
         this.field = 'CodiceFiscale/P.IVA';
         if (record[1] === 'F' && !this.checkcodicefiscale(record[0])) {
@@ -437,7 +432,7 @@ export class AvvisiStep1CaricaPosizioniComponent {
     // eslint-disable-next-line functional/no-let
     let day: number = Number(String(cifra1) + String(cifra2));
     if (day > 40) {
-      day = day - 30;
+      day = day - 40;
     }
 
     const date = new Date(year, month - 1, day);
