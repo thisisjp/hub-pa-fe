@@ -81,8 +81,8 @@ export class TributiStep1ImpostaEntiComponent implements OnInit {
       ibanPrimary: [defaultValues?.ibanPrimary ? defaultValues.ibanPrimary : '', [Validators.required]],
       ibanSecondary: [defaultValues?.ibanSecondary ? defaultValues.ibanSecondary : '', [Validators.required]],
       percentageSecondary: [
-        defaultValues?.percentageSecondary ? defaultValues.percentageSecondary : 0,
-        [Validators.required]
+        defaultValues?.percentageSecondary ? defaultValues.percentageSecondary : 0.01,
+        [Validators.required, Validators.min(0.01), Validators.max(99.99)]
       ],
       creditorList: []
     });
@@ -192,7 +192,7 @@ export class TributiStep1ImpostaEntiComponent implements OnInit {
 
   removePercentage(): void {
     const control = this.f.percentageSecondary;
-    if (control.value > 0) {
+    if (control.value > 0.01) {
       control.setValue(Math.round(parseFloat(control.value) * 100 - 1) / 100);
     }
   }
