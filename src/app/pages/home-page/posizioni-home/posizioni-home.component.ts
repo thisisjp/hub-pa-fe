@@ -48,6 +48,8 @@ export class PosizioniHomeComponent implements OnInit {
   page4 = 0;
   page5 = 0;
 
+  maxDate = environment.maxDate;
+
   constructor(private paymentsService: PaymentsService, private tokenService: TokenService) {}
 
   ngOnInit(): void {

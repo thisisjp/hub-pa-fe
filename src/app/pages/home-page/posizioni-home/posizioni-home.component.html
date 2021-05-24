@@ -246,13 +246,20 @@
               id="startdate"
               type="date"
               [(ngModel)]="filterModel.dateFrom"
+              max="{{ maxDate }}"
             />
             <label for="startdate">{{ 'DATE_FROM' | translate }}</label>
           </div>
         </div>
         <div class="it-datepicker-wrapper">
           <div class="form-group">
-            <input class="form-control it-date-datepicker" id="enddate" type="date" [(ngModel)]="filterModel.dateTo" />
+            <input
+              class="form-control it-date-datepicker"
+              id="enddate"
+              type="date"
+              [(ngModel)]="filterModel.dateTo"
+              max="{{ maxDate }}"
+            />
             <label for="enddate">{{ 'DATE_TO' | translate }}</label>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { Support } from '../../models/support';
 import { SupportService } from '../../services/support.service';
 import { TokenService } from '../../services/token.service';
 import { NotificationService } from '../../services/notification.service';
+import { environment } from '../../../environments/environment';
 
 declare const $: any;
 
@@ -39,6 +40,7 @@ export class AiutoPageComponent implements OnInit {
   formGroup: FormGroup = new FormGroup({});
   submitted = false;
   today = new Date();
+  maxDate = environment.maxDate;
 
   constructor(
     private formBuilder: FormBuilder,
