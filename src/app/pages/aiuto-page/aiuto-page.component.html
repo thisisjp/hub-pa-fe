@@ -138,6 +138,7 @@
         id="date1"
         formControlName="dateRequest"
         min="{{ today | date: 'yyyy-MM-dd' }}"
+        max="{{ maxDate }}"
       />
       <small class="form-text error-label" *ngIf="submitted && f.dateRequest.errors?.required">{{
         'REQUIRED_FIELD' | translate

@@ -4,6 +4,7 @@ import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn, Valida
 import { Menu } from '../../../models/enums/menu.enum';
 import { denominationDefault, Tribute } from '../../../models/tribute';
 import { Installment } from '../../../models/installment';
+import { environment } from '../../../../environments/environment';
 
 declare const $: any;
 
@@ -29,6 +30,8 @@ export function conditionalValidator(predicate: BooleanFn, validator: ValidatorF
 export class TributiStep2DefinisciRateComponent implements OnInit {
   private menuEnum = Menu;
   public formGroup: FormGroup = new FormGroup({});
+  today = new Date();
+  maxDate = environment.maxDate;
 
   constructor(private router: Router, private formBuilder: FormBuilder) {}
 
