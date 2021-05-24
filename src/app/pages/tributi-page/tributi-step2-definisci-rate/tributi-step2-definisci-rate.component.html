@@ -132,10 +132,10 @@
           </div>
         </div>
         <div *ngIf="installments.length < 10">
-          <svg class="icon icon-danger app-cursor-pointer" (click)="addInstallment()">
+          <svg class="icon icon-primary app-cursor-pointer" (click)="addInstallment()">
             <use xlink:href="/assets/img/sprite.svg#it-plus-circle"></use>
           </svg>
-          {{ 'AGGIUNGI_RATA' | translate }}
+          <a href="javascript:void(0)" (click)="addInstallment()">{{ 'AGGIUNGI_RATA' | translate }}</a>
         </div>
       </div>
     </div>
