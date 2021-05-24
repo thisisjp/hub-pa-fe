@@ -144,7 +144,10 @@
             </div>
             <div class="col-2">
               <label for="percentageSecondary" class="active">% {{ 'QUOTA_TEFA' | translate }}</label>
-              <span class="input-number input-number-adaptive">
+              <span
+                class="input-number input-number-adaptive"
+                [ngClass]="isPercentageSecondaryDisabled(i) ? 'disabled' : ''"
+              >
                 <input
                   type="number"
                   id="percentageSecondary"
@@ -153,9 +156,18 @@
                   max="100"
                   step="0.01"
                   formControlName="percentageSecondary"
+                  [disabled]="isPercentageSecondaryDisabled(i)"
                 />
-                <button class="input-number-add" (click)="addPercentage(i, false)"></button>
-                <button class="input-number-sub" (click)="removePercentage(i, false)"></button>
+                <button
+                  class="input-number-add"
+                  (click)="addPercentage(i, false)"
+                  [disabled]="isPercentageSecondaryDisabled(i)"
+                ></button>
+                <button
+                  class="input-number-sub"
+                  (click)="removePercentage(i, false)"
+                  [disabled]="isPercentageSecondaryDisabled(i)"
+                ></button>
               </span>
             </div>
           </div>

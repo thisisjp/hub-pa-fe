@@ -270,4 +270,15 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
       control?.setValue(Math.round(parseFloat(control.value) * 100 - 1) / 100);
     }
   }
+
+  isPercentageSecondaryDisabled(i: number): boolean {
+    const dueDate = this.installments.controls[i].get('dueDate');
+    const percentageSecondary = this.installments.controls[i].get('percentageSecondary');
+    if (!this.isDateAfter_30_06_2021(dueDate?.value)) {
+      percentageSecondary?.setValue(0);
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
