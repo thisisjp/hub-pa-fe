@@ -5,6 +5,7 @@ export const environment = {
   cvsMaxRows: 500,
   positionsItemsPerPage: 3,
   maxDate: '2099-12-31',
+  configureServiceDate: '30/06/2021',
   IDPS: {
     identityProviders: [
       {
