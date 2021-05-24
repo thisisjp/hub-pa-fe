@@ -205,11 +205,38 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
     return inputDateParsed > configureServiceDateParsed;
   }
 
+  isDateAfter(dueDate: string, prevDate: string): boolean {
+    const dueDateParts = dueDate.split('-');
+    const prevDateParts = prevDate.split('-');
+    if (dueDateParts.length !== 3 || prevDateParts.length !== 3) {
+      return false;
+    }
+    const radix = 10;
+    const dueDateParsed = new Date(
+      parseInt(dueDateParts[0], radix),
+      parseInt(dueDateParts[1], radix) - 1,
+      parseInt(dueDateParts[2], radix)
+    );
+    const prevDateParsed = new Date(
+      parseInt(prevDateParts[0], radix),
+      parseInt(prevDateParts[1], radix) - 1,
+      parseInt(prevDateParts[2], radix)
+    );
+    return dueDateParsed > prevDateParsed;
+  }
+
   private areInstallmentsDatesValid(): boolean {
+    // eslint-disable-next-line functional/no-let
+    let prevDate;
     for (const elem of this.f.installments.value) {
-      if (!elem.dueDate || (!this.isDateAfterConfigureServiceDate(elem.dueDate) && elem.percentageSecondary > 0)) {
+      if (
+        !elem.dueDate ||
+        (!this.isDateAfterConfigureServiceDate(elem.dueDate) && elem.percentageSecondary > 0) ||
+        (prevDate && !this.isDateAfter(elem.dueDate, prevDate))
+      ) {
         return false;
       }
+      prevDate = elem.dueDate;
     }
     return true;
   }
