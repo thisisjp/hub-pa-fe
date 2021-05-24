@@ -32,6 +32,7 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
   public formGroup: FormGroup = new FormGroup({});
   today = new Date();
   maxDate = environment.maxDate;
+  public configureServiceDate = environment.configureServiceDate;
 
   constructor(private router: Router, private formBuilder: FormBuilder) {}
 
@@ -180,9 +181,10 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
     }
   }
 
-  isDateAfter_30_06_2021(inputDate: string): boolean {
+  isDateAfterConfigureServiceDate(inputDate: string): boolean {
     const inputParts = inputDate.split('-');
-    if (inputParts.length !== 3) {
+    const configureServiceDateParts = this.configureServiceDate.split('/');
+    if (inputParts.length !== 3 || configureServiceDateParts.length !== 3) {
       return false;
     }
     const radix = 10;
@@ -191,12 +193,17 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
       parseInt(inputParts[1], radix) - 1,
       parseInt(inputParts[2], radix)
     );
-    return inputDateParsed > new Date(2021, 6 - 1, 30);
+    const configureServiceDateParsed = new Date(
+      parseInt(configureServiceDateParts[2], radix),
+      parseInt(configureServiceDateParts[1], radix) - 1,
+      parseInt(configureServiceDateParts[0], radix)
+    );
+    return inputDateParsed > configureServiceDateParsed;
   }
 
   private areInstallmentsDatesValid(): boolean {
     for (const elem of this.f.installments.value) {
-      if (!elem.dueDate || (!this.isDateAfter_30_06_2021(elem.dueDate) && elem.percentageSecondary > 0)) {
+      if (!elem.dueDate || (!this.isDateAfterConfigureServiceDate(elem.dueDate) && elem.percentageSecondary > 0)) {
         return false;
       }
     }
@@ -210,7 +217,7 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
     if (!this.f.abilitaUnica.value && !this.f.abilitaRate.value) {
       return false;
     }
-    if (this.f.abilitaUnica.value && !this.isDateAfter_30_06_2021(this.f.dueDateUnique.value)) {
+    if (this.f.abilitaUnica.value && !this.isDateAfterConfigureServiceDate(this.f.dueDateUnique.value)) {
       return false;
     }
     if (this.f.abilitaRate.value && !this.arePercentagesValid()) {
