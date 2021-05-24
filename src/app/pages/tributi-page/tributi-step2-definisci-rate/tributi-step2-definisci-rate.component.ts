@@ -196,7 +196,7 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
 
   private areInstallmentsDatesValid(): boolean {
     for (const elem of this.f.installments.value) {
-      if (!this.isDateAfter_30_06_2021(elem.dueDate) && elem.percentageSecondary > 0) {
+      if (!elem.dueDate || (!this.isDateAfter_30_06_2021(elem.dueDate) && elem.percentageSecondary > 0)) {
         return false;
       }
     }
