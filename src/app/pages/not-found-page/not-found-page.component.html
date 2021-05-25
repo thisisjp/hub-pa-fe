@@ -1,1 +1,20 @@
-<p>La risorsa richiesta non è stata trovata</p>
+<div class="text-center">
+  <h3>{{ 'NOT_FOUND_TITLE' | translate }}</h3>
+  <p>{{ 'NOT_FOUND_SUBTITLE' | translate }}</p>
+  <div class="row">
+    <button
+      (click)="goToPage(menuEnum.AIUTO_PATH)"
+      class="btn btn-outline-primary btn-sm d-none d-lg-block col-md-3 offset-2"
+      type="button"
+    >
+      {{ menuEnum.AIUTO_CODE | translate }}
+    </button>
+    <button
+      (click)="goToPage(menuEnum.HOME_PATH)"
+      class="btn btn-primary btn-sm d-none d-lg-block col-md-3 offset-2"
+      type="button"
+    >
+      {{ 'TORNA_HOMEPAGE' | translate }}
+    </button>
+  </div>
+</div>
