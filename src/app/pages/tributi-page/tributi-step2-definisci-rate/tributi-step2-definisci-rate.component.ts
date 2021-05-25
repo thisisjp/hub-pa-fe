@@ -30,9 +30,10 @@ export function conditionalValidator(predicate: BooleanFn, validator: ValidatorF
 export class TributiStep2DefinisciRateComponent implements OnInit {
   private menuEnum = Menu;
   public formGroup: FormGroup = new FormGroup({});
+  public configureServiceDate = environment.configureServiceDate;
+  public enableConfigureServiceDate = environment.enableConfigureServiceDate;
   today = new Date();
   maxDate = environment.maxDate;
-  public configureServiceDate = environment.configureServiceDate;
 
   constructor(private router: Router, private formBuilder: FormBuilder) {}
 
@@ -182,6 +183,9 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
   }
 
   isDateAfterConfigureServiceDate(inputDate: string): boolean {
+    if (!this.enableConfigureServiceDate) {
+      return true;
+    }
     const inputParts = inputDate.split('-');
     const configureServiceDateParts = this.configureServiceDate.split('/');
     if (inputParts.length !== 3 || configureServiceDateParts.length !== 3) {
