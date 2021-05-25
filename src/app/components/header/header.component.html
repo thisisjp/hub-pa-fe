@@ -23,7 +23,7 @@
             </div>
             <div class="it-header-slim-right-zone" *ngIf="canShowSecureComponents()">
               <div class="it-access-top-wrapper">
-                <button type="button" class="btn btn-primary btn-sm ml-1" (click)="logout()">
+                <button type="button" class="btn btn-primary btn-sm ml-1" (click)="openModalLogout()">
                   {{ 'ESCI' | translate }}
                 </button>
               </div>
@@ -102,6 +102,23 @@
             </nav>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="logoutModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ 'LOGOUT_HEADER' | translate }}</h5>
+      </div>
+      <div class="modal-body">
+        <p>{{ 'LOGOUT_BODY' | translate }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-primary btn-sm" type="button" data-dismiss="modal">{{ 'ANNULLA' | translate }}</button>
+        <button class="btn btn-primary btn-sm" type="button" data-dismiss="modal" (click)="logout()">{{ 'ESCI' | translate }}</button>
       </div>
     </div>
   </div>

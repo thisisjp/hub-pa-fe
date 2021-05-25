@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { TokenService } from '../../services/token.service';
 import { Menu } from '../../models/enums/menu.enum';
 
+declare const $: any;
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -30,5 +32,9 @@ export class HeaderComponent {
 
   isPathActive(path: string): boolean {
     return location.href.indexOf(path) >= 1;
+  }
+
+  openModalLogout(): void {
+    $('#logoutModal').modal();
   }
 }

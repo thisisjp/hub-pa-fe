@@ -63,6 +63,8 @@
   "INDIETRO": "Indietro",
   "INDIRIZZO": "Indirizzo",
   "INVIA": "Invia",
+  "LOGOUT_HEADER": "Vuoi davvero uscire?",
+  "LOGOUT_BODY": "La tua sessione verrà terminata. Al prossimo accesso dovrai autenticarti con SPID.",
   "MAIL": "Mail",
   "MAIL_NON_CERTIFICATA": "Mail (fornire un indirizzo di posta non certificata)",
   "MAIL_NON_VALIDA": "Mail non valida",
