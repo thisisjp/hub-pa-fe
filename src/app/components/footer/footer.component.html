@@ -21,9 +21,7 @@
           <h3 class="sr-only">Sezione Link Utili</h3>
           <ul class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row">
             <li class="list-inline-item">
-              <a href="https://www.pagopa.gov.it/it/privacy-policy" title="Privacy policy" target="_blank"
-                >Privacy policy</a
-              >
+              <a href="javascript:void(0)" (click)="openModal()">Privacy policy</a>
             </li>
             <li class="list-inline-item">
               <a
@@ -39,3 +37,22 @@
     </div>
   </div>
 </footer>
+
+<input type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#modalPrivacy" #modalPrivacy />
+<div class="modal fade" role="dialog" id="modalPrivacy">
+  <div class="modal-dialog modal-dialog-centered app-modal-xxl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <svg class="icon icon-secondary icon-lg">
+            <use xlink:href="/assets/img/sprite.svg#it-close"></use>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <markdown [src]="'assets/markdown/privacy.md'" emoji lineNumbers katex ngPreserveWhitespaces> </markdown>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
