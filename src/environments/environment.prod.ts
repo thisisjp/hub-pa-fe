@@ -4,6 +4,7 @@ export const environment = {
   API_URL: 'https://api.hubpa.pagopa.it',
   cvsMaxRows: 500,
   positionsItemsPerPage: 3,
+  enableConfigureServiceDate: true,
   maxDate: '2099-12-31',
   configureServiceDate: '30/06/2021',
   IDPS: {

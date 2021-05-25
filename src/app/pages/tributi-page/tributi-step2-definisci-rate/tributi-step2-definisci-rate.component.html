@@ -18,7 +18,7 @@
       <div class="form-group row">
         <div class="col-11">
           <h4>{{ 'PAGAMENTO_UNICO' | translate }}</h4>
-          <p>
+          <p *ngIf="enableConfigureServiceDate">
             {{ 'PAGAMENTO_UNICO_DETTAGLI' | translate }}{{ configureServiceDate + '.' }}
             <a href="https://www.pagopa.gov.it/it/documentazione/comunicazioni/tari-tefa/" target="_blank">{{
               'SCOPRI' | translate
@@ -53,7 +53,10 @@
         <div class="col-11">
           <h4>{{ 'PAGAMENTO_RATE' | translate }}</h4>
           <p>
-            {{ 'PAGAMENTO_RATE_DETTAGLI' | translate }}{{ configureServiceDate + '.' }}
+            {{ 'PAGAMENTO_RATE_DETTAGLI' | translate }}
+          </p>
+          <p *ngIf="enableConfigureServiceDate">
+            {{ 'PAGAMENTO_RATE_DETTAGLI2' | translate }}{{ configureServiceDate + '.' }}
             <a href="https://www.pagopa.gov.it/it/documentazione/comunicazioni/tari-tefa/" target="_blank">{{
               'SCOPRI' | translate
             }}</a>
