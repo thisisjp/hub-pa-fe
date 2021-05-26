@@ -12,6 +12,6 @@ export class NotificationService {
   showNotification(notification: Notification): void {
     // eslint-disable-next-line functional/immutable-data
     this.notification = notification;
-    notificationShow('app-notification', 0);
+    notificationShow('app-notification', 5000);
   }
 }
