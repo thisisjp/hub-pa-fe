@@ -43,6 +43,7 @@ export class AvvisiStep1CaricaPosizioniComponent {
   @ViewChild('btncontent4') btnmodal4: any;
   @ViewChild('btncontent5') btnmodal5: any;
   @ViewChild('btncontent6') btnmodal6: any;
+  @ViewChild('btncontent7') btnmodal7: any;
 
   @HostListener('dragover', ['$event'])
   onDragOver(event: DragEvent): void {
@@ -95,6 +96,10 @@ export class AvvisiStep1CaricaPosizioniComponent {
     this.uploadModel.csv = new CsvModel();
     // eslint-disable-next-line functional/immutable-data
     this.uploadModel.csv.fileName = file.name;
+    if (!file.name.endsWith('.csv')) {
+      this.openModalFileExtensionNotValid();
+      return;
+    }
     // eslint-disable-next-line functional/immutable-data
     reader.onload = () => {
       const csvData: string = reader.result as string;
@@ -596,6 +601,11 @@ export class AvvisiStep1CaricaPosizioniComponent {
 
   openModalFileNotValid(): void {
     this.btnmodal5.nativeElement.click();
+    this.createJobRecord();
+  }
+
+  openModalFileExtensionNotValid(): void {
+    this.btnmodal7.nativeElement.click();
     this.createJobRecord();
   }
 
