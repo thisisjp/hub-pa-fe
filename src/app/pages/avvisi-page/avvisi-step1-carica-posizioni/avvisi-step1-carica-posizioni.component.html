@@ -1,6 +1,6 @@
 <div class="text-center">
   <div class="clearfix">
-    <h3 class="font-weight-bold float-left">{{ 'CARICA_POSIZIONI_DEBITORIE' | translate }}</h3>
+    <h3 class="font-weight-bold float-left">{{ 'AVVISI' | translate }}</h3>
     <button (click)="nextStep()" class="btn btn-outline-primary btn-sm float-right" type="button">
       {{ 'STATO_CARICAMENTI' | translate }}
     </button>
@@ -35,6 +35,12 @@
     </form>
   </div>
 </div>
+
+<br />
+<p>
+  {{ 'AVVISI_FILE_ESEMPIO1' | translate }}
+  <a href="javascript:void(0)" (click)="downloadCsvTemplate()">{{ 'AVVISI_FILE_ESEMPIO2' | translate }}</a>
+</p>
 
 <input type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#myModal1" #btncontent1 />
 <div class="modal fade" role="dialog" id="myModal1">

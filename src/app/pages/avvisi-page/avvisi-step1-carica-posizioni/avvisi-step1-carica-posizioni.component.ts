@@ -33,7 +33,6 @@ export class AvvisiStep1CaricaPosizioniComponent {
   REGEX_NATION = new RegExp('[A-Z]{2}');
   REGEX_EMAIL = new RegExp('[a-zA-Z0-9_.+\\-]+@[a-zA-Z0-9\\-]+(\\.[a-zA-Z0-9\\-]+)*');
   REGEX_AMOUNT = new RegExp('^[0-9]*$');
-  REGEX_CAUSALE = new RegExp('^/RFB/[a-zA-Z0-9]+/[0-9]+/TXT/Descrizione Causale RPT$');
 
   @ViewChild('box') image1: any;
 
@@ -607,5 +606,9 @@ export class AvvisiStep1CaricaPosizioniComponent {
       insertDate: new Date().toISOString()
     };
     this.uploadPaymentsService.createJobRecord(model).subscribe();
+  }
+
+  downloadCsvTemplate(): void {
+    this.uploadPaymentsService.downloadCsvTemplate();
   }
 }
