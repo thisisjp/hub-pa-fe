@@ -246,7 +246,8 @@
               id="startdate"
               type="date"
               [(ngModel)]="filterModel.dateFrom"
-              max="{{ maxDate }}"
+              [min]="minDate"
+              [max]="getMaxStartDate()"
             />
             <label for="startdate">{{ 'DATE_FROM' | translate }}</label>
           </div>
@@ -258,7 +259,8 @@
               id="enddate"
               type="date"
               [(ngModel)]="filterModel.dateTo"
-              max="{{ maxDate }}"
+              [min]="getMinEndDate()"
+              [max]="maxDate"
             />
             <label for="enddate">{{ 'DATE_TO' | translate }}</label>
           </div>
