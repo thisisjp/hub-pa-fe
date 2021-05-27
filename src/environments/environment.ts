@@ -9,6 +9,7 @@ export const environment = {
   cvsMaxRows: 500,
   positionsItemsPerPage: 3,
   enableConfigureServiceDate: true,
+  minDate: '2000-01-01',
   maxDate: '2099-12-31',
   configureServiceDate: '30/06/2021',
   IDPS: {

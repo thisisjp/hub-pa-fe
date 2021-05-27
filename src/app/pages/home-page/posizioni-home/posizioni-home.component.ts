@@ -48,6 +48,7 @@ export class PosizioniHomeComponent implements OnInit {
   page4 = 0;
   page5 = 0;
 
+  minDate = environment.minDate;
   maxDate = environment.maxDate;
 
   constructor(private paymentsService: PaymentsService, private tokenService: TokenService) {}
@@ -296,5 +297,13 @@ export class PosizioniHomeComponent implements OnInit {
     } else {
       return '';
     }
+  }
+
+  getMaxStartDate(): string {
+    return this.filterModel.dateTo ? String(this.filterModel.dateTo) : this.maxDate;
+  }
+
+  getMinEndDate(): string {
+    return this.filterModel.dateFrom ? String(this.filterModel.dateFrom) : this.minDate;
   }
 }
