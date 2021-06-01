@@ -5,67 +5,66 @@
   </button>
 </div>
 
-<table style="width: 100%">
-  <tr>
-    <td>
-      <h3>{{ 'POSITIONS' | translate }}</h3>
-    </td>
-    <td>
-      <ng-container *ngIf="filterModel.dateFrom === undefined && filterModel.dateTo === undefined">
-        <div class="chip chip-simple chip-lg" (click)="datecheckswitch(false)">
-          <span class="chip-label">{{ 'DATE' | translate }}</span>
-        </div>
-      </ng-container>
-      <ng-container *ngIf="!(filterModel.dateFrom === undefined && filterModel.dateTo === undefined)">
-        <div class="chip chip-simple chip-lg">
-          <span class="chip-label" (click)="datecheckswitch(false)">{{ getChipDates() }}</span>
-          <button (click)="datecheckswitch(true)">
-            <svg class="icon icon-primary">
-              <use xlink:href="/assets/img/sprite.svg#it-close"></use>
-            </svg>
-          </button>
-        </div>
-      </ng-container>
-    </td>
-    <td>
-      <ng-container *ngIf="filterModel.status === undefined">
-        <div class="chip chip-simple chip-lg" (click)="statuscheckswitch(false)">
-          <span class="chip-label">{{ 'STATUS' | translate }}</span>
-        </div>
-      </ng-container>
-      <ng-container *ngIf="!(filterModel.status === undefined)">
-        <div class="chip chip-simple chip-lg">
-          <span class="chip-label" (click)="statuscheckswitch(false)">{{
-            getBadgeText(filterModel.status) | translate
-          }}</span>
-          <button (click)="statuscheckswitch(true)">
-            <svg class="icon icon-primary">
-              <use xlink:href="/assets/img/sprite.svg#it-close"></use>
-            </svg>
-          </button>
-        </div>
-      </ng-container>
-    </td>
-    <td>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <div class="input-group-text">
-            <svg class="icon icon-sm icon-secondary">
-              <use xlink:href="/assets/img/sprite.svg#it-search"></use>
-            </svg>
-          </div>
-        </div>
-        <input
-          type="text"
-          class="form-control"
-          placeholder="{{ 'CERCA_CF' | translate }}"
-          [(ngModel)]="filterModel.textSearch"
-          (blur)="onBlurTextSearch()"
-        />
+<div class="row">
+  <div class="app-fit-content">
+    <h3>{{ 'POSITIONS' | translate }}</h3>
+  </div>
+  <div class="app-fit-content" style="margin-left: auto">
+    <ng-container *ngIf="filterModel.dateFrom === undefined && filterModel.dateTo === undefined">
+      <div class="chip chip-simple chip-lg" (click)="datecheckswitch(false)">
+        <span class="chip-label">{{ 'DATE' | translate }}</span>
       </div>
-    </td>
-  </tr>
-</table>
+    </ng-container>
+    <ng-container *ngIf="!(filterModel.dateFrom === undefined && filterModel.dateTo === undefined)">
+      <div class="chip chip-simple chip-lg">
+        <span class="chip-label" (click)="datecheckswitch(false)">{{ getChipDates() }}</span>
+        <button (click)="datecheckswitch(true)">
+          <svg class="icon icon-primary">
+            <use xlink:href="/assets/img/sprite.svg#it-close"></use>
+          </svg>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+  <div class="app-fit-content">
+    <ng-container *ngIf="filterModel.status === undefined">
+      <div class="chip chip-simple chip-lg" (click)="statuscheckswitch(false)">
+        <span class="chip-label">{{ 'STATUS' | translate }}</span>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!(filterModel.status === undefined)">
+      <div class="chip chip-simple chip-lg">
+        <span class="chip-label" (click)="statuscheckswitch(false)">{{
+          getBadgeText(filterModel.status) | translate
+        }}</span>
+        <button (click)="statuscheckswitch(true)">
+          <svg class="icon icon-primary">
+            <use xlink:href="/assets/img/sprite.svg#it-close"></use>
+          </svg>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+  <div class="app-fit-content">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="{{ 'CERCA_CF' | translate }}"
+        [(ngModel)]="filterModel.textSearch"
+        (blur)="onBlurTextSearch()"
+        (keyup.enter)="onBlurTextSearch()"
+      />
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <svg class="icon icon-sm icon-secondary">
+            <use xlink:href="/assets/img/sprite.svg#it-search"></use>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="counter">{{ rowstart }}-{{ rowend }} {{ 'OF' | translate }} {{ totalItems }}</div>
 <nav class="pagination-wrapper justify-content-end" aria-label="Navigazione allineata a destra" *ngIf="totalPages > 0">
   <div class="pagination">
@@ -167,7 +166,7 @@
           <!--TODO disabilitato-->
           <use xlink:href="/assets/img/sprite.svg#it-download"></use>
         </svg>
-        <svg class="icon icon-primary" (click)="openDetail(elem.id)">
+        <svg class="icon icon-primary app-cursor-pointer" (click)="openDetail(elem.id)">
           <use xlink:href="/assets/img/sprite.svg#it-info-circle"></use>
         </svg>
       </td>
