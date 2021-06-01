@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FooterComponent } from './footer.component';
 
 describe('FooterComponent', () => {
@@ -18,7 +19,8 @@ describe('FooterComponent', () => {
         NgxLocalStorageModule.forRoot(),
         RouterTestingModule
       ],
-      declarations: [FooterComponent]
+      declarations: [FooterComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   });
 

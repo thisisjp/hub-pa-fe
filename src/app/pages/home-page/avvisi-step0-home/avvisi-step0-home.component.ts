@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Menu } from '../../../models/enums/menu.enum';
 import { NotificationService } from '../../../services/notification.service';
+import { UploadPaymentsService } from '../../../services/upload-payments.service';
 
 @Component({
   selector: 'app-avvisi-step0',
@@ -11,7 +12,11 @@ import { NotificationService } from '../../../services/notification.service';
 export class AvvisiStep0HomeComponent implements OnInit {
   menuEnum = Menu;
 
-  constructor(private router: Router, private notificationService: NotificationService) {}
+  constructor(
+    private router: Router,
+    private notificationService: NotificationService,
+    private uploadPaymentsService: UploadPaymentsService
+  ) {}
 
   ngOnInit(): void {
     const defaultValues = history.state?.data;
@@ -28,7 +33,7 @@ export class AvvisiStep0HomeComponent implements OnInit {
     this.router.navigate([this.menuEnum.AVVISI_PATH + '/' + this.menuEnum.AVVISI_STEP1]).catch(reason => reason);
   }
 
-  goToPage(path: string): void {
-    this.router.navigate([path]).catch(reason => reason);
+  downloadCsvTemplate(): void {
+    this.uploadPaymentsService.downloadCsvTemplate();
   }
 }

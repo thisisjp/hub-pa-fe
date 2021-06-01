@@ -2,9 +2,7 @@
   <h3>{{ 'PER_INIZIARE_AVVISI' | translate }}</h3>
   <p>
     {{ 'PER_INIZIARE_AVVISI_DETTAGLI1' | translate }}
-    <a href="javascript:void(0)" (click)="goToPage(menuEnum.GUIDA_PATH)">{{
-      'PER_INIZIARE_AVVISI_DETTAGLI2' | translate
-    }}</a>
+    <a href="javascript:void(0)" (click)="downloadCsvTemplate()">{{ 'PER_INIZIARE_AVVISI_DETTAGLI2' | translate }}</a>
     {{ 'PER_INIZIARE_AVVISI_DETTAGLI3' | translate }}
   </p>
   <button (click)="nextStep()" class="btn btn-outline-primary btn-sm d-none d-lg-block col-md-2 offset-5" type="button">

@@ -1,4 +1,4 @@
-<div class="it-header-wrapper app-header-margin">
+<div class="it-header-wrapper app-margin-bottom">
   <div class="it-header-slim-wrapper">
     <div class="container">
       <div class="row">
@@ -117,8 +117,12 @@
         <p>{{ 'LOGOUT_BODY' | translate }}</p>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-outline-primary btn-sm" type="button" data-dismiss="modal">{{ 'ANNULLA' | translate }}</button>
-        <button class="btn btn-primary btn-sm" type="button" data-dismiss="modal" (click)="logout()">{{ 'ESCI' | translate }}</button>
+        <button class="btn btn-outline-primary btn-sm" type="button" data-dismiss="modal">
+          {{ 'ANNULLA' | translate }}
+        </button>
+        <button class="btn btn-primary btn-sm" type="button" data-dismiss="modal" (click)="logout()">
+          {{ 'ESCI' | translate }}
+        </button>
       </div>
     </div>
   </div>
