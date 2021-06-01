@@ -7,6 +7,7 @@ import { CsvRow } from 'src/app/models/csv-row';
 import { Menu } from 'src/app/models/enums/menu.enum';
 import { UploadCSVModel } from 'src/app/models/upload-csvmodel';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 import { TokenService } from '../../../services/token.service';
 import { PaymentJob } from '../../../models/payment-job';
 import { PaymentJobStatus } from '../../../models/enums/payment-job-status.enum';
@@ -36,13 +37,10 @@ export class AvvisiStep1CaricaPosizioniComponent {
 
   @ViewChild('box') image1: any;
 
-  @ViewChild('btncontent1') btnmodal1: any;
-  @ViewChild('btncontent2') btnmodal2: any;
-  @ViewChild('btncontent3') btnmodal3: any;
-  @ViewChild('btncontent4') btnmodal4: any;
-  @ViewChild('btncontent5') btnmodal5: any;
-  @ViewChild('btncontent6') btnmodal6: any;
-  @ViewChild('btncontent7') btnmodal7: any;
+  @ViewChild('btnContentUpload') btnContentUpload: any;
+
+  modalTitle = '';
+  modalBody = '';
 
   @HostListener('dragover', ['$event'])
   onDragOver(event: DragEvent): void {
@@ -71,6 +69,7 @@ export class AvvisiStep1CaricaPosizioniComponent {
   }
 
   constructor(
+    private translateService: TranslateService,
     private router: Router,
     private uploadPaymentsService: UploadPaymentsService,
     private serviceManagementService: ServiceManagementService,
@@ -576,35 +575,77 @@ export class AvvisiStep1CaricaPosizioniComponent {
   }
 
   openModalMaxRow(): void {
-    this.btnmodal1.nativeElement.click();
+    // eslint-disable-next-line functional/immutable-data
+    this.modalTitle = this.translateService.instant('ALERT_TITLE_MAX_ROWS');
+    // eslint-disable-next-line functional/immutable-data
+    this.modalBody =
+      String(this.translateService.instant('ALERT_MAX_ROWS1')) +
+      String(this.maxrows) +
+      String(this.translateService.instant('ALERT_MAX_ROWS2'));
+    this.openModalAndCreateJobRecord();
   }
 
   openModalMinRow(): void {
-    this.btnmodal6.nativeElement.click();
+    // eslint-disable-next-line functional/immutable-data
+    this.modalTitle = this.translateService.instant('ALERT_TITLE_MIN_ROWS');
+    // eslint-disable-next-line functional/immutable-data
+    this.modalBody = this.translateService.instant('ALERT_MIN_ROWS');
+    this.openModalAndCreateJobRecord();
   }
 
   openModalObbligatorio(): void {
-    this.btnmodal2.nativeElement.click();
-    this.createJobRecord();
+    // eslint-disable-next-line functional/immutable-data
+    this.modalTitle = String(this.translateService.instant('ALERT_GENERIC')) + String(this.rownumber);
+    // eslint-disable-next-line functional/immutable-data
+    this.modalBody =
+      String(this.translateService.instant('FIELD')) +
+      String(this.field) +
+      String(this.translateService.instant('OBBLIGATORIO'));
+    this.openModalAndCreateJobRecord();
   }
 
   openModalLengthMax(): void {
-    this.btnmodal3.nativeElement.click();
-    this.createJobRecord();
+    // eslint-disable-next-line functional/immutable-data
+    this.modalTitle = String(this.translateService.instant('ALERT_GENERIC')) + String(this.rownumber);
+    // eslint-disable-next-line functional/immutable-data
+    this.modalBody =
+      String(this.translateService.instant('FIELD')) +
+      String(this.field) +
+      String(this.translateService.instant('MAX_LENGTH')) +
+      String(this.maxlength) +
+      '.';
+    this.openModalAndCreateJobRecord();
   }
 
   openModalFormatNotValid(): void {
-    this.btnmodal4.nativeElement.click();
-    this.createJobRecord();
+    // eslint-disable-next-line functional/immutable-data
+    this.modalTitle = String(this.translateService.instant('ALERT_GENERIC')) + String(this.rownumber);
+    // eslint-disable-next-line functional/immutable-data
+    this.modalBody =
+      String(this.translateService.instant('FIELD')) +
+      String(this.field) +
+      String(this.translateService.instant('NOT_VALID_FORM'));
+    this.openModalAndCreateJobRecord();
   }
 
   openModalFileNotValid(): void {
-    this.btnmodal5.nativeElement.click();
-    this.createJobRecord();
+    // eslint-disable-next-line functional/immutable-data
+    this.modalTitle = String(this.translateService.instant('ALERT_GENERIC')) + String(this.rownumber);
+    // eslint-disable-next-line functional/immutable-data
+    this.modalBody = String(this.translateService.instant('FILE_NOT_VALID'));
+    this.openModalAndCreateJobRecord();
   }
 
   openModalFileExtensionNotValid(): void {
-    this.btnmodal7.nativeElement.click();
+    // eslint-disable-next-line functional/immutable-data
+    this.modalTitle = String(this.translateService.instant('ALERT_TITLE_EXTENSION'));
+    // eslint-disable-next-line functional/immutable-data
+    this.modalBody = String(this.translateService.instant('ALERT_EXTENSION'));
+    this.openModalAndCreateJobRecord();
+  }
+
+  openModalAndCreateJobRecord(): void {
+    this.btnContentUpload.nativeElement.click();
     this.createJobRecord();
   }
 
