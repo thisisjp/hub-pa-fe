@@ -9,7 +9,10 @@
   <div class="app-fit-content">
     <h3>{{ 'POSITIONS' | translate }}</h3>
   </div>
-  <div class="app-fit-content" style="margin-left: auto">
+  <div class="app-fit-content" *ngIf="payments.length === 0">
+    <a href="javascript:void(0)" (click)="resetAllFilters()">{{ 'REIMPOSTA_TUTTO' | translate }}</a>
+  </div>
+  <div class="app-fit-content app-cursor-pointer" style="margin-left: auto">
     <ng-container *ngIf="filterModel.dateFrom === undefined && filterModel.dateTo === undefined">
       <div class="chip chip-simple chip-lg" (click)="datecheckswitch(false)">
         <span class="chip-label">{{ 'DATE' | translate }}</span>
@@ -26,7 +29,7 @@
       </div>
     </ng-container>
   </div>
-  <div class="app-fit-content">
+  <div class="app-fit-content app-cursor-pointer">
     <ng-container *ngIf="filterModel.status === undefined">
       <div class="chip chip-simple chip-lg" (click)="statuscheckswitch(false)">
         <span class="chip-label">{{ 'STATUS' | translate }}</span>
@@ -55,7 +58,7 @@
         (blur)="onBlurTextSearch()"
         (keyup.enter)="onBlurTextSearch()"
       />
-      <div class="input-group-prepend">
+      <div class="input-group-prepend app-cursor-pointer">
         <div class="input-group-text">
           <svg class="icon icon-sm icon-secondary">
             <use xlink:href="/assets/img/sprite.svg#it-search"></use>
@@ -65,9 +68,9 @@
     </div>
   </div>
 </div>
-<div class="counter">{{ rowstart }}-{{ rowend }} {{ 'OF' | translate }} {{ totalItems }}</div>
-<nav class="pagination-wrapper justify-content-end" aria-label="Navigazione allineata a destra" *ngIf="totalPages > 0">
-  <div class="pagination">
+<nav class="pagination-wrapper align-items-center" aria-label="Navigazione allineata a destra" *ngIf="totalItems > 0">
+  <div>{{ rowstart }}-{{ rowend }} {{ 'OF' | translate }} {{ totalItems }}</div>
+  <div class="pagination" style="margin-left: auto">
     <a class="pagelink" tabindex="-1" aria-hidden="true" [routerLink]="" (click)="passleft()">
       <svg class="icon icon-primary" [ngClass]="{ disable: currentPage === 0 || totalPages === 0 }">
         <use xlink:href="/assets/img/sprite.svg#it-arrow-left"></use>
