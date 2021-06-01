@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Support } from '../../models/support';
 import { SupportService } from '../../services/support.service';
 import { TokenService } from '../../services/token.service';
@@ -7,20 +7,6 @@ import { NotificationService } from '../../services/notification.service';
 import { environment } from '../../../environments/environment';
 
 declare const $: any;
-
-export type BooleanFn = () => boolean;
-
-export function conditionalValidator(predicate: BooleanFn, validator: ValidatorFn): ValidatorFn {
-  return formControl => {
-    if (!formControl.parent) {
-      return null;
-    }
-    if (predicate()) {
-      return validator(formControl);
-    }
-    return null;
-  };
-}
 
 @Component({
   selector: 'app-aiuto-page',
@@ -68,11 +54,7 @@ export class AiutoPageComponent implements OnInit {
         [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]
       ],
       telephone: ['', [Validators.required]],
-      typeContact: [this.typeContactValues.TELEPHONE, [Validators.required]],
-      platformCall: [
-        this.platformCallValues.TEAMS,
-        [conditionalValidator(() => this.f.typeContact.value === this.typeContactValues.CALL, Validators.required)]
-      ],
+      contact: [this.typeContactValues.TELEPHONE, [Validators.required]],
       dateRequest: ['', [Validators.required]],
       timeRequest: ['', [Validators.required]]
     });
@@ -108,8 +90,11 @@ export class AiutoPageComponent implements OnInit {
       fullName: this.f.fullName.value,
       email: this.f.email.value,
       telephone: this.f.telephone.value,
-      typeContact: this.f.typeContact.value,
-      platformCall: this.f.typeContact.value === this.typeContactValues.CALL ? this.f.platformCall.value : '',
+      typeContact:
+        this.f.contact.value === this.typeContactValues.TELEPHONE
+          ? this.typeContactValues.TELEPHONE
+          : this.typeContactValues.CALL,
+      platformCall: this.f.contact.value === this.typeContactValues.TELEPHONE ? '' : this.f.contact.value,
       dateRequest: this.f.dateRequest.value,
       timeRequest: this.f.timeRequest.value
     };
@@ -128,9 +113,5 @@ export class AiutoPageComponent implements OnInit {
         });
       }
     });
-  }
-
-  isPlatformCallDisabled(): boolean {
-    return this.f.typeContact.value !== this.typeContactValues.CALL;
   }
 }

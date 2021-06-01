@@ -5,4 +5,5 @@ export class PaymentMinimalModel {
   surname?: string;
   date?: Date;
   status?: number;
+  isDuplicated = false;
 }
