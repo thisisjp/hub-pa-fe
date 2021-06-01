@@ -293,44 +293,44 @@
       <div class="modal-body">
         <table class="table table-borderless">
           <tr>
-            <td>
+            <td class="app-no-padding">
               <table class="table table-borderless">
                 <tr>
                   <td>
-                    <small class="text-muted">{{ 'DESTINATARIO' | translate }}</small>
+                    <small class="text-muted app-no-padding">{{ 'DESTINATARIO' | translate }}</small>
                     <br />
-                    <strong>{{ modalDetail.nominative }}</strong>
+                    <strong class="app-no-padding">{{ modalDetail.nominative }}</strong>
                   </td>
                   <td>
-                    <small class="text-muted">{{ 'CODICE_FISCALE' | translate }}</small>
+                    <small class="text-muted app-no-padding">{{ 'CODICE_FISCALE' | translate }}</small>
                     <br />
-                    <strong>{{ modalDetail.fiscalCode }}</strong>
+                    <strong class="app-no-padding">{{ modalDetail.fiscalCode }}</strong>
                   </td>
                 </tr>
                 <tr>
                   <td colspan="2">
-                    <small class="text-muted">{{ 'INDIRIZZO' | translate }}</small>
+                    <small class="text-muted app-no-padding">{{ 'INDIRIZZO' | translate }}</small>
                     <br />
-                    <strong>{{ modalDetail.addressLine1 }}</strong>
+                    <strong class="app-no-padding">{{ modalDetail.addressLine1 }}</strong>
                     <br />
-                    <strong>{{ modalDetail.addressLine2 }}</strong>
+                    <strong class="app-no-padding">{{ modalDetail.addressLine2 }}</strong>
                   </td>
                 </tr>
                 <tr>
-                  <td>
-                    <small class="text-muted">{{ 'OGGETTO_PAGAMENTO' | translate }}</small>
+                  <td class="app-no-border-bottom">
+                    <small class="text-muted app-no-padding">{{ 'OGGETTO_PAGAMENTO' | translate }}</small>
                     <br />
-                    <strong>{{ modalDetail.description }}</strong>
+                    <strong class="app-no-padding">{{ modalDetail.description }}</strong>
                   </td>
-                  <td>
-                    <span class="badge right" [ngClass]="getBadgeClass(modalDetail.status)">{{
+                  <td class="app-no-border-bottom">
+                    <span class="badge right app-no-padding" [ngClass]="getBadgeClass(modalDetail.status)">{{
                       getBadgeText(modalDetail.status) | translate
                     }}</span>
                   </td>
                 </tr>
               </table>
             </td>
-            <td class="detailright">
+            <td class="detailright app-vertical-align-initial">
               <button class="btn btn-primary btn-sm btndetail disabled app-disabled" type="button">
                 {{ 'PUBBLICA' | translate }}
               </button>
