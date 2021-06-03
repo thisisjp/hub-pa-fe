@@ -71,7 +71,7 @@
               (click)="openDettagli(paymentJobList[i].jobId)"
               class="btn btn-outline-primary btn-sm d-none d-lg-block"
               type="button"
-              *ngIf="paymentJobList[i].status !== statusEnum.IN_CORSO"
+              *ngIf="paymentJobList[i].status !== statusEnum.IN_CORSO && paymentJobList[i].status !== statusEnum.FALLITO"
             >
               {{ 'DETTAGLI' | translate }}
             </button>
