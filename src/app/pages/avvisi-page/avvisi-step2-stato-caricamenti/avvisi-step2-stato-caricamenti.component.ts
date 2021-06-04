@@ -127,9 +127,9 @@ export class AvvisiStep2StatoCaricamentiComponent implements OnInit, OnDestroy {
     }
   }
 
-  openDettagli(jobId?: number): void {
-    if (jobId) {
-      this.paymentsService.export(jobId);
+  openDettagli(jobId?: number, fileName?: string): void {
+    if (jobId && fileName) {
+      this.paymentsService.export(jobId, fileName);
     }
   }
 
