@@ -31,7 +31,7 @@ export class PaymentsService {
   /**
    * Esporta i pagamenti in formato csv dato un jobId
    */
-  export(jobId: number): void {
-    open(this.url + '/export/' + String(jobId));
+  export(jobId: number, fileName: string): void {
+    open(this.url + '/export/' + String(jobId) + '/' + fileName);
   }
 }

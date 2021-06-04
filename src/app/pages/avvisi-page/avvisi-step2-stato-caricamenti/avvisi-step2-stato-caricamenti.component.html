@@ -68,7 +68,7 @@
           </td>
           <td class="align-middle">
             <button
-              (click)="openDettagli(paymentJobList[i].jobId)"
+              (click)="openDettagli(paymentJobList[i].jobId, paymentJobList[i].fileName)"
               class="btn btn-outline-primary btn-sm d-none d-lg-block"
               type="button"
               *ngIf="paymentJobList[i].status !== statusEnum.IN_CORSO && paymentJobList[i].status !== statusEnum.FALLITO"
