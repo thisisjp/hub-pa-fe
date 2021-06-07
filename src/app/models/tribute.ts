@@ -1,7 +1,7 @@
 import { Installment } from './installment';
 import { CreditorEntry } from './creditor-entry';
 
-export const denominationDefault = 'TariTefa2021';
+export const denominationDefault = 'TARI/TEFA 2021';
 
 export class Tribute {
   ibanPrimary = '';
