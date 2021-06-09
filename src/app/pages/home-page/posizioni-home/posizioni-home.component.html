@@ -141,9 +141,8 @@
     <tr *ngFor="let elem of payments; let i = index">
       <td class="tdcheck">
         <div class="form-check">
-          <!--TODO disabilitato-->
-          <input id="checkbox1" type="checkbox" disabled />
-          <label for="checkbox1" class="labcheck disabled"></label>
+          <input [id]="'checkbox' + i" type="checkbox" [(ngModel)]="elem.checked" />
+          <label [for]="'checkbox' + i" class="labcheck"></label>
         </div>
       </td>
       <td class="align-middle app-flex-vertical-align">
@@ -165,8 +164,14 @@
         }}</span>
       </td>
       <td class="align-middle tdicon">
-        <svg class="icon disable app-disabled">
-          <!--TODO disabilitato-->
+        <svg class="icon disable app-disabled" *ngIf="!isSingleExportEnabled(elem)">
+          <use xlink:href="/assets/img/sprite.svg#it-download"></use>
+        </svg>
+        <svg
+          class="icon icon-primary app-cursor-pointer"
+          *ngIf="isSingleExportEnabled(elem)"
+          (click)="exportSingleModal(elem.id)"
+        >
           <use xlink:href="/assets/img/sprite.svg#it-download"></use>
         </svg>
         <svg class="icon icon-primary app-cursor-pointer" (click)="openDetail(elem.id)">
@@ -188,6 +193,56 @@
     {{ 'REIMPOSTA_TUTTO' | translate }}
   </button>
 </div>
+
+<div class="it-header-slim-wrapper theme-light" *ngIf="getCheckedLength() > 0">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="it-header-slim-wrapper-content">
+          <p class="d-none d-lg-block navbar-brand app-blue-paragraph">
+            {{ 'RIGHE_SELEZIONATE' | translate }}{{ getCheckedLength() }}
+          </p>
+          <div class="it-header-slim-right-zone">
+            <div class="it-access-top-wrapper">
+              <a
+                class="btn btn-outline-primary app-btn-outline-primary btn-sm app-margin-left"
+                href="javascript:void(0)"
+                *ngIf="getCheckedLength() !== payments.length"
+                (click)="selectAll(true)"
+                >{{ 'SELEZIONA_TUTTE' | translate }}</a
+              >
+              <a
+                class="btn btn-outline-primary app-btn-outline-primary btn-sm app-margin-left"
+                href="javascript:void(0)"
+                *ngIf="getCheckedLength() === payments.length"
+                (click)="selectAll(false)"
+                >{{ 'DESELEZIONA_TUTTE' | translate }}</a
+              >
+            </div>
+          </div>
+          <div class="it-header-slim-right-zone app-margin-left-auto">
+            <div class="it-access-top-wrapper">
+              <a
+                class="btn btn-primary btn-sm app-margin-left"
+                href="javascript:void(0)"
+                (click)="publishMultipleModal()"
+                >{{ 'PUBBLICA' | translate }}</a
+              >
+              <a
+                class="btn btn-primary btn-sm app-margin-left"
+                href="javascript:void(0)"
+                (click)="exportMultipleModal()"
+                >{{ 'ESPORTA' | translate }}</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODALI -->
 
 <input type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#myModal1" #btncontent1 />
 <div class="modal fade" role="dialog" id="myModal1">
@@ -384,6 +439,119 @@
         </table>
       </div>
       <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#modalPublish" #btnContentPublish />
+<div class="modal fade" role="dialog" id="modalPublish">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ 'PUBBLICA_HEADER' | translate }}</h5>
+      </div>
+      <div class="modal-body">
+        <div class="it-datepicker-wrapper">
+          <div class="form-group">
+            <label for="publishDate">{{ 'DATA_PUBBLICAZIONE' | translate }}</label>
+            <input
+              class="form-control it-date-datepicker"
+              id="publishDate"
+              type="date"
+              [(ngModel)]="publishDate"
+              [min]="today | date: 'yyyy-MM-dd'"
+              [max]="maxDate"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-primary btn-sm" data-dismiss="modal" type="button">
+          {{ 'ANNULLA' | translate }}
+        </button>
+        <button
+          class="btn btn-primary btn-sm"
+          data-dismiss="modal"
+          type="button"
+          (click)="publishService()"
+          [disabled]="!publishDate"
+        >
+          {{ 'PUBBLICA' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#modalExport" #btnContentExport />
+<div class="modal fade" role="dialog" id="modalExport">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" *ngIf="exportNumber === 1">{{ 'ESPORTA_HEADER_SINGOLO' | translate }}</h5>
+        <h5 class="modal-title" *ngIf="exportNumber !== 1">{{ 'ESPORTA_HEADER_MULTIPLO' | translate }}</h5>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="exportNumber === 1">
+          {{ 'ESPORTA_BODY_1' | translate }}{{ exportNumber }}{{ 'ESPORTA_BODY_2_SINGOLO' | translate }}
+        </p>
+        <p *ngIf="exportNumber !== 1">
+          {{ 'ESPORTA_BODY_1' | translate }}{{ exportNumber }}{{ 'ESPORTA_BODY_2_MULTIPLO' | translate }}
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-primary btn-sm" data-dismiss="modal" type="button">
+          {{ 'ANNULLA' | translate }}
+        </button>
+        <button class="btn btn-primary btn-sm" data-dismiss="modal" type="button" (click)="exportService()">
+          {{ 'ESPORTA' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#modalError" #btnContentError />
+<div class="modal fade" role="dialog" id="modalError">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ modalErrorTitle }}</h5>
+      </div>
+      <div class="modal-body">
+        <p>{{ modalErrorBody }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary btn-sm" data-dismiss="modal" type="button">{{ 'RIPROVA' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input
+  type="hidden"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#modalPublishWarning"
+  #btnContentPublishWarning
+/>
+<div class="modal fade" role="dialog" id="modalPublishWarning">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ numberDuplicates }} {{ 'AVVISI_DUPLICATI_TITLE' | translate }}</h5>
+      </div>
+      <div class="modal-body">
+        <p>{{ 'AVVISI_DUPLICATI_BODY' | translate }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-primary btn-sm" data-dismiss="modal" type="button">
+          {{ 'ANNULLA' | translate }}
+        </button>
+        <button class="btn btn-danger btn-sm" data-dismiss="modal" type="button" (click)="continuePublish()">
+          {{ 'CONTINUA' | translate }}
+        </button>
+      </div>
     </div>
   </div>
 </div>
