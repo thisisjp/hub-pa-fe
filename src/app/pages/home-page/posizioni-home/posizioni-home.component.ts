@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PaymentMinimalModel } from 'src/app/models/payments/payment-minimal-model';
+import { TranslateService } from '@ngx-translate/core';
 import { PositionStatusEnum } from '../../../models/enums/position-status.enum';
 import { PaymentsService } from '../../../services/payments.service';
 import { FindRequestModel } from '../../../models/payments/find-request-model';
@@ -8,6 +9,7 @@ import { environment } from '../../../../environments/environment';
 import { TokenService } from '../../../services/token.service';
 import { PaymentPositionDetailModel } from '../../../models/payments/payment-position-detail-model';
 import { PositionOptionStatusEnum } from '../../../models/enums/position-option-status.enum';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-posizioni-home',
@@ -18,6 +20,10 @@ export class PosizioniHomeComponent implements OnInit {
   @ViewChild('btncontent1') btnmodal1: any;
   @ViewChild('btncontent2') btnmodal2: any;
   @ViewChild('btncontent3') btnmodal3: any;
+  @ViewChild('btnContentPublish') btnModalPublish: any;
+  @ViewChild('btnContentExport') btnModalExport: any;
+  @ViewChild('btnContentError') btnModalError: any;
+  @ViewChild('btnContentPublishWarning') btnModalPublishWarning: any;
 
   statusEnum = PositionStatusEnum;
   optionStatusEnum = PositionOptionStatusEnum;
@@ -50,8 +56,21 @@ export class PosizioniHomeComponent implements OnInit {
 
   minDate = environment.minDate;
   maxDate = environment.maxDate;
+  publishDate = '';
+  today = new Date();
+  exportNumber = 0;
+  modalErrorTitle = '';
+  modalErrorBody = '';
+  ids: Array<number> = [];
+  numberDuplicates = 0;
+  isMailing = false; // true multiple, false single
 
-  constructor(private paymentsService: PaymentsService, private tokenService: TokenService) {}
+  constructor(
+    private paymentsService: PaymentsService,
+    private tokenService: TokenService,
+    private translateService: TranslateService,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.getListPositionBE();
@@ -138,6 +157,8 @@ export class PosizioniHomeComponent implements OnInit {
         if (res) {
           // eslint-disable-next-line functional/immutable-data
           this.modalDetail = res;
+          // eslint-disable-next-line functional/immutable-data
+          this.modalDetail.id = e;
           this.btnmodal3.nativeElement.click();
         }
       });
@@ -305,5 +326,189 @@ export class PosizioniHomeComponent implements OnInit {
 
   getMinEndDate(): string {
     return this.filterModel.dateFrom ? String(this.filterModel.dateFrom) : this.minDate;
+  }
+
+  exportSingleModal(id: number | undefined): void {
+    if (id !== undefined) {
+      // eslint-disable-next-line functional/immutable-data
+      this.ids = [id];
+      // eslint-disable-next-line functional/immutable-data
+      this.isMailing = false;
+      // eslint-disable-next-line functional/immutable-data
+      this.exportNumber = 1;
+      this.btnModalExport.nativeElement.click();
+    }
+  }
+
+  exportMultipleModal(): void {
+    const filtered = this.payments.filter(x => x.checked);
+    const filteredByStatus = filtered.filter(
+      x =>
+        (x.status === this.statusEnum.PUBBLICATO ||
+          x.status === this.statusEnum.PAGATO ||
+          x.status === this.statusEnum.PAGATO_PARZIALE) &&
+        x.id !== undefined
+    );
+    // eslint-disable-next-line functional/immutable-data
+    this.exportNumber = filtered.length;
+    this.buildIds(filteredByStatus);
+    if (filteredByStatus.length < filtered.length || filtered.length === 0) {
+      // eslint-disable-next-line functional/immutable-data
+      this.modalErrorTitle = String(this.translateService.instant('ERROR_ESPORTA_TITLE'));
+      // eslint-disable-next-line functional/immutable-data
+      this.modalErrorBody = String(this.translateService.instant('ERROR_ESPORTA_BODY'));
+      this.btnModalError.nativeElement.click();
+    } else {
+      // eslint-disable-next-line functional/immutable-data
+      this.isMailing = true;
+      this.btnModalExport.nativeElement.click();
+    }
+  }
+
+  publishSingleModal(id: number | undefined): void {
+    if (id !== undefined) {
+      // eslint-disable-next-line functional/immutable-data
+      this.ids = [id];
+      this.btnModalPublish.nativeElement.click();
+    }
+  }
+
+  publishMultipleModal(): void {
+    const filtered = this.payments.filter(x => x.checked);
+    const filteredByStatus = filtered.filter(x => x.status === this.statusEnum.BOZZA && x.id !== undefined);
+    this.buildIds(filteredByStatus);
+    this.countDuplicates(filteredByStatus);
+    if (filteredByStatus.length < filtered.length || filtered.length === 0) {
+      // eslint-disable-next-line functional/immutable-data
+      this.modalErrorTitle = String(this.translateService.instant('ERROR_PUBBLICA_TITLE'));
+      // eslint-disable-next-line functional/immutable-data
+      this.modalErrorBody = String(this.translateService.instant('ERROR_PUBBLICA_BODY'));
+      this.btnModalError.nativeElement.click();
+    } else if (this.numberDuplicates > 0) {
+      this.btnModalPublishWarning.nativeElement.click();
+    } else {
+      this.continuePublish();
+    }
+  }
+
+  continuePublish(): void {
+    this.btnModalPublish.nativeElement.click();
+  }
+
+  buildIds(filteredByStatus: Array<PaymentMinimalModel>): void {
+    // eslint-disable-next-line functional/immutable-data
+    this.ids = [];
+    for (const elem of filteredByStatus) {
+      if (elem.id !== undefined) {
+        // eslint-disable-next-line functional/immutable-data
+        this.ids.push(elem.id);
+      }
+    }
+  }
+
+  countDuplicates(filteredByStatus: Array<PaymentMinimalModel>): void {
+    // eslint-disable-next-line functional/immutable-data
+    this.numberDuplicates = 0;
+    for (const elem of filteredByStatus) {
+      if (elem.isDuplicated) {
+        // eslint-disable-next-line functional/immutable-data
+        ++this.numberDuplicates;
+      }
+    }
+  }
+
+  isSingleExportEnabled(elem: PaymentMinimalModel): boolean {
+    return (
+      (elem.status === this.statusEnum.PUBBLICATO ||
+        elem.status === this.statusEnum.PAGATO ||
+        elem.status === this.statusEnum.PAGATO_PARZIALE) &&
+      elem.id !== undefined
+    );
+  }
+
+  getCheckedLength(): number {
+    return this.payments.filter(x => x.checked).length;
+  }
+
+  selectAll(mode: boolean): void {
+    for (const payment of this.payments) {
+      // eslint-disable-next-line functional/immutable-data
+      payment.checked = mode;
+    }
+  }
+
+  exportService(): void {
+    this.paymentsService.exportPayments(this.ids, this.isMailing).subscribe(res => {
+      this.downloadFile(res);
+      this.getListPositionBE();
+      this.notificationService.showNotification({
+        title: 'Esportazione completata',
+        message: '',
+        isError: false
+      });
+    });
+  }
+
+  publishService(): void {
+    this.paymentsService.publishPayments(this.ids, this.publishDate).subscribe(res => {
+      this.getListPositionBE();
+      if (res && res.result) {
+        this.notificationService.showNotification({
+          title: 'Pubblicazione completata',
+          message: 'Il cittadino potrà pagare a partire dalla data che hai selezionato.',
+          isError: false
+        });
+      } else {
+        this.notificationService.showNotification({
+          title: 'Attenzione',
+          message: 'Si è verificato un errore',
+          isError: true
+        });
+      }
+    });
+  }
+
+  deleteService(id: number): void {
+    this.paymentsService.deletePayment(id).subscribe(res => {
+      this.getListPositionBE();
+      if (res && res.result) {
+        this.notificationService.showNotification({
+          title: 'Eliminazione completata',
+          message: '',
+          isError: false
+        });
+      } else {
+        this.notificationService.showNotification({
+          title: 'Attenzione',
+          message: 'Si è verificato un errore',
+          isError: true
+        });
+      }
+    });
+  }
+
+  downloadFile(res: any): void {
+    const link = document.createElement('a');
+    link.setAttribute('href', URL.createObjectURL(res.body));
+    const contentDispositionNullable: string | null = res.headers.get('Content-Disposition');
+    const contentDisposition: string = contentDispositionNullable ? contentDispositionNullable : '';
+    link.setAttribute(
+      'download',
+      contentDisposition.replace('attachment; filename=', '').replace('"', '').replace('"', '')
+    );
+    // eslint-disable-next-line functional/immutable-data
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    const dataURL = URL.createObjectURL(res.body);
+    if (navigator && navigator.msSaveOrOpenBlob) {
+      navigator.msSaveOrOpenBlob(res.body);
+      return;
+    }
+    setTimeout(() => {
+      // For Firefox it is necessary to delay revoking the ObjectURL
+      URL.revokeObjectURL(dataURL);
+    }, 100);
   }
 }

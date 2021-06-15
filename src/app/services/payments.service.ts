@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { FindRequestModel } from '../models/payments/find-request-model';
 import { FindResponseModel } from '../models/payments/find-response-model';
 import { PaymentPositionDetailModel } from '../models/payments/payment-position-detail-model';
+import { BaseResponse } from '../models/base-response';
+import { PublishExportModel } from '../models/payments/publish-export-model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +35,36 @@ export class PaymentsService {
    */
   export(jobId: number, fileName: string): void {
     open(this.url + '/export/' + String(jobId) + '/' + fileName);
+  }
+
+  /**
+   * Esporta i pagamenti selezionati
+   */
+  exportPayments(ids: Array<number>, isMailing: boolean): Observable<any> {
+    const request: PublishExportModel = { ids, isMailing };
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    });
+    return this.http.post(this.url + '/exportPayments', request, {
+      headers,
+      responseType: 'blob' as 'json',
+      observe: 'response'
+    });
+  }
+
+  /**
+   * Pubblica i pagamenti selezionati
+   */
+  publishPayments(ids: Array<number>, publishDate: string): Observable<BaseResponse> {
+    const request: PublishExportModel = { ids, publishDate, isMailing: true };
+    return this.http.post<BaseResponse>(this.url + '/publishPayments', request);
+  }
+
+  /**
+   * Elimina i pagamenti selezionati
+   */
+  deletePayment(id: number): Observable<BaseResponse> {
+    return this.http.delete<BaseResponse>(this.url + '/' + String(id));
   }
 }

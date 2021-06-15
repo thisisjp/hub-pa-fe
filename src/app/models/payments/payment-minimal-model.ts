@@ -6,4 +6,5 @@ export class PaymentMinimalModel {
   date?: Date;
   status?: number;
   isDuplicated = false;
+  checked = false;
 }
