@@ -37,7 +37,7 @@
         <table class="table table-borderless">
           <tbody>
             <tr>
-              <td>
+              <td [ngClass]="isPostalRowVisible() ? 'app-no-border-bottom' : ''">
                 <strong>{{ primaryCreditor.desAmm }}</strong>
                 <br />
                 <small class="text-muted"
@@ -46,15 +46,32 @@
                   {{ primaryCreditor.codiceInterbancario ? ':' + primaryCreditor.codiceInterbancario : '' }}</small
                 >
               </td>
-              <td>
+              <td [ngClass]="isPostalRowVisible() ? 'app-no-border-bottom' : ''">
                 <strong>{{ compiledForm.ibanPrimary }}</strong>
                 <br />
-                <small class="text-muted">{{ 'IBAN' | translate }}</small>
+                <small class="text-muted" *ngIf="compiledForm.ibanPrimary">{{ 'IBAN' | translate }}</small>
               </td>
-              <td></td>
+              <td [ngClass]="isPostalRowVisible() ? 'app-no-border-bottom' : ''"></td>
+            </tr>
+            <tr *ngIf="isPostalRowVisible()">
+              <td>
+                <strong>{{ compiledForm.postalAccountholder }}</strong>
+                <br />
+                <small class="text-muted">{{ 'INTESTATARIO_CC_POSTALE' | translate }}</small>
+              </td>
+              <td>
+                <strong>{{ compiledForm.postalIban }}</strong>
+                <br />
+                <small class="text-muted">{{ 'IBAN_CC_POSTALE' | translate }}</small>
+              </td>
+              <td>
+                <strong>{{ compiledForm.postalAuthCode }}</strong>
+                <br />
+                <small class="text-muted">{{ 'CODICE_AUTORIZZATIVO_STAMPA_CC_POSTALE' | translate }}</small>
+              </td>
             </tr>
             <tr>
-              <td>
+              <td class="app-no-border-bottom">
                 <strong>{{ secondaryCreditor.desAmm }}</strong>
                 <br />
                 <small class="text-muted"
@@ -63,12 +80,12 @@
                   {{ secondaryCreditor.codiceInterbancario ? ':' + secondaryCreditor.codiceInterbancario : '' }}</small
                 >
               </td>
-              <td>
+              <td class="app-no-border-bottom">
                 <strong>{{ compiledForm.ibanSecondary }}</strong>
                 <br />
                 <small class="text-muted">{{ 'IBAN' | translate }}</small>
               </td>
-              <td>
+              <td class="app-no-border-bottom">
                 <strong>{{ compiledForm.percentageSecondary }}%</strong>
                 <br />
                 <small class="text-muted">{{ 'TEFA_SU_TOTALE' | translate }}</small>
@@ -87,29 +104,29 @@
       <div class="collapse-body">
         <table class="table table-borderless">
           <tbody>
-            <tr *ngIf="compiledForm.abilitaUnica || compiledForm.dueDateUnique">
-              <td>
+            <tr *ngIf="compiledForm.abilitaUnica">
+              <td [ngClass]="compiledForm.installments.length === 0 ? 'app-no-border-bottom' : ''">
                 <strong>{{ 'PAGAMENTO_UNICO' | translate }}</strong>
                 <br />
                 <small class="text-muted"
                   >{{ 'ENTRO' | translate }} {{ getFormattedDate(compiledForm.dueDateUnique) }}</small
                 >
               </td>
-              <td></td>
-              <td></td>
+              <td [ngClass]="compiledForm.installments.length === 0 ? 'app-no-border-bottom' : ''"></td>
+              <td [ngClass]="compiledForm.installments.length === 0 ? 'app-no-border-bottom' : ''"></td>
             </tr>
-            <tr *ngFor="let elem of compiledForm.installments; let i = index">
-              <td>
+            <tr *ngFor="let elem of compiledForm.installments; let i = index; last as isLast">
+              <td [ngClass]="isLast ? 'app-no-border-bottom' : ''">
                 <strong>{{ 'RATA' | translate }} {{ i + 1 }}</strong>
                 <br />
                 <small class="text-muted">{{ 'ENTRO' | translate }} {{ getFormattedDate(elem.dueDate) }}</small>
               </td>
-              <td>
+              <td [ngClass]="isLast ? 'app-no-border-bottom' : ''">
                 <strong>{{ elem.percentagePrimary }}%</strong>
                 <br />
                 <small class="text-muted">{{ 'QUOTA_TARI' | translate }}</small>
               </td>
-              <td>
+              <td [ngClass]="isLast ? 'app-no-border-bottom' : ''">
                 <strong>{{ elem.percentageSecondary }}%</strong>
                 <br />
                 <small class="text-muted">{{ 'QUOTA_TEFA' | translate }}</small>

@@ -273,6 +273,26 @@
           />
           <label for="radio4">{{ 'PAGATO_PARZIALE' | translate }}</label>
         </div>
+        <div class="form-check" aria-describedby="">
+          <input
+            name="gruppo1"
+            [value]="statusEnum.RENDICONTATO_PARZIALE"
+            type="radio"
+            id="radio5"
+            [(ngModel)]="filterModel.status"
+          />
+          <label for="radio5">{{ 'RENDICONTATO_PARZIALE' | translate }}</label>
+        </div>
+        <div class="form-check" aria-describedby="">
+          <input
+            name="gruppo1"
+            [value]="statusEnum.RENDICONTATO"
+            type="radio"
+            id="radio6"
+            [(ngModel)]="filterModel.status"
+          />
+          <label for="radio6">{{ 'RENDICONTATO' | translate }}</label>
+        </div>
       </div>
       <div class="modal-footer">
         <div class="primary-color left" (click)="resetstato()">{{ 'REIMPOSTA_FILTRO' | translate }}</div>

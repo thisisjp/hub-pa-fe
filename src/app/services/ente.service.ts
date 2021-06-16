@@ -19,8 +19,8 @@ export class EnteService {
     return this.http.get<CreditorEntry>(this.urlEnte + '/refp/' + codiceFiscaleRefP);
   }
 
-  getIbanByEnteCreditore(codiceFiscaleEnteCreditore: string): Observable<Array<Iban>> {
-    return this.http.get<Array<Iban>>(this.urlEnte + '/' + codiceFiscaleEnteCreditore + '/iban');
+  getIbanByEnteCreditore(codiceFiscaleEnteCreditore: string, ibanMode: string): Observable<Array<Iban>> {
+    return this.http.get<Array<Iban>>(this.urlEnte + '/' + codiceFiscaleEnteCreditore + '/' + ibanMode + '/iban');
   }
 
   getAllEcForTefa(): Observable<Array<CreditorEntry>> {

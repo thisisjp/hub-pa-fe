@@ -11,7 +11,7 @@ import { EnteService } from '../../../services/ente.service';
   styleUrls: ['./tributi-step4-view.component.sass']
 })
 export class TributiStep4ViewComponent implements OnInit {
-  compiledForm = new Tribute('', '', 0, '', '', [], true, true, '', [], '');
+  compiledForm = new Tribute('', '', 0, '', '', [], '', '', '', false, true, true, '', [], '');
   primaryCreditor = new CreditorEntry();
   secondaryCreditor = new CreditorEntry();
   private creditorList = Array<CreditorEntry>();
@@ -46,5 +46,13 @@ export class TributiStep4ViewComponent implements OnInit {
   getFormattedDate(inputDate: string): string {
     const inputParts = inputDate.split('-');
     return inputParts[2] + '/' + inputParts[1] + '/' + inputParts[0];
+  }
+
+  isPostalRowVisible(): boolean {
+    return !!(
+      this.compiledForm.postalAccountholder &&
+      this.compiledForm.postalIban &&
+      this.compiledForm.postalAuthCode
+    );
   }
 }

@@ -106,14 +106,15 @@
         <div *ngFor="let _ of installments.controls; let i = index">
           <div class="form-group row" [formGroupName]="i">
             <div class="col-2">
-              <svg
-                class="icon icon-danger app-cursor-pointer"
-                *ngIf="installments.length > 2 && installments.length === i + 1"
-                (click)="removeInstallment(i)"
-              >
-                <use xlink:href="/assets/img/sprite.svg#it-delete"></use>
-              </svg>
-              <h6>{{ 'RATA' | translate }} {{ i + 1 }}</h6>
+              <h6>
+                <svg
+                  class="icon icon-danger app-cursor-pointer"
+                  *ngIf="installments.length > 2 && installments.length === i + 1"
+                  (click)="removeInstallment(i)"
+                >
+                  <use xlink:href="/assets/img/sprite.svg#it-delete"></use></svg
+                >{{ 'RATA' | translate }} {{ i + 1 }}
+              </h6>
             </div>
             <div class="col-3">
               <label for="dueDate" class="active">{{ 'SCADENZA' | translate }}</label>
