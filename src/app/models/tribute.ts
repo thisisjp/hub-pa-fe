@@ -9,6 +9,10 @@ export class Tribute {
   percentageSecondary = 0;
   fiscalCodePrimaryCreditor = '';
   fiscalCodeSecondaryCreditor = '';
+  postalIban = '';
+  postalAccountholder = '';
+  postalAuthCode = '';
+  abilitaCcPostale = false;
   abilitaUnica = true;
   abilitaRate = true;
   dueDateUnique = '';
@@ -23,6 +27,10 @@ export class Tribute {
     fiscalCodePrimaryCreditor: string,
     fiscalCodeSecondaryCreditor: string,
     creditorList: Array<CreditorEntry>,
+    postalIban: string,
+    postalAccountholder: string,
+    postalAuthCode: string,
+    abilitaCcPostale: boolean,
     abilitaUnica: boolean,
     abilitaRate: boolean,
     dueDateUnique: string,
@@ -35,6 +43,10 @@ export class Tribute {
     this.fiscalCodePrimaryCreditor = fiscalCodePrimaryCreditor;
     this.fiscalCodeSecondaryCreditor = fiscalCodeSecondaryCreditor;
     this.creditorList = creditorList;
+    this.postalIban = postalIban;
+    this.postalAccountholder = postalAccountholder;
+    this.postalAuthCode = postalAuthCode;
+    this.abilitaCcPostale = abilitaCcPostale;
     this.abilitaUnica = abilitaUnica;
     this.abilitaRate = abilitaRate;
     this.dueDateUnique = dueDateUnique;

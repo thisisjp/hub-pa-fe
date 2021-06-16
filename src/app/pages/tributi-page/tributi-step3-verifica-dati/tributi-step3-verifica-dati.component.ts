@@ -13,7 +13,7 @@ import { ServiceManagementService } from '../../../services/service-management.s
 })
 export class TributiStep3VerificaDatiComponent implements OnInit {
   private menuEnum = Menu;
-  compiledForm = new Tribute('', '', 0, '', '', [], true, true, '', [], '');
+  compiledForm = new Tribute('', '', 0, '', '', [], '', '', '', false, true, true, '', [], '');
   primaryCreditor = new CreditorEntry();
   secondaryCreditor = new CreditorEntry();
 
@@ -28,6 +28,10 @@ export class TributiStep3VerificaDatiComponent implements OnInit {
       history.state?.data?.fiscalCodePrimaryCreditor,
       history.state?.data?.fiscalCodeSecondaryCreditor,
       history.state?.data?.creditorList,
+      history.state?.data?.postalIban,
+      history.state?.data?.postalAccountholder,
+      history.state?.data?.postalAuthCode,
+      history.state?.data?.abilitaCcPostale,
       history.state?.data?.abilitaUnica,
       history.state?.data?.abilitaRate,
       history.state?.data?.abilitaUnica ? history.state?.data?.dueDateUnique : '',
@@ -73,5 +77,13 @@ export class TributiStep3VerificaDatiComponent implements OnInit {
   getFormattedDate(inputDate: string): string {
     const inputParts = inputDate.split('-');
     return inputParts[2] + '/' + inputParts[1] + '/' + inputParts[0];
+  }
+
+  isPostalRowVisible(): boolean {
+    return !!(
+      this.compiledForm.postalAccountholder &&
+      this.compiledForm.postalIban &&
+      this.compiledForm.postalAuthCode
+    );
   }
 }

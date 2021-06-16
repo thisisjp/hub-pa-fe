@@ -222,6 +222,8 @@ export class PosizioniHomeComponent implements OnInit {
       case this.statusEnum.PUBBLICATO:
       case this.statusEnum.PAGATO:
       case this.statusEnum.PAGATO_PARZIALE:
+      case this.statusEnum.RENDICONTATO_PARZIALE:
+      case this.statusEnum.RENDICONTATO:
         return 'badge-secondary';
       default:
         return '';
@@ -238,6 +240,10 @@ export class PosizioniHomeComponent implements OnInit {
         return 'Pagato';
       case this.statusEnum.PAGATO_PARZIALE:
         return 'Pagato parziale';
+      case this.statusEnum.RENDICONTATO_PARZIALE:
+        return 'Rendicontato parziale';
+      case this.statusEnum.RENDICONTATO:
+        return 'Rendicontato';
       default:
         return '';
     }
@@ -247,6 +253,7 @@ export class PosizioniHomeComponent implements OnInit {
     switch (status) {
       case this.optionStatusEnum.PAGATO:
       case this.optionStatusEnum.NON_PAGATO:
+      case this.optionStatusEnum.RENDICONTATO:
         return 'badge-secondary';
       default:
         return '';
@@ -259,6 +266,8 @@ export class PosizioniHomeComponent implements OnInit {
         return 'Pagato';
       case this.optionStatusEnum.NON_PAGATO:
         return 'Non pagato';
+      case this.optionStatusEnum.RENDICONTATO:
+        return 'Rendicontato';
       default:
         return '';
     }
@@ -342,13 +351,7 @@ export class PosizioniHomeComponent implements OnInit {
 
   exportMultipleModal(): void {
     const filtered = this.payments.filter(x => x.checked);
-    const filteredByStatus = filtered.filter(
-      x =>
-        (x.status === this.statusEnum.PUBBLICATO ||
-          x.status === this.statusEnum.PAGATO ||
-          x.status === this.statusEnum.PAGATO_PARZIALE) &&
-        x.id !== undefined
-    );
+    const filteredByStatus = filtered.filter(x => x.status !== this.statusEnum.BOZZA && x.id !== undefined);
     // eslint-disable-next-line functional/immutable-data
     this.exportNumber = filtered.length;
     this.buildIds(filteredByStatus);
@@ -418,12 +421,7 @@ export class PosizioniHomeComponent implements OnInit {
   }
 
   isSingleExportEnabled(elem: PaymentMinimalModel): boolean {
-    return (
-      (elem.status === this.statusEnum.PUBBLICATO ||
-        elem.status === this.statusEnum.PAGATO ||
-        elem.status === this.statusEnum.PAGATO_PARZIALE) &&
-      elem.id !== undefined
-    );
+    return elem.status !== this.statusEnum.BOZZA && elem.id !== undefined;
   }
 
   getCheckedLength(): number {
