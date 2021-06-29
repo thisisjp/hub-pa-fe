@@ -107,16 +107,28 @@
       <div class="collapse-body">
         <table class="table table-borderless">
           <tbody>
-            <tr *ngIf="compiledForm.abilitaUnica">
-              <td [ngClass]="compiledForm.installments.length === 0 ? 'app-no-border-bottom' : ''">
+            <tr *ngIf="compiledForm.dueDateUnique">
+              <td
+                [ngClass]="
+                  !compiledForm.installments || compiledForm.installments.length === 0 ? 'app-no-border-bottom' : ''
+                "
+              >
                 <strong>{{ 'PAGAMENTO_UNICO' | translate }}</strong>
                 <br />
                 <small class="text-muted"
                   >{{ 'ENTRO' | translate }} {{ getFormattedDate(compiledForm.dueDateUnique) }}</small
                 >
               </td>
-              <td [ngClass]="compiledForm.installments.length === 0 ? 'app-no-border-bottom' : ''"></td>
-              <td [ngClass]="compiledForm.installments.length === 0 ? 'app-no-border-bottom' : ''"></td>
+              <td
+                [ngClass]="
+                  !compiledForm.installments || compiledForm.installments.length === 0 ? 'app-no-border-bottom' : ''
+                "
+              ></td>
+              <td
+                [ngClass]="
+                  !compiledForm.installments || compiledForm.installments.length === 0 ? 'app-no-border-bottom' : ''
+                "
+              ></td>
             </tr>
             <tr *ngFor="let elem of compiledForm.installments; let i = index; last as isLast">
               <td [ngClass]="isLast ? 'app-no-border-bottom' : ''">

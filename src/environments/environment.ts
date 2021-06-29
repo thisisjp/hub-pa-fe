@@ -12,6 +12,7 @@ export const environment = {
   minDate: '2000-01-01',
   maxDate: '2099-12-31',
   configureServiceDate: '30/06/2021',
+  isPostalIbanEnabled: false,
   IDPS: {
     identityProviders: [
       {

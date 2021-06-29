@@ -509,4 +509,14 @@ export class PosizioniHomeComponent implements OnInit {
       URL.revokeObjectURL(dataURL);
     }, 100);
   }
+
+  receipt(modalDetail: PaymentPositionDetailModel): void {
+    if (modalDetail.status) {
+      this.paymentsService.receipt(modalDetail.id);
+    }
+  }
+
+  isReceiptEnabled(status: number | undefined): boolean {
+    return !!status && this.statusEnum.BOZZA !== status && this.statusEnum.PUBBLICATO !== status;
+  }
 }

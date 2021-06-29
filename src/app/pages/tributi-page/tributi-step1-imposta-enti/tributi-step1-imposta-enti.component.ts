@@ -10,6 +10,7 @@ import { Iban } from '../../../models/iban';
 import { CreditorEntry } from '../../../models/creditor-entry';
 import { EnteService } from '../../../services/ente.service';
 import { IbanModeEnum } from '../../../models/enums/iban-mode.enum';
+import { environment } from '../../../../environments/environment';
 
 declare const $: any;
 
@@ -24,6 +25,7 @@ export class TributiStep1ImpostaEntiComponent implements OnInit {
   private creditorList = Array<CreditorEntry>();
   private scegliUnaOpzione = 'Scegli una opzione';
   private ibanMode = IbanModeEnum;
+  isPostalIbanEnabled = environment.isPostalIbanEnabled;
 
   constructor(
     private router: Router,
