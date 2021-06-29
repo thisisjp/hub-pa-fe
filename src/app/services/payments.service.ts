@@ -67,4 +67,11 @@ export class PaymentsService {
   deletePayment(id: number): Observable<BaseResponse> {
     return this.http.delete<BaseResponse>(this.url + '/' + String(id));
   }
+
+  /**
+   * Genera il PDF di una ricevuta dato un pagamento
+   */
+  receipt(id: number): void {
+    open(this.url + '/receipt/' + String(id));
+  }
 }

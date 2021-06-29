@@ -430,8 +430,10 @@
                   {{ 'SCARICA_AVVISO' | translate }}
                 </button>
                 <button
-                  class="btn btn-outline-primary btn-sm btndetail disabled app-disabled"
+                  class="btn btn-outline-primary btn-sm btndetail"
+                  [ngClass]="isReceiptEnabled(modalDetail.status) ? '' : 'disabled app-disabled'"
                   type="button"
+                  (click)="receipt(modalDetail)"
                   data-dismiss="modal"
                 >
                   {{ 'RICEVUTA' | translate }}
