@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   environmentName: 'PROD',
   API_URL: 'https://api.hubpa.pagopa.it',
-  cvsMaxRows: 500,
+  cvsMaxRows: 200,
   positionsItemsPerPage: 50,
   enableConfigureServiceDate: true,
   minDate: '2000-01-01',

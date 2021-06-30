@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   environmentName: 'COLLAUDO',
   API_URL: 'https://api.hubpad.pagopa.it',
-  cvsMaxRows: 500,
+  cvsMaxRows: 200,
   positionsItemsPerPage: 50,
   enableConfigureServiceDate: true,
   minDate: '2000-01-01',
