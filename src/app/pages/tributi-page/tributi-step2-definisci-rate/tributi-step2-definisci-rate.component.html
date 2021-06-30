@@ -112,8 +112,9 @@
                   *ngIf="installments.length > 2 && installments.length === i + 1"
                   (click)="removeInstallment(i)"
                 >
-                  <use xlink:href="/assets/img/sprite.svg#it-delete"></use></svg
-                >{{ 'RATA' | translate }} {{ i + 1 }}
+                  <use xlink:href="/assets/img/sprite.svg#it-delete"></use>
+                </svg>
+                {{ 'RATA' | translate }} {{ i + 1 }}
               </h6>
             </div>
             <div class="col-3">

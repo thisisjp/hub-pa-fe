@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from '../../services/token.service';
 import { EnteService } from '../../services/ente.service';
 import { AuthService } from '../../services/auth.service';
+import { CreditorEntry } from '../../models/creditor-entry';
 
 @Component({
   selector: 'app-login-spid-success',
@@ -13,6 +14,10 @@ export class LoginSpidSuccessComponent implements OnInit {
   @ViewChild('modalPrivacy') modalPrivacy: any;
   canCreatePrivacy = false;
   togglePrivacy = false;
+
+  canSelectCreditors = false;
+  selectedCreditor = '';
+  creditors: Array<CreditorEntry> = [];
 
   constructor(
     private router: Router,
@@ -78,5 +83,21 @@ export class LoginSpidSuccessComponent implements OnInit {
     } else {
       return 'btn-primary disabled';
     }
+  }
+
+  getButtonCreditorsClass(): string {
+    if (this.selectedCreditor) {
+      return 'btn-outline-primary';
+    } else {
+      return 'btn-primary disabled';
+    }
+  }
+
+  selectCreditor(): void {
+    this.tokenService.setFiscalCode(this.selectedCreditor);
+    const desAmm = this.creditors.filter(elem => elem.codiceFiscale === this.tokenService.getFiscalCode())[0].desAmm;
+    this.tokenService.setDesAmm(desAmm);
+    this.tokenService.setIsLogged(true);
+    this.router.navigate(['/secure']).catch(reason => reason);
   }
 }
