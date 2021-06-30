@@ -62,13 +62,18 @@ export class LoginSpidSuccessComponent implements OnInit {
   }
 
   privacyCallback(): void {
-    this.enteService.getEnteCreditoreByRefP(this.tokenService.getFiscalCodeREFP()).subscribe(resCE => {
-      if (resCE && resCE.codiceFiscale && resCE.denominazioneEnte) {
-        this.tokenService.setFiscalCode(resCE.codiceFiscale);
-        this.tokenService.setDesAmm(resCE.denominazioneEnte);
-        this.tokenService.setCodiceInterbancario(resCE.codiceInterbancario);
-        this.tokenService.setIsLogged(true);
-        this.router.navigate(['/secure']).catch(reason => reason);
+    this.enteService.getEnteCreditoreByRefP(this.tokenService.getFiscalCodeREFP()).subscribe(resCEA => {
+      if (resCEA) {
+        // eslint-disable-next-line functional/immutable-data
+        this.creditors = resCEA;
+        if (resCEA.length > 1) {
+          // eslint-disable-next-line functional/immutable-data
+          this.canSelectCreditors = true;
+        } else if (resCEA.length === 1) {
+          // eslint-disable-next-line functional/immutable-data
+          this.selectedCreditor = resCEA[0].codiceFiscale;
+          this.selectCreditor();
+        }
       }
     });
   }
