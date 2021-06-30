@@ -15,8 +15,8 @@ export class EnteService {
   private urlEnte = environment.API_URL + environment.PREFIX_URL_ENTE + '/ente';
   private urlPrivacy = environment.API_URL + environment.PREFIX_URL_ENTE + '/privacy';
 
-  getEnteCreditoreByRefP(codiceFiscaleRefP: string): Observable<CreditorEntry> {
-    return this.http.get<CreditorEntry>(this.urlEnte + '/refp/' + codiceFiscaleRefP);
+  getEnteCreditoreByRefP(codiceFiscaleRefP: string): Observable<Array<CreditorEntry>> {
+    return this.http.get<Array<CreditorEntry>>(this.urlEnte + '/refp/' + codiceFiscaleRefP);
   }
 
   getIbanByEnteCreditore(codiceFiscaleEnteCreditore: string, ibanMode: string): Observable<Array<Iban>> {
