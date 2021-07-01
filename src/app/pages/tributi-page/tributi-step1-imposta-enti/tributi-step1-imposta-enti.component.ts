@@ -226,13 +226,18 @@ export class TributiStep1ImpostaEntiComponent implements OnInit {
   }
 
   initPrimaryIban(defaultValues: any): void {
-    this.enteService.getIbanByEnteCreditore(this.tokenService.getFiscalCode(), this.ibanMode.BANKING).subscribe(res => {
-      $('#ibanPrimarySelect').setOptionsToSelect(this.toSelectedOptionsIban(res, true));
-      // eslint-disable-next-line functional/immutable-data
-      $('#ibanPrimarySelect > div > button > div > div > div')[0].innerHTML = defaultValues?.ibanPrimary
-        ? defaultValues.ibanPrimary
-        : this.scegliUnaOpzione;
-    });
+    this.enteService
+      .getIbanByEnteCreditore(
+        this.tokenService.getFiscalCode(),
+        this.isPostalIbanEnabled ? this.ibanMode.BANKING : this.ibanMode.FULL
+      )
+      .subscribe(res => {
+        $('#ibanPrimarySelect').setOptionsToSelect(this.toSelectedOptionsIban(res, this.isPostalIbanEnabled));
+        // eslint-disable-next-line functional/immutable-data
+        $('#ibanPrimarySelect > div > button > div > div > div')[0].innerHTML = defaultValues?.ibanPrimary
+          ? defaultValues.ibanPrimary
+          : this.scegliUnaOpzione;
+      });
   }
 
   initPrimaryPostalIban(defaultValues: any): void {
