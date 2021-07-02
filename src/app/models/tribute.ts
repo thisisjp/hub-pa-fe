@@ -1,7 +1,6 @@
+import { environment } from '../../environments/environment';
 import { Installment } from './installment';
 import { CreditorEntry } from './creditor-entry';
-
-export const denominationDefault = 'TARI/TEFA 2021';
 
 export class Tribute {
   ibanPrimary = '';
@@ -17,7 +16,7 @@ export class Tribute {
   abilitaRate = true;
   dueDateUnique = '';
   installments: Array<Installment> = [];
-  denomination = denominationDefault;
+  denomination = environment.denominationDefault;
   creditorList: Array<CreditorEntry> = [];
 
   constructor(

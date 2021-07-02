@@ -58,18 +58,12 @@ export class LoginSpidSuccessComponent implements OnInit {
 
   privacyCallback(): void {
     this.enteService.getEnteCreditoreByRefP(this.tokenService.getFiscalCodeREFP()).subscribe(resCE => {
-      if (resCE && resCE.codiceFiscale) {
+      if (resCE && resCE.codiceFiscale && resCE.denominazioneEnte) {
         this.tokenService.setFiscalCode(resCE.codiceFiscale);
-        this.enteService.getAllEcForTefa().subscribe(resCEA => {
-          if (resCEA && resCEA.length > 0) {
-            const desAmm = resCEA.filter(elem => elem.codiceFiscale === this.tokenService.getFiscalCode())[0].desAmm;
-            if (desAmm) {
-              this.tokenService.setDesAmm(desAmm);
-              this.tokenService.setIsLogged(true);
-              this.router.navigate(['/secure']).catch(reason => reason);
-            }
-          }
-        });
+        this.tokenService.setDesAmm(resCE.denominazioneEnte);
+        this.tokenService.setCodiceInterbancario(resCE.codiceInterbancario);
+        this.tokenService.setIsLogged(true);
+        this.router.navigate(['/secure']).catch(reason => reason);
       }
     });
   }
