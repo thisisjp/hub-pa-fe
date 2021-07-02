@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Menu } from '../../../models/enums/menu.enum';
-import { denominationDefault, Tribute } from '../../../models/tribute';
+import { Tribute } from '../../../models/tribute';
 import { SelectOptionList } from '../../../models/select-option-list';
 import { SelectOption } from '../../../models/select-option';
 import { TokenService } from '../../../services/token.service';
@@ -135,7 +135,7 @@ export class TributiStep1ImpostaEntiComponent implements OnInit {
       true,
       '',
       [],
-      denominationDefault
+      environment.denominationDefault
     );
     this.router
       .navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.menuEnum.TRIBUTI_STEP2], {
@@ -253,13 +253,21 @@ export class TributiStep1ImpostaEntiComponent implements OnInit {
   initCreditors(defaultValues: any): void {
     this.enteService.getAllEcForTefa().subscribe(res => {
       if (res && res.length > 0) {
+        const primaryCreditor: Array<CreditorEntry> = [
+          {
+            desAmm: this.tokenService.getDesAmm(),
+            denominazioneEnte: '',
+            codiceFiscale: this.tokenService.getFiscalCode(),
+            codiceInterbancario: this.tokenService.getCodiceInterbancario()
+          }
+        ];
         // eslint-disable-next-line functional/immutable-data
         this.creditorList = res;
-        $('#primaryCreditorSelect').setOptionsToSelect(this.toSelectedOptionsCreditor(this.creditorList));
+        $('#primaryCreditorSelect').setOptionsToSelect(this.toSelectedOptionsCreditor(primaryCreditor));
         $('#secondaryCreditorSelect').setOptionsToSelect(this.toSelectedOptionsCreditor(this.creditorList));
         // eslint-disable-next-line functional/immutable-data
         $('#primaryCreditorSelect > div > button > div > div > div')[0].innerHTML = this.toSelectedOptionsCreditor(
-          this.creditorList
+          primaryCreditor
         ).filter(elem => elem.value === this.tokenService.getFiscalCode())[0].text;
         // eslint-disable-next-line functional/immutable-data
         $('#secondaryCreditorSelect > div > button > div > div > div')[0].innerHTML =

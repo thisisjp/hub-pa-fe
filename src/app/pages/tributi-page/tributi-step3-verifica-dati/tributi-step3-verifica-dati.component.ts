@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Menu } from '../../../models/enums/menu.enum';
-import { denominationDefault, Tribute } from '../../../models/tribute';
+import { Tribute } from '../../../models/tribute';
 import { CreditorEntry } from '../../../models/creditor-entry';
 import { Notifica } from '../../../models/notifica';
 import { ServiceManagementService } from '../../../services/service-management.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-tributi-step3',
@@ -36,7 +37,7 @@ export class TributiStep3VerificaDatiComponent implements OnInit {
       history.state?.data?.abilitaRate,
       history.state?.data?.abilitaUnica ? history.state?.data?.dueDateUnique : '',
       history.state?.data?.abilitaRate ? history.state?.data?.installments : [],
-      denominationDefault
+      environment.denominationDefault
     );
 
     // eslint-disable-next-line functional/immutable-data

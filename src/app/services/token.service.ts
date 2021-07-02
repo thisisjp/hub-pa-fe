@@ -76,4 +76,13 @@ export class TokenService {
     const desAmm = this.storageService.get('desAmm');
     return desAmm ? desAmm : '';
   }
+
+  public setCodiceInterbancario(codiceInterbancario: string): void {
+    this.storageService.set('codiceInterbancario', codiceInterbancario);
+  }
+
+  public getCodiceInterbancario(): string {
+    const codiceInterbancario = this.storageService.get('codiceInterbancario');
+    return codiceInterbancario ? codiceInterbancario : '';
+  }
 }

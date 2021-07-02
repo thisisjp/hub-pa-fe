@@ -1,5 +1,6 @@
 export class CreditorEntry {
-  desAmm = ''; // denominazioneEnte
+  desAmm = '';
+  denominazioneEnte = '';
   codiceFiscale = '';
   codiceInterbancario = '';
 }
