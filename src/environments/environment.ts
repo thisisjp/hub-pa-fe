@@ -13,6 +13,9 @@ export const environment = {
   maxDate: '2099-12-31',
   configureServiceDate: '30/06/2021',
   isPostalIbanEnabled: false,
+  denominationDefault: 'TARI/TEFA 2021',
+  spidServeAiuto: 'https://www.spid.gov.it/serve-aiuto',
+  supportMail: 'supporto.taritefa@eng.it',
   IDPS: {
     identityProviders: [
       {

@@ -28,10 +28,18 @@ export class TributiStep4ViewComponent implements OnInit {
         // eslint-disable-next-line functional/immutable-data
         this.compiledForm = res;
         this.enteService.getAllEcForTefa().subscribe(res2 => {
+          const primaryCreditor: Array<CreditorEntry> = [
+            {
+              desAmm: this.tokenService.getDesAmm(),
+              denominazioneEnte: '',
+              codiceFiscale: this.tokenService.getFiscalCode(),
+              codiceInterbancario: this.tokenService.getCodiceInterbancario()
+            }
+          ];
           // eslint-disable-next-line functional/immutable-data
           this.creditorList = res2;
           // eslint-disable-next-line functional/immutable-data
-          this.primaryCreditor = this.creditorList?.filter(
+          this.primaryCreditor = primaryCreditor?.filter(
             elem => elem.codiceFiscale === this.compiledForm.fiscalCodePrimaryCreditor
           )[0];
           // eslint-disable-next-line functional/immutable-data

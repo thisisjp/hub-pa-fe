@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Menu } from '../../../models/enums/menu.enum';
-import { denominationDefault, Tribute } from '../../../models/tribute';
+import { Tribute } from '../../../models/tribute';
 import { Installment } from '../../../models/installment';
 import { environment } from '../../../../environments/environment';
 
@@ -99,7 +99,7 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
       this.f.abilitaRate.value,
       this.f.dueDateUnique.value,
       this.f.installments.value,
-      denominationDefault
+      environment.denominationDefault
     );
     if (!this.ifFormValid()) {
       // console.log(this.findInvalidControls());
@@ -128,7 +128,7 @@ export class TributiStep2DefinisciRateComponent implements OnInit {
       true,
       '',
       [],
-      denominationDefault
+      environment.denominationDefault
     );
     this.router
       .navigate([this.menuEnum.TRIBUTI_PATH + '/' + this.menuEnum.TRIBUTI_STEP1], {
