@@ -10,6 +10,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginSpidPageComponent {
   providers: ProvidersList = environment.IDPS;
+  spidServeAiuto = environment.spidServeAiuto;
+  supportMail = environment.supportMail;
 
   constructor(private authService: AuthService) {}
 
