@@ -16,7 +16,7 @@ export class HeaderComponent {
   constructor(private router: Router, public tokenService: TokenService) {}
 
   goToPage(path: string): void {
-    if (!this.isPathActive(path)) {
+    if (!this.isPathActive(path) && this.canShowSecureComponents()) {
       this.router.navigate([path]).catch(reason => reason);
     }
   }
