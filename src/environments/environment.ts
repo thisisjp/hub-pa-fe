@@ -16,6 +16,7 @@ export const environment = {
   denominationDefault: 'TARI/TEFA 2021',
   spidServeAiuto: 'https://www.spid.gov.it/serve-aiuto',
   supportMail: 'supporto.taritefa@eng.it',
+  isPublishPaymentsEnabled: false,
   IDPS: {
     identityProviders: [
       {
