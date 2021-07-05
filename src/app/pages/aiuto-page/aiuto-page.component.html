@@ -1,6 +1,12 @@
 <form [formGroup]="formGroup">
   <h3>{{ 'RICHIESTA_SUPPORTO' | translate }}</h3>
   <br />
+  <p>{{ 'RICHIESTA_SUPPORTO_BODY_1' | translate }}</p>
+  <p>
+    {{ 'RICHIESTA_SUPPORTO_BODY_2' | translate
+    }}<a href="{{ 'mailto:' + supportMail }}" target="_blank">{{ supportMail }}</a>
+  </p>
+  <br />
   <div class="form-group row">
     <div class="col-12">
       <label for="id1">{{ 'IL_COMUNE_DI' | translate }}</label>

@@ -27,6 +27,7 @@ export class AiutoPageComponent implements OnInit {
   submitted = false;
   today = new Date();
   maxDate = environment.maxDate;
+  supportMail = environment.supportMail;
 
   constructor(
     private formBuilder: FormBuilder,
