@@ -405,7 +405,7 @@ export class AvvisiStep1CaricaPosizioniComponent {
 
   // eslint-disable-next-line complexity
   checkcodicefiscale(codfiscale: string): boolean {
-    const cf = codfiscale.toUpperCase().trim();
+    const cf = codfiscale.toUpperCase();
 
     if (cf.length !== 16) {
       return false;
