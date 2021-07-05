@@ -65,6 +65,8 @@ export class PosizioniHomeComponent implements OnInit {
   numberDuplicates = 0;
   isMailing = false; // true multiple, false single
 
+  isPublishPaymentsEnabled = environment.isPublishPaymentsEnabled;
+
   constructor(
     private paymentsService: PaymentsService,
     private tokenService: TokenService,

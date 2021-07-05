@@ -1,3 +1,10 @@
+<div class="alert alert-info" role="alert" *ngIf="!isPublishPaymentsEnabled">
+  {{ 'ALERT_AVVISI_POST' | translate }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
 <div class="row">
   <div class="app-fit-content">
     <h3>{{ 'POSITIONS' | translate }}</h3>
@@ -216,6 +223,7 @@
           <div class="it-header-slim-right-zone app-margin-left-auto">
             <div class="it-access-top-wrapper">
               <a
+                *ngIf="isPublishPaymentsEnabled"
                 class="btn btn-primary btn-sm app-margin-left"
                 href="javascript:void(0)"
                 (click)="publishMultipleModal()"
@@ -409,6 +417,7 @@
             <td class="detailright app-vertical-align-initial">
               <ng-container *ngIf="modalDetail.status === statusEnum.BOZZA">
                 <button
+                  [disabled]="!isPublishPaymentsEnabled"
                   class="btn btn-primary btn-sm btndetail"
                   type="button"
                   (click)="publishSingleModal(modalDetail.id)"
