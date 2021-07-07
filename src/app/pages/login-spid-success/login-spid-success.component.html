@@ -25,6 +25,32 @@
   </button>
 </div>
 
+<div *ngIf="canSelectCreditors">
+  <h3>{{ 'SELECT_CREDITORS_TITLE' | translate }}</h3>
+  <p>{{ 'SELECT_CREDITORS_BODY' | translate }}</p>
+  <div class="row">
+    <div class="form-check form-check-group" *ngFor="let elem of creditors; let i = index">
+      <input
+        name="creditor"
+        type="radio"
+        [id]="'radio' + i"
+        [(ngModel)]="selectedCreditor"
+        [value]="elem.codiceFiscale"
+      />
+      <label [for]="'radio' + i">{{ elem.desAmm }}</label>
+    </div>
+  </div>
+  <button
+    (click)="selectCreditor()"
+    class="btn btn-sm d-none d-lg-block col-md-2"
+    [ngClass]="getButtonCreditorsClass()"
+    type="button"
+    [disabled]="!selectedCreditor"
+  >
+    {{ 'CONTINUA' | translate }}
+  </button>
+</div>
+
 <input type="hidden" class="btn btn-primary" data-toggle="modal" data-target="#modalPrivacy" #modalPrivacy />
 <div class="modal fade" role="dialog" id="modalPrivacy">
   <div class="modal-dialog modal-dialog-centered app-modal-xxl" role="document">
@@ -37,7 +63,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <markdown [src]="'assets/markdown/privacy.md'" emoji lineNumbers katex ngPreserveWhitespaces> </markdown>
+        <markdown [src]="'assets/markdown/privacy.md'" emoji lineNumbers katex ngPreserveWhitespaces></markdown>
       </div>
       <div class="modal-footer"></div>
     </div>

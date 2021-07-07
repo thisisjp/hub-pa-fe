@@ -12,32 +12,33 @@ import { BaseResponse } from '../models/base-response';
 export class EnteService {
   constructor(private http: HttpClient) {}
 
-  private urlEnte = environment.API_URL + environment.PREFIX_URL_ENTE + '/ente';
+  private urlCustomer = environment.API_URL + environment.PREFIX_URL_ENTE + '/customer';
+  private urlPa = environment.API_URL + environment.PREFIX_URL_ENTE + '/pa';
   private urlPrivacy = environment.API_URL + environment.PREFIX_URL_ENTE + '/privacy';
 
-  getEnteCreditoreByRefP(codiceFiscaleRefP: string): Observable<CreditorEntry> {
-    return this.http.get<CreditorEntry>(this.urlEnte + '/refp/' + codiceFiscaleRefP);
+  getEnteCreditoreByRefP(codiceFiscaleRefP: string): Observable<Array<CreditorEntry>> {
+    return this.http.get<Array<CreditorEntry>>(`${this.urlCustomer}/${codiceFiscaleRefP}/pa`);
   }
 
   getIbanByEnteCreditore(codiceFiscaleEnteCreditore: string, ibanMode: string): Observable<Array<Iban>> {
-    return this.http.get<Array<Iban>>(this.urlEnte + '/' + codiceFiscaleEnteCreditore + '/' + ibanMode + '/iban');
+    return this.http.get<Array<Iban>>(this.urlPa + '/' + codiceFiscaleEnteCreditore + '/' + ibanMode + '/iban');
   }
 
   getAllEcForTefa(): Observable<Array<CreditorEntry>> {
-    return this.http.get<Array<CreditorEntry>>(this.urlEnte + '/pa');
+    return this.http.get<Array<CreditorEntry>>(this.urlPa, { params: { type: 'province' } });
   }
 
   /**
    * Verifica se un Ref-P ha accettato la privacy
    */
   checkPrivacyByRefP(codiceFiscaleRefP: string): Observable<BaseResponse> {
-    return this.http.get<BaseResponse>(this.urlPrivacy + '/refp/' + codiceFiscaleRefP);
+    return this.http.get<BaseResponse>(`${this.urlPrivacy}/${codiceFiscaleRefP}`);
   }
 
   /**
    * Crea un record di accettazione privacy
    */
   createPrivacy(codiceFiscaleRefP: string): Observable<BaseResponse> {
-    return this.http.post<BaseResponse>(this.urlPrivacy + '/' + codiceFiscaleRefP, {});
+    return this.http.post<BaseResponse>(`${this.urlPrivacy}/${codiceFiscaleRefP}`, {});
   }
 }
