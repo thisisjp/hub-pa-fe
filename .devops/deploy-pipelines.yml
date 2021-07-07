@@ -107,11 +107,11 @@ stages:
           
           - script: |
               yarn build:prod
-            condition: eq('${{ parameters.envitonment }}', 'prod')
+            condition: eq('${{ parameters.environment }}', 'prod')
           
           - script: |
               yarn build:collaudo
-            condition: eq('${{ parameters.envitonment }}', 'dev')
+            condition: eq('${{ parameters.environment }}', 'dev')
 
           - publish: $(System.DefaultWorkingDirectory)/dist/hub-pa-fe
             artifact: Bundle
