@@ -14,7 +14,7 @@
       <ul id="spid-idp-list-large-root-post" class="spid-idp-button-menu" aria-labelledby="spid-idp">
         <li class="spid-idp-button-link" *ngFor="let p of providers.identityProviders">
           <button class="idp-button-idp-logo" type="button" (click)="onGetAuthSpid(p.entityId)">
-            <input class="spid-sr-only" readonly [value]="p.identifier" />
+            <input class="spid-sr-only" readonly [value]="p.entityId" />
             <img [src]="p.imageUrl" [alt]="p.name" />
           </button>
         </li>
