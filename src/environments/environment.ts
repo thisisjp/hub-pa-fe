@@ -20,58 +20,54 @@ export const environment = {
   IDPS: {
     identityProviders: [
       {
-        identifier: 'test',
         entityId: 'xx_testenv2',
         name: 'test',
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Test-Logo.svg'
       },
       {
-        identifier: 'AgID',
-        entityId: 'idp.spid.gov.it',
-        name: 'AgID IdP test',
-        imageUrl: 'https://raw.githubusercontent.com/AgID/italia-conf/master/assets/images/logo-agid.png'
+        entityId: 'lepidaid',
+        name: 'Lepida ID',
+        imageUrl: '/assets/img/spid/spid-idp-lepidaid.svg'
       },
       {
-        identifier: 'Aruba',
-        entityId: 'https://loginspid.aruba.it',
-        name: 'Aruba.it ID',
-        imageUrl: 'https://www.spid.gov.it/assets/img/richiedi-spid/logo-aruba.svg'
-      },
-      {
-        identifier: 'Infocert',
-        entityId: 'https://identity.infocert.it',
+        entityId: 'infocertid',
         name: 'Infocert ID',
-        imageUrl: 'https://www.spid.gov.it/assets/img/richiedi-spid/logo-infocert.svg'
+        imageUrl: '/assets/img/spid/spid-idp-infocertid.svg'
       },
       {
-        identifier: 'Namirial',
-        entityId: 'https://idp.namirialtsp.com/idp',
-        name: 'Namirial ID',
-        imageUrl: 'https://www.spid.gov.it/assets/img/richiedi-spid/logo-namirial.svg'
-      },
-      {
-        identifier: 'Poste',
-        entityId: 'https://posteid.poste.it',
-        name: 'Poste ID',
-        imageUrl: 'https://www.spid.gov.it/assets/img/richiedi-spid/logo-poste.svg'
-      },
-      {
-        identifier: 'Register',
-        entityId: 'https://spid.register.it',
-        name: 'SpidItalia',
-        imageUrl: 'https://www.spid.gov.it/assets/img/richiedi-spid/logo-register.svg'
-      },
-      {
-        identifier: 'Sielte',
-        entityId: 'https://identity.sieltecloud.it',
+        entityId: 'sielteid',
         name: 'Sielte id',
-        imageUrl: 'https://www.spid.gov.it/assets/img/richiedi-spid/logo-sielte.svg'
+        imageUrl: '/assets/img/spid/spid-idp-sielteid.svg'
       },
       {
-        identifier: 'Tim',
-        entityId: 'https://login.id.tim.it/affwebservices/public/saml2sso',
+        entityId: 'namirialid',
+        name: 'Namirial ID',
+        imageUrl: '/assets/img/spid/spid-idp-namirialid.svg'
+      },
+      {
+        entityId: 'timid',
         name: 'TIM id',
-        imageUrl: 'https://www.spid.gov.it/assets/img/richiedi-spid/logo-tim.svg'
+        imageUrl: '/assets/img/spid/spid-idp-timid.svg'
+      },
+      {
+        entityId: 'arubaid',
+        name: 'Aruba.it ID',
+        imageUrl: '/assets/img/spid/spid-idp-arubaid.svg'
+      },
+      {
+        entityId: 'posteid',
+        name: 'Poste ID',
+        imageUrl: '/assets/img/spid/spid-idp-posteid.svg'
+      },
+      {
+        entityId: 'intesaid',
+        name: 'Intesa ID',
+        imageUrl: '/assets/img/spid/spid-idp-intesaid.svg'
+      },
+      {
+        entityId: 'spiditalia',
+        name: 'SpidItalia',
+        imageUrl: '/assets/img/spid/spid-idp-spiditalia.svg'
       }
     ],
     extraInfo: [
