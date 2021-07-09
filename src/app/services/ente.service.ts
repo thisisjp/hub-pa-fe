@@ -14,7 +14,6 @@ export class EnteService {
 
   private urlCustomer = environment.API_URL + environment.PREFIX_URL_ENTE + '/customer';
   private urlPa = environment.API_URL + environment.PREFIX_URL_ENTE + '/pa';
-  private urlEnte = environment.API_URL + environment.PREFIX_URL_ENTE + '/ente';
   private urlPrivacy = environment.API_URL + environment.PREFIX_URL_ENTE + '/privacy';
 
   getEnteCreditoreByRefP(codiceFiscaleRefP: string): Observable<Array<CreditorEntry>> {
@@ -22,7 +21,7 @@ export class EnteService {
   }
 
   getIbanByEnteCreditore(codiceFiscaleEnteCreditore: string, ibanMode: string): Observable<Array<Iban>> {
-    return this.http.get<Array<Iban>>(this.urlEnte + '/' + codiceFiscaleEnteCreditore + '/' + ibanMode + '/iban');
+    return this.http.get<Array<Iban>>(this.urlPa + '/' + codiceFiscaleEnteCreditore + '/' + ibanMode + '/iban');
   }
 
   getAllEcForTefa(): Observable<Array<CreditorEntry>> {
