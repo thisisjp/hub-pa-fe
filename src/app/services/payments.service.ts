@@ -33,8 +33,16 @@ export class PaymentsService {
   /**
    * Esporta i pagamenti in formato csv dato un jobId
    */
-  export(jobId: number, fileName: string): void {
-    open(this.url + '/export/' + String(jobId) + '/' + fileName);
+  export(jobId: number, fileName: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    });
+    return this.http.get(this.url + '/export/' + String(jobId) + '/' + fileName, {
+      headers,
+      responseType: 'blob' as 'json',
+      observe: 'response'
+    });
   }
 
   /**
@@ -71,7 +79,15 @@ export class PaymentsService {
   /**
    * Genera il PDF di una ricevuta dato un pagamento
    */
-  receipt(id: number): void {
-    open(this.url + '/receipt/' + String(id));
+  receipt(id: number): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    });
+    return this.http.get(this.url + '/receipt/' + String(id), {
+      headers,
+      responseType: 'blob' as 'json',
+      observe: 'response'
+    });
   }
 }

@@ -10,6 +10,7 @@ import { TokenService } from '../../../services/token.service';
 import { PaymentPositionDetailModel } from '../../../models/payments/payment-position-detail-model';
 import { PositionOptionStatusEnum } from '../../../models/enums/position-option-status.enum';
 import { NotificationService } from '../../../services/notification.service';
+import { DownloadService } from '../../../services/download.service';
 
 @Component({
   selector: 'app-posizioni-home',
@@ -68,6 +69,7 @@ export class PosizioniHomeComponent implements OnInit {
   isPublishPaymentsEnabled = environment.isPublishPaymentsEnabled;
 
   constructor(
+    private downloadService: DownloadService,
     private paymentsService: PaymentsService,
     private tokenService: TokenService,
     private translateService: TranslateService,
@@ -439,7 +441,7 @@ export class PosizioniHomeComponent implements OnInit {
 
   exportService(): void {
     this.paymentsService.exportPayments(this.ids, this.isMailing).subscribe(res => {
-      this.downloadFile(res);
+      this.downloadService.downloadFile(res);
       this.getListPositionBE();
       this.notificationService.showNotification({
         title: 'Esportazione completata',
@@ -487,34 +489,11 @@ export class PosizioniHomeComponent implements OnInit {
     });
   }
 
-  downloadFile(res: any): void {
-    const link = document.createElement('a');
-    link.setAttribute('href', URL.createObjectURL(res.body));
-    const contentDispositionNullable: string | null = res.headers.get('Content-Disposition');
-    const contentDisposition: string = contentDispositionNullable ? contentDispositionNullable : '';
-    link.setAttribute(
-      'download',
-      contentDisposition.replace('attachment; filename=', '').replace('"', '').replace('"', '')
-    );
-    // eslint-disable-next-line functional/immutable-data
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    const dataURL = URL.createObjectURL(res.body);
-    if (navigator && navigator.msSaveOrOpenBlob) {
-      navigator.msSaveOrOpenBlob(res.body);
-      return;
-    }
-    setTimeout(() => {
-      // For Firefox it is necessary to delay revoking the ObjectURL
-      URL.revokeObjectURL(dataURL);
-    }, 100);
-  }
-
   receipt(modalDetail: PaymentPositionDetailModel): void {
     if (modalDetail.status) {
-      this.paymentsService.receipt(modalDetail.id);
+      this.paymentsService.receipt(modalDetail.id).subscribe(res => {
+        this.downloadService.downloadFile(res);
+      });
     }
   }
 
