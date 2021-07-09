@@ -62,6 +62,8 @@ export class LoginSpidSuccessComponent implements OnInit {
   }
 
   privacyCallback(): void {
+    // eslint-disable-next-line functional/immutable-data
+    this.canCreatePrivacy = false;
     this.enteService.getEnteCreditoreByRefP(this.tokenService.getFiscalCodeREFP()).subscribe(resCEA => {
       if (resCEA) {
         // eslint-disable-next-line functional/immutable-data

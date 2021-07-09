@@ -15,6 +15,22 @@
       "^/dev": ""
     }
   },
+  "/dev/pa/*": {
+    "target": "http://localhost:8082",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/dev": ""
+    }
+  },
+  "/dev/customer/*": {
+    "target": "http://localhost:8082",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/dev": ""
+    }
+  },
   "/dev/privacy/*": {
     "target": "http://localhost:8082",
     "secure": false,
