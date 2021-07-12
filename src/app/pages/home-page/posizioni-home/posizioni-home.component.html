@@ -255,7 +255,7 @@
       <div class="modal-body">
         <div class="form-check" aria-describedby="">
           <input name="gruppo1" [value]="statusEnum.BOZZA" type="radio" id="radio1" [(ngModel)]="filterModel.status" />
-          <label for="radio1" style="color: #5c6f82" class="text-bold">{{ 'BOZZA' | translate }}</label>
+          <label for="radio1">{{ 'BOZZA' | translate }}</label>
         </div>
         <div class="form-check" aria-describedby="">
           <input
@@ -265,11 +265,11 @@
             id="radio2"
             [(ngModel)]="filterModel.status"
           />
-          <label for="radio2" style="color: #004080" class="text-bold">{{ 'PUBBLICATO' | translate }}</label>
+          <label for="radio2">{{ 'PUBBLICATO' | translate }}</label>
         </div>
         <div class="form-check" aria-describedby="">
           <input name="gruppo1" [value]="statusEnum.PAGATO" type="radio" id="radio3" [(ngModel)]="filterModel.status" />
-          <label for="radio3" style="color: #005c3c" class="text-bold">{{ 'PAGATO' | translate }}</label>
+          <label for="radio3">{{ 'PAGATO' | translate }}</label>
         </div>
         <div class="form-check" aria-describedby="">
           <input
@@ -279,7 +279,7 @@
             id="radio4"
             [(ngModel)]="filterModel.status"
           />
-          <label for="radio4" style="color: #d97e00" class="text-bold">{{ 'PAGATO_PARZIALE' | translate }}</label>
+          <label for="radio4">{{ 'PAGATO_PARZIALE' | translate }}</label>
         </div>
         <div class="form-check" aria-describedby="">
           <input
@@ -289,7 +289,7 @@
             id="radio5"
             [(ngModel)]="filterModel.status"
           />
-          <label for="radio5" style="color: #d97e00" class="text-bold">{{ 'RENDICONTATO_PARZIALE' | translate }}</label>
+          <label for="radio5">{{ 'RENDICONTATO_PARZIALE' | translate }}</label>
         </div>
         <div class="form-check" aria-describedby="">
           <input
@@ -299,7 +299,7 @@
             id="radio6"
             [(ngModel)]="filterModel.status"
           />
-          <label for="radio6" style="color: #4846c6" class="text-bold">{{ 'RENDICONTATO' | translate }}</label>
+          <label for="radio6">{{ 'RENDICONTATO' | translate }}</label>
         </div>
       </div>
       <div class="modal-footer">

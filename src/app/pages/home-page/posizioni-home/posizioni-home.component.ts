@@ -223,12 +223,17 @@ export class PosizioniHomeComponent implements OnInit {
   getBadgeClass(status?: number): string {
     switch (status) {
       case this.statusEnum.BOZZA:
+        return 'badge-color-white badge-secondary-bozza';
       case this.statusEnum.PUBBLICATO:
+        return 'badge-color-white badge-secondary-pubblicato';
       case this.statusEnum.PAGATO:
+        return 'badge-color-white badge-secondary-pagato';
       case this.statusEnum.PAGATO_PARZIALE:
+        return 'badge-color-white badge-secondary-parziale';
       case this.statusEnum.RENDICONTATO_PARZIALE:
+        return 'badge-color-white badge-secondary-parziale';
       case this.statusEnum.RENDICONTATO:
-        return 'badge-secondary';
+        return 'badge-color-white badge-secondary-rendicontato';
       default:
         return '';
     }
