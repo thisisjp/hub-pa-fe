@@ -127,60 +127,110 @@
     </a>
   </div>
 </nav>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">{{ 'CF' | translate }}</th>
-      <th scope="col">{{ 'DATE' | translate | uppercase }}</th>
-      <th scope="col">{{ 'STATUS' | translate | uppercase }}</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let elem of payments; let i = index">
-      <td class="tdcheck">
-        <div class="form-check">
-          <input [id]="'checkbox' + i" type="checkbox" [(ngModel)]="elem.checked" />
-          <label [for]="'checkbox' + i" class="labcheck"></label>
+<div class="affix-parent">
+  <table class="table affix-parent">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">{{ 'CF' | translate }}</th>
+        <th scope="col">{{ 'DATE' | translate | uppercase }}</th>
+        <th scope="col">{{ 'STATUS' | translate | uppercase }}</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let elem of payments; let i = index">
+        <td class="tdcheck">
+          <div class="form-check">
+            <input [id]="'checkbox' + i" type="checkbox" [(ngModel)]="elem.checked" />
+            <label [for]="'checkbox' + i" class="labcheck"></label>
+          </div>
+        </td>
+        <td class="align-middle app-flex-vertical-align">
+          <svg class="icon icon-warning app-margin-icon" *ngIf="elem.isDuplicated">
+            <use xlink:href="/assets/img/sprite.svg#it-warning-circle"></use>
+          </svg>
+          <div>
+            <strong>{{ elem.fiscalCode }}</strong>
+            <br />
+            <small class="text-muted">{{ elem.name }} {{ elem.surname }}</small>
+          </div>
+        </td>
+        <td>
+          {{ elem.date | date: 'dd/MM/yyyy' }}
+        </td>
+        <td>
+          <span class="badge app-display-block" [ngClass]="getBadgeClass(elem.status)">{{
+            getBadgeText(elem.status) | translate
+          }}</span>
+        </td>
+        <td class="align-middle tdicon">
+          <svg class="icon disable app-disabled" *ngIf="!isSingleExportEnabled(elem)">
+            <use xlink:href="/assets/img/sprite.svg#it-download"></use>
+          </svg>
+          <svg
+            class="icon icon-primary app-cursor-pointer"
+            *ngIf="isSingleExportEnabled(elem)"
+            (click)="exportSingleModal(elem.id)"
+          >
+            <use xlink:href="/assets/img/sprite.svg#it-download"></use>
+          </svg>
+          <svg class="icon icon-primary app-cursor-pointer" (click)="openDetail(elem.id)">
+            <use xlink:href="/assets/img/sprite.svg#it-info-circle"></use>
+          </svg>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="it-header-slim-wrapper theme-light affix-bottom" *ngIf="getCheckedLength() > 0">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="it-header-slim-wrapper-content">
+            <p class="d-none d-lg-block navbar-brand app-blue-paragraph">
+              {{ 'RIGHE_SELEZIONATE' | translate }}{{ getCheckedLength() }}
+            </p>
+            <div class="it-header-slim-right-zone">
+              <div class="it-access-top-wrapper">
+                <a
+                  class="btn btn-outline-primary btn-sm app-margin-left"
+                  href="javascript:void(0)"
+                  *ngIf="getCheckedLength() !== payments.length"
+                  (click)="selectAll(true)"
+                  >{{ 'SELEZIONA_TUTTE' | translate }}</a
+                >
+                <a
+                  class="btn btn-outline-primary btn-sm app-margin-left"
+                  href="javascript:void(0)"
+                  *ngIf="getCheckedLength() === payments.length"
+                  (click)="selectAll(false)"
+                  >{{ 'DESELEZIONA_TUTTE' | translate }}</a
+                >
+              </div>
+            </div>
+            <div class="it-header-slim-right-zone app-margin-left-auto">
+              <div class="it-access-top-wrapper">
+                <a
+                  *ngIf="isPublishPaymentsEnabled"
+                  class="btn btn-primary btn-sm app-margin-left"
+                  href="javascript:void(0)"
+                  (click)="publishMultipleModal()"
+                  >{{ 'PUBBLICA' | translate }}</a
+                >
+                <a
+                  class="btn btn-primary btn-sm app-margin-left"
+                  href="javascript:void(0)"
+                  (click)="exportMultipleModal()"
+                  >{{ 'ESPORTA' | translate }}</a
+                >
+              </div>
+            </div>
+          </div>
         </div>
-      </td>
-      <td class="align-middle app-flex-vertical-align">
-        <svg class="icon icon-warning app-margin-icon" *ngIf="elem.isDuplicated">
-          <use xlink:href="/assets/img/sprite.svg#it-warning-circle"></use>
-        </svg>
-        <div>
-          <strong>{{ elem.fiscalCode }}</strong>
-          <br />
-          <small class="text-muted">{{ elem.name }} {{ elem.surname }}</small>
-        </div>
-      </td>
-      <td>
-        {{ elem.date | date: 'dd/MM/yyyy' }}
-      </td>
-      <td>
-        <span class="badge app-display-block" [ngClass]="getBadgeClass(elem.status)">{{
-          getBadgeText(elem.status) | translate
-        }}</span>
-      </td>
-      <td class="align-middle tdicon">
-        <svg class="icon disable app-disabled" *ngIf="!isSingleExportEnabled(elem)">
-          <use xlink:href="/assets/img/sprite.svg#it-download"></use>
-        </svg>
-        <svg
-          class="icon icon-primary app-cursor-pointer"
-          *ngIf="isSingleExportEnabled(elem)"
-          (click)="exportSingleModal(elem.id)"
-        >
-          <use xlink:href="/assets/img/sprite.svg#it-download"></use>
-        </svg>
-        <svg class="icon icon-primary app-cursor-pointer" (click)="openDetail(elem.id)">
-          <use xlink:href="/assets/img/sprite.svg#it-info-circle"></use>
-        </svg>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="text-center" *ngIf="payments.length === 0">
   <br />
@@ -192,55 +242,6 @@
   >
     {{ 'REIMPOSTA_TUTTO' | translate }}
   </button>
-</div>
-
-<div class="it-header-slim-wrapper theme-light" *ngIf="getCheckedLength() > 0">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="it-header-slim-wrapper-content">
-          <p class="d-none d-lg-block navbar-brand app-blue-paragraph">
-            {{ 'RIGHE_SELEZIONATE' | translate }}{{ getCheckedLength() }}
-          </p>
-          <div class="it-header-slim-right-zone">
-            <div class="it-access-top-wrapper">
-              <a
-                class="btn btn-outline-primary btn-sm app-margin-left"
-                href="javascript:void(0)"
-                *ngIf="getCheckedLength() !== payments.length"
-                (click)="selectAll(true)"
-                >{{ 'SELEZIONA_TUTTE' | translate }}</a
-              >
-              <a
-                class="btn btn-outline-primary btn-sm app-margin-left"
-                href="javascript:void(0)"
-                *ngIf="getCheckedLength() === payments.length"
-                (click)="selectAll(false)"
-                >{{ 'DESELEZIONA_TUTTE' | translate }}</a
-              >
-            </div>
-          </div>
-          <div class="it-header-slim-right-zone app-margin-left-auto">
-            <div class="it-access-top-wrapper">
-              <a
-                *ngIf="isPublishPaymentsEnabled"
-                class="btn btn-primary btn-sm app-margin-left"
-                href="javascript:void(0)"
-                (click)="publishMultipleModal()"
-                >{{ 'PUBBLICA' | translate }}</a
-              >
-              <a
-                class="btn btn-primary btn-sm app-margin-left"
-                href="javascript:void(0)"
-                (click)="exportMultipleModal()"
-                >{{ 'ESPORTA' | translate }}</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- MODALI -->
