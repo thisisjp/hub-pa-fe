@@ -9,8 +9,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ButtonComponent } from './components/button/button.component';
@@ -79,7 +79,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     NgxSpinnerModule,
     BrowserAnimationsModule,
     NgxPaginationModule,
-    NgxLocalStorageModule.forRoot(),
+    NgxWebstorageModule.forRoot({ prefix: '', separator: '', caseSensitive: true }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
