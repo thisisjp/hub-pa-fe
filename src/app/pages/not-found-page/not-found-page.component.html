@@ -4,15 +4,8 @@
   <p>{{ 'NOT_FOUND_SUBTITLE' | translate }}</p>
   <div class="row">
     <button
-      (click)="goToPage(menuEnum.AIUTO_PATH)"
-      class="btn btn-outline-primary btn-sm d-none d-lg-block col-md-3 offset-2"
-      type="button"
-    >
-      {{ menuEnum.AIUTO_CODE | translate }}
-    </button>
-    <button
-      (click)="goToPage(menuEnum.HOME_PATH)"
-      class="btn btn-primary btn-sm d-none d-lg-block col-md-3 offset-2"
+      (click)="goToPage()"
+      class="btn btn-primary btn-sm d-none d-lg-block col-md-4 offset-4"
       type="button"
     >
       {{ 'TORNA_HOMEPAGE' | translate }}

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from 'ngx-localstorage';
 import { BehaviorSubject } from 'rxjs';
+import { SessionStorageService } from 'ngx-webstorage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
-  constructor(private storageService: LocalStorageService) {}
+  constructor(private storageService: SessionStorageService) {}
 
   private isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -22,11 +22,11 @@ export class TokenService {
   }
 
   public setToken(token: string): void {
-    this.storageService.set('token', token);
+    this.storageService.store('token', token);
   }
 
   public getToken(): string {
-    const token = this.storageService.get('token');
+    const token = this.storageService.retrieve('token');
     return token ? token : '';
   }
 
@@ -51,38 +51,38 @@ export class TokenService {
   // }
 
   public setFiscalCodeREFP(fiscalCode: string): void {
-    this.storageService.set('fiscalCodeREFP', fiscalCode);
+    this.storageService.store('fiscalCodeREFP', fiscalCode);
   }
 
   public getFiscalCodeREFP(): string {
-    const fiscalCode = this.storageService.get('fiscalCodeREFP');
+    const fiscalCode = this.storageService.retrieve('fiscalCodeREFP');
     return fiscalCode ? fiscalCode : '';
   }
 
   public setFiscalCode(fiscalCode: string): void {
-    this.storageService.set('fiscalCode', fiscalCode);
+    this.storageService.store('fiscalCode', fiscalCode);
   }
 
   public getFiscalCode(): string {
-    const fiscalCode = this.storageService.get('fiscalCode');
+    const fiscalCode = this.storageService.retrieve('fiscalCode');
     return fiscalCode ? fiscalCode : '';
   }
 
   public setDesAmm(desAmm: string): void {
-    this.storageService.set('desAmm', desAmm);
+    this.storageService.store('desAmm', desAmm);
   }
 
   public getDesAmm(): string {
-    const desAmm = this.storageService.get('desAmm');
+    const desAmm = this.storageService.retrieve('desAmm');
     return desAmm ? desAmm : '';
   }
 
   public setCodiceInterbancario(codiceInterbancario: string): void {
-    this.storageService.set('codiceInterbancario', codiceInterbancario);
+    this.storageService.store('codiceInterbancario', codiceInterbancario);
   }
 
   public getCodiceInterbancario(): string {
-    const codiceInterbancario = this.storageService.get('codiceInterbancario');
+    const codiceInterbancario = this.storageService.retrieve('codiceInterbancario');
     return codiceInterbancario ? codiceInterbancario : '';
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Menu } from '../../models/enums/menu.enum';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-not-found-page',
@@ -10,9 +11,10 @@ import { Menu } from '../../models/enums/menu.enum';
 export class NotFoundPageComponent {
   menuEnum = Menu;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private tokenService: TokenService) {}
 
-  goToPage(path: string): void {
+  goToPage(): void {
+    const path = this.tokenService.getToken() ? this.menuEnum.HOME_PATH : '';
     this.router.navigate([path]).catch(reason => reason);
   }
 }

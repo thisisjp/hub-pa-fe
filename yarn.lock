@@ -222,13 +222,6 @@
     glob "7.1.7"
     yargs "^17.0.0"
 
-"@angular/platform-browser-dynamic@^10.1.4":
-  version "10.2.5"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-10.2.5.tgz#c9eea9e076a9fc8f80d7c041ba9766465613bb96"
-  integrity sha512-7z443I80K2CeqzczlSJ8BlABj0uRgnHUrABE8yLlU2BgifJrriBawzSXEV7UMEN7k7ezbc6NhpOn6Q6BrCKEOA==
-  dependencies:
-    tslib "^2.0.0"
-
 "@angular/platform-browser-dynamic@^12.1.1":
   version "12.1.1"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-12.1.1.tgz#d86db1da71be64f75c51b076942b0f65b441a404"
@@ -2816,11 +2809,6 @@ core-js@3.15.1:
   version "3.15.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.15.1.tgz#6c08ab88abdf56545045ccf5fd81f47f407e7f1a"
   integrity sha512-h8VbZYnc9pDzueiS2610IULDkpFFPunHwIpl8yRwFahAEEdSpHlTy3h3z3rKq5h11CaUdBEeRViu9AYvbxiMeg==
-
-core-js@^2.5.4:
-  version "2.6.12"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
-  integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -5921,17 +5909,6 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-ngx-localstorage@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/ngx-localstorage/-/ngx-localstorage-3.3.1.tgz#150924418a65288289deb3a619a2480e80a37562"
-  integrity sha512-khagWSAyupgcAXkBYxeBPnm8yOB+nLV8b9U/S8+gG03iF21vJ1GIyJN63U+pIJLgeqTwgtu48qtavHueWClOXA==
-  dependencies:
-    "@angular/platform-browser-dynamic" "^10.1.4"
-    core-js "^2.5.4"
-    rxjs "^6.6.3"
-    tslib "^2.0.0"
-    zone.js "~0.10.3"
-
 ngx-markdown@^12.0.1:
   version "12.0.1"
   resolved "https://registry.yarnpkg.com/ngx-markdown/-/ngx-markdown-12.0.1.tgz#94345e99176533c17396f93e97ff5dc172d8ebcc"
@@ -5955,6 +5932,13 @@ ngx-spinner@^12.0.0:
   integrity sha512-0BIaLQDBwNApdSWfKYnYA4hSpfgd2bZ9ptBTB+1tOYJHULg67TRqVYswR6H4tNqmGfA8KNivTYXcY7/6RkyjyA==
   dependencies:
     tslib "^2.1.0"
+
+ngx-webstorage@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-webstorage/-/ngx-webstorage-8.0.0.tgz#c469cb3afcfb7a443527cbbaa43b0e9b02e64c99"
+  integrity sha512-dpHgboSi6adnYpwiAQ2/PRJe8dcvSbM2qWTacTCUPVPeWlhLvTCtIl1GA9BNDiZzYuyA3dmXyqlcDl/Th9Pi2A==
+  dependencies:
+    tslib "^2.0.0"
 
 nice-try@^1.0.4:
   version "1.0.5"
@@ -7673,7 +7657,7 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-rxjs@6.6.7, rxjs@^6.5.3, rxjs@^6.6.3, rxjs@^6.6.6:
+rxjs@6.6.7, rxjs@^6.5.3, rxjs@^6.6.6:
   version "6.6.7"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.6.7.tgz#90ac018acabf491bf65044235d5863c4dab804c9"
   integrity sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==
