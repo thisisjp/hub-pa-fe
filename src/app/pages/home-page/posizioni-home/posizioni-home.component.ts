@@ -201,11 +201,15 @@ export class PosizioniHomeComponent implements OnInit {
 
   getListPositionBE(goToFirstPage: boolean): void {
     // chiamata al servizio che mappa i campi e chiama il metodo in basso
+    if (goToFirstPage) {
+      // eslint-disable-next-line functional/immutable-data
+      this.currentPage = 0;
+    }
     const findRequestModel = new FindRequestModel(
       this.filterModel,
       this.tokenService.getFiscalCode(),
       this.itemsPerPage,
-      goToFirstPage ? 0 : this.currentPage
+      this.currentPage
     );
     this.paymentsService.find(findRequestModel).subscribe(res => {
       if (res) {
