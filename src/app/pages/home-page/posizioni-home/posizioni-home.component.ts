@@ -77,13 +77,13 @@ export class PosizioniHomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getListPositionBE();
+    this.getListPositionBE(true);
   }
 
   pass(pagenumber: number): void {
     // eslint-disable-next-line functional/immutable-data
     this.currentPage = pagenumber - 1;
-    this.getListPositionBE();
+    this.getListPositionBE(false);
   }
 
   passleft(): void {
@@ -93,7 +93,7 @@ export class PosizioniHomeComponent implements OnInit {
     if (this.currentPage !== 0) {
       // eslint-disable-next-line functional/immutable-data
       this.currentPage = this.currentPage - 1;
-      this.getListPositionBE();
+      this.getListPositionBE(false);
     }
   }
 
@@ -104,7 +104,7 @@ export class PosizioniHomeComponent implements OnInit {
     if (this.currentPage + 1 < this.totalPages) {
       // eslint-disable-next-line functional/immutable-data
       this.currentPage = this.currentPage + 1;
-      this.getListPositionBE();
+      this.getListPositionBE(false);
     }
   }
 
@@ -113,7 +113,7 @@ export class PosizioniHomeComponent implements OnInit {
       this.btnmodal2.nativeElement.click();
     } else {
       this.resetdata();
-      this.getListPositionBE();
+      this.getListPositionBE(true);
     }
   }
 
@@ -122,7 +122,7 @@ export class PosizioniHomeComponent implements OnInit {
       this.btnmodal1.nativeElement.click();
     } else {
       this.resetstato();
-      this.getListPositionBE();
+      this.getListPositionBE(true);
     }
   }
 
@@ -143,15 +143,15 @@ export class PosizioniHomeComponent implements OnInit {
     this.resetstato();
     // eslint-disable-next-line functional/immutable-data
     this.filterModel.textSearch = undefined;
-    this.getListPositionBE();
+    this.getListPositionBE(true);
   }
 
   closedata(): void {
-    this.getListPositionBE();
+    this.getListPositionBE(true);
   }
 
   closestato(): void {
-    this.getListPositionBE();
+    this.getListPositionBE(true);
   }
 
   openDetail(e: number | undefined): void {
@@ -199,13 +199,13 @@ export class PosizioniHomeComponent implements OnInit {
     this.page5 = this.page1 + 4;
   }
 
-  getListPositionBE(): void {
+  getListPositionBE(goToFirstPage: boolean): void {
     // chiamata al servizio che mappa i campi e chiama il metodo in basso
     const findRequestModel = new FindRequestModel(
       this.filterModel,
       this.tokenService.getFiscalCode(),
       this.itemsPerPage,
-      this.currentPage
+      goToFirstPage ? 0 : this.currentPage
     );
     this.paymentsService.find(findRequestModel).subscribe(res => {
       if (res) {
@@ -309,7 +309,7 @@ export class PosizioniHomeComponent implements OnInit {
   }
 
   onBlurTextSearch(): void {
-    this.getListPositionBE();
+    this.getListPositionBE(true);
   }
 
   getFormattedCurrency(amount: number | undefined): string {
@@ -447,7 +447,7 @@ export class PosizioniHomeComponent implements OnInit {
   exportService(): void {
     this.paymentsService.exportPayments(this.ids, this.isMailing).subscribe(res => {
       this.downloadService.downloadFile(res);
-      this.getListPositionBE();
+      this.getListPositionBE(true);
       this.notificationService.showNotification({
         title: 'Esportazione completata',
         message: '',
@@ -458,7 +458,7 @@ export class PosizioniHomeComponent implements OnInit {
 
   publishService(): void {
     this.paymentsService.publishPayments(this.ids, this.publishDate).subscribe(res => {
-      this.getListPositionBE();
+      this.getListPositionBE(true);
       if (res && res.result) {
         this.notificationService.showNotification({
           title: 'Pubblicazione completata',
@@ -477,7 +477,7 @@ export class PosizioniHomeComponent implements OnInit {
 
   deleteService(id: number): void {
     this.paymentsService.deletePayment(id).subscribe(res => {
-      this.getListPositionBE();
+      this.getListPositionBE(true);
       if (res && res.result) {
         this.notificationService.showNotification({
           title: 'Eliminazione completata',
