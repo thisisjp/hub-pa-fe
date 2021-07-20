@@ -6,19 +6,19 @@
 
 ### **ai sensi degli artt. 13-14 del Regolamento (UE) 2016/679**
 
-**Titolare del trattamento dei dati (di seguito anche "Titolare") **
+**Titolare del trattamento dei dati (di seguito anche "Titolare")**
 
-**PagoPA S.p.A. **
+**PagoPA S.p.A.**
 
 Indirizzo:<span style="text-decoration:underline;"> [Piazza Colonna 370 - 00187 Roma](https://goo.gl/maps/C6tdu8ZpiywyrD7m6) </span> (sede legale della società)
 
 PEC: <span style="text-decoration:underline;">pagopa@pec.governo.it </span>
 
-**Contatti del Responsabile della protezione dei dati o Data Protection Officer **
+**Contatti del Responsabile della protezione dei dati o Data Protection Officer**
 
 Per ogni domanda inerente il trattamento di dati personali si prega di scrivere utilizzando il [form](https://privacyportal-de.onetrust.com/webform/77f17844-04c3-4969-a11d-462ee77acbe1/9ab6533d-be4a-482e-929a-0d8d2ab29df8) dedicato alla gestione delle richieste degli interessati.
 
-**Responsabili del trattamento **
+**Responsabili del trattamento**
 
 Il servizio di assistenza sul Portale viene erogato da:
 
@@ -36,9 +36,9 @@ Indirizzo: One Microsoft Place <span style="text-decoration:underline;">South</s
 
 Per ogni domanda relativa ai Responsabili del trattamento si prega di scrivere utilizzando il [form](https://privacyportal-de.onetrust.com/webform/77f17844-04c3-4969-a11d-462ee77acbe1/9ab6533d-be4a-482e-929a-0d8d2ab29df8) dedicato.
 
-**Autorità di controllo **
+**Autorità di controllo**
 
-**Garante per la protezione dei dati personali **
+**Garante per la protezione dei dati personali**
 
 e-mail: <span style="text-decoration:underline;">garante@gpdp.it </span>
 
@@ -110,7 +110,7 @@ I dati personali acquisiti tramite il presente Portale Tari Tefa sono conservati
 
     Per maggiori informazioni è possibile scrivere tramite il presente [form](https://privacyportal-de.onetrust.com/webform/77f17844-04c3-4969-a11d-462ee77acbe1/9ab6533d-be4a-482e-929a-0d8d2ab29df8)<span style="text-decoration:underline;"> </span>di contatto.
 
-**Diritti degli Utenti **
+**Diritti degli Utenti**
 
 Gli Utenti, ai quali i dati personali si riferiscono, hanno il diritto di ottenere dal Titolare l'accesso ai propri dati personali, l'aggiornamento, l'integrazione, la rettifica o, laddove previsto da legge e nei limiti previsti, la cancellazione degli stessi, la limitazione del trattamento e il diritto di opporsi allo stesso, di chiedere la trasformazione dei dati in forma anonima o il blocco dei dati trattati in violazione di legge, compresi quelli di cui non è necessaria la conservazione in relazione agli scopi del trattamento.
 
@@ -121,12 +121,12 @@ Il Titolare garantisce che non è prevista alcuna forma di processo decisionale 
     Tali richieste potranno essere indirizzate al Titolare, tramite il presente [form](https://privacyportal-de.onetrust.com/webform/77f17844-04c3-4969-a11d-462ee77acbe1/9ab6533d-be4a-482e-929a-0d8d2ab29df8) di contatto.
 
 
-    **Diritti di reclamo **
+    **Diritti di reclamo**
 
 
     Gli Interessati che ritengano che il trattamento dei dati personali a loro riferiti, effettuato dal Titolare del trattamento, avvenga in violazione di quanto previsto dal Regolamento, hanno il diritto di proporre reclamo al Garante, come previsto dall’art. 77 del Regolamento stesso, o di adire le opportune sedi giudiziarie (art. 79 del Regolamento).
 
-**Modifiche **
+**Modifiche**
 
 Il Titolare si riserva il diritto di apportare alla presente informativa, a propria esclusiva discrezione ed in qualunque momento, tutte le modifiche ritenute opportune o rese obbligatorie dalle norme di volta in volta vigenti, dandone adeguata pubblicità agli Interessati. Si prega dunque di consultare spesso questa pagina, prendendo a riferimento la data di ultima modifica indicata in fondo alla stessa. In caso di mancata accettazione delle modifiche effettuate, l’Interessato è invitato a cessare l’utilizzo del Portale e a chiedere al Titolare la rimozione dei propri dati personali; salvo quanto diversamente specificato, la precedente versione dell’informativa continuerà ad applicarsi ai dati personali raccolti sino a quel momento.
 
@@ -158,15 +158,15 @@ L'utente può scegliere di disabilitare i cookies intervenendo sulle impostazion
 
   I tuoi feedback sono importanti per migliorare il Portale, anche sulle questioni privacy! Se qualcosa che riguarda la tua privacy non ti convince, non ti è chiaro o ritieni che dovremmo agire diversamente, scrivici utilizzando il [form ](https://privacyportal-de.onetrust.com/webform/77f17844-04c3-4969-a11d-462ee77acbe1/9ab6533d-be4a-482e-929a-0d8d2ab29df8)dedicato alla gestione delle richieste degli interessati.
 
-**Termini e condizioni d’uso **
+**Termini e condizioni d’uso**
 
 Data ultimo aggiornamento: 7 luglio 2021
 
-**I presenti termini regolano il rapporto tra gli utenti del presente portale e PagoPA S.p.A.: stabiliscono i tuoi diritti e obblighi nell’utilizzo del portale e dei suoi servizi. **
+**I presenti termini regolano il rapporto tra gli utenti del presente portale e PagoPA S.p.A.: stabiliscono i tuoi diritti e obblighi nell’utilizzo del portale e dei suoi servizi.**
 
-**Leggili attentamente: utilizzando il portale, li accetti integralmente e ti impegni a rispettarli! **
+**Leggili attentamente: utilizzando il portale, li accetti integralmente e ti impegni a rispettarli!**
 
-1. **Descrizione del servizio **
+1. **Descrizione del servizio**
 
 Il presente portale (“portale TARI/TEFA” o semplicemente “Portale”) è nella gestione della società PagoPA S.p.A., società per azioni con socio unico, con capitale sociale di euro 1,000,000 interamente versato, e sede legale in Roma, Piazza Colonna 370, CAP 00187, con n. di iscrizione a Registro Imprese di Roma, CF e P.IVA 15376371009.
 
@@ -191,13 +191,13 @@ L’utilizzo del Portale per gestire i pagamenti Tari - Tefa non prevede alcun c
 
 Per utilizzare il servizio è necessaria una connessione dati. Possono essere applicati costi aggiuntivi in funzione del piano dati del Tuo operatore, nonché di ulteriori costi (comprese le eventuali imposte applicabili) associati all’utilizzo della connessione dati.
 
-3. **Assistenza tecnica all’utente e debug **
+3. **Assistenza tecnica all’utente e debug**
 
 Facciamo del nostro meglio per assicurarti un’esperienza adatta alle tue esigenze.
 
 Se hai bisogno di assistenza tecnica sul Portale, puoi contattarci scrivendo a [supporto.taritefa@eng.it](mailto:supporto.taritefa@eng.it)<span style="text-decoration:underline;">. </span>
 
-4. **Responsabilità e obblighi dell’utente **
+4. **Responsabilità e obblighi dell’utente**
 1. Uso conforme e obblighi dell’Utente.
 
 Utilizzando il portale TARI/TEFA e le sue funzionalità, l’utente accetta i presenti ToS e si impegna a rispettarli in ogni momento. L’utente può utilizzare il Portale e le sue funzionalità esclusivamente per gli scopi autorizzati dai presenti ToS e in conformità alla legge applicabile.
@@ -217,7 +217,7 @@ Ogni attività effettuate sul Portale dal Referente, è eseguita in nome e per c
 
 La nostra società può adottare autonomamente tutte le misure necessarie, inclusa la sospensione o l’interruzione del Portale, dell’utilizzo delle funzionalità del Portale da parte dell’utente, qualora l’utente ne faccia un utilizzo illecito o altrimenti vietato, oppure commetta una violazione sostanziale o reiterata dei ToS.
 
-** 5. Esclusioni e limitazione di responsabilità di PagoPA S.p.A.**
+**5. Esclusioni e limitazione di responsabilità di PagoPA S.p.A.**
 
 L’utente è il solo responsabile dei dati inseriti per la generazione e gestione dell'avviso di pagamento pagoPA. Ogni errore in tale processo può determinare la generazione di un avviso diverso da quello di interesse dell’utente. Proprio per tale ragione il Portale, dopo la configurazione del tributo TARI/TEFA ed il processamento dei dati per la generazione degli avvisi di pagamento pagoPA espone all'utente maggiori dettagli affinché l'utente possa essere pienamente consapevole di quale avvisi sta per finalizzare e conseguentemente rendere pagabile e postalizzabile.
 
@@ -225,7 +225,7 @@ In considerazione di quanto precisato, PagoPA S.p.A. è responsabile unicamente 
 
 Nella misura consentita dalla legge applicabile, la responsabilità complessiva della nostra società in relazione ai presenti ToS e al Portale nei confronti dell’utente è limitata ai danni e alle perdite che siano diretta conseguenza della violazione da parte di PagoPA S.p.A. dei presenti ToS.
 
-** 6. Modifiche ai ToS **
+**6. Modifiche ai ToS**
 
 Siamo sempre al lavoro per offrirTi nuove funzionalità e per migliorare il Portale. Per questo, i presenti ToS potrebbero cambiare nel tempo, e in tal caso ti chiediamo di monitorare i presenti ToS ogni volta in cui accedi al Portale.
 
@@ -233,7 +233,7 @@ Ricorda che se continui a utilizzare le funzionalità del Portale, accetti le mo
 
 Se non intendi accettare le modifiche, come unico rimedio potrai in qualsiasi momento, per qualsiasi motivo, senza alcun preavviso e senza alcun costo o onere, cessare l’utilizzo del Portale.
 
-** 7. Foro competente e legge applicabile **
+**7. Foro competente e legge applicabile**
 
 I presenti ToS sono regolati dalla legge italiana. Ogni controversia che dovesse insorgere tra l’utente e/o l’Ente Creditore di riferimento e la nostra società in relazione ai presenti ToS e/o al Portale sarà di competenza del giudice del luogo di residenza o domicilio dell’utente, se qualificato come consumatore ai sensi del D.lgs. 206/2005.
 
